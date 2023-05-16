@@ -16,7 +16,7 @@ public class ChessPiece {
     }
 
     public boolean canCapture(ChessPiece target) {
-        if (getOwner()!=target.getOwner()&&(getRank()>=target.getRank()||(getRank()==1&&target.getRank()==8)))
+        if (getOwner()!=target.getOwner()&&((getRank()>=target.getRank()&&(getRank()-8)*(getRank()-8)+(target.getRank()-1)*(target.getRank()-1)!=0)||(getRank()==1&&target.getRank()==8)))
         {
             return true;
         }

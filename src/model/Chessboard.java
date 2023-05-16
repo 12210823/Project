@@ -4,7 +4,7 @@ package model;
  * This class store the real chess information.
  * The Chessboard has 9*7 cells, and each cell has a position for chess
  */
-public class Chessboard {
+public class Chessboard{
     public Cell[][] grid;
 
     public Chessboard() {

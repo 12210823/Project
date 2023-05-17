@@ -122,7 +122,10 @@ public class Chessboard{
                 return calculateDistance(src,dest)==1;
             }
         }
-        return true;
+        else
+        {
+            return calculateDistance(src,dest)==1;
+        }
     }
 
 

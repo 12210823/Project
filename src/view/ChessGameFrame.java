@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameController;
+import model.Chessboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,8 @@ public class ChessGameFrame extends JFrame {
         addChessboard();
         addLabel();
         addHelloButton();
+        addLoadButton();
+        addRestartButton();
     }
 
     public ChessboardComponent getChessboardComponent() {
@@ -74,19 +77,30 @@ public class ChessGameFrame extends JFrame {
         add(button);
     }
 
-//    private void addLoadButton() {
-//        JButton button = new JButton("Load");
-//        button.setLocation(HEIGTH, HEIGTH / 10 + 240);
-//        button.setSize(200, 60);
-//        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-//        add(button);
-//
-//        button.addActionListener(e -> {
-//            System.out.println("Click load");
-//            String path = JOptionPane.showInputDialog(this,"Input Path here");
-//            gameController.loadGameFromFile(path);
-//        });
-//    }
+    private void addLoadButton() {
+        JButton button = new JButton("Load");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 240);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
 
+        button.addActionListener(e -> {
+            System.out.println("Click load");
+            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            //gameController.loadGameFromFile(path);
+        });
+    }
 
+    private void addRestartButton() {
+        JButton button = new JButton("Restart");
+        button.addActionListener((e) -> {
+            ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
+            GameController gameController = new GameController(mainFrame.getChessboardComponent(), new Chessboard());
+            mainFrame.setVisible(true);
+        });
+        button.setLocation(HEIGTH, HEIGTH / 10 + 360);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+    }
 }

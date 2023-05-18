@@ -9,7 +9,9 @@ import model.ChessboardPoint;
 import view.CellComponent;
 import view.ElephantChessComponent;
 import view.ChessboardComponent;
+import view.Win;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class GameController implements GameListener {
     private Chessboard model;
     private ChessboardComponent view;
     private PlayerColor currentPlayer;
+    public PlayerColor winner;
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
@@ -54,8 +57,44 @@ public class GameController implements GameListener {
     }
 
     private boolean win() {
-        // TODO: Check the board if there is a winner
+        int b=0,r=0;
+        for (int i=0;i<9;i++)
+        {
+            for (int j=0;j<7;j++)
+            {
+                if (model.grid[i][j].getPiece()!=null)
+                {
+                    if (model.grid[i][j].getPiece().getOwner() == PlayerColor.BLUE) {
+                        b++;
+                    }
+                    if (model.grid[i][j].getPiece().getOwner() == PlayerColor.RED) {
+                        r++;
+                    }
+                }
+            }
+        }
+        if (model.grid[8][3].getPiece()!=null&&model.grid[8][3].getPiece().getOwner()==PlayerColor.BLUE)
+        {
+            winner=PlayerColor.BLUE;
+            return true;
+        }
+        else if (model.grid[0][3].getPiece()!=null&&model.grid[0][3].getPiece().getOwner()==PlayerColor.RED)
+        {
+            winner=PlayerColor.RED;
+            return true;
+        }
+        else if (r==0)
+        {
+            winner=PlayerColor.RED;
+            return true;
+        }
+        else if (b==0)
+        {
+            winner=PlayerColor.BLUE;
+            return true;
+        }
         return false;
+        // TODO: Check the board if there is a winner
     }
 
 
@@ -69,6 +108,13 @@ public class GameController implements GameListener {
             swapColor();
             view.repaint();
             // TODO: if the chess enter Dens or Traps and so on
+        }
+        if (win())
+        {
+            Win gui = new Win(winner);
+            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            gui.setSize(250, 100);
+            gui.setVisible(true);
         }
     }
 
@@ -95,6 +141,13 @@ public class GameController implements GameListener {
                 swapColor();
                 view.repaint();
             }
+        }
+        if (win())
+        {
+            Win gui = new Win(winner);
+            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            gui.setSize(250, 100);
+            gui.setVisible(true);
         }
         // TODO: Implement capture function
     }

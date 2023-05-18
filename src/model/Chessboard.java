@@ -130,8 +130,26 @@ public class Chessboard{
 
 
     public boolean isValidCapture(ChessboardPoint src, ChessboardPoint dest) {
-        if (getChessPieceAt(src).canCapture(getChessPieceAt(dest)))
+        if (getChessPieceAt(src).canCapture(getChessPieceAt(dest))||
+                (getChessPieceOwner(src)==PlayerColor.BLUE&&getChessPieceOwner(dest)==PlayerColor.RED&&
+                (dest.getRow()==0&&dest.getCol()==2)||(dest.getRow()==1&&dest.getCol()==3)||(dest.getRow()==0&&dest.getCol()==4))||
+                (getChessPieceOwner(src)==PlayerColor.RED&&getChessPieceOwner(dest)==PlayerColor.BLUE&&
+                (dest.getRow()==8&&dest.getCol()==2)||(dest.getRow()==7&&dest.getCol()==3)||(dest.getRow()==8&&dest.getCol()==4)))
         {
+            if (getChessPieceAt(src).getRank()==1)
+            {
+                if ((src.getRow()==3&&src.getCol()==1)||(src.getRow()==3&&src.getCol()==2)||(src.getRow()==4&&src.getCol()==1)||
+                        (src.getRow()==4&&src.getCol()==2)||(src.getRow()==5&&src.getCol()==1)||(src.getRow()==5&&src.getCol()==2)||
+                        (src.getRow()==3&&src.getCol()==4)||(src.getRow()==3&&src.getCol()==5)||(src.getRow()==4&&src.getCol()==4)||
+                        (src.getRow()==4&&src.getCol()==5)||(src.getRow()==5&&src.getCol()==4)||(src.getRow()==5&&src.getCol()==5))
+                {
+                    return false;
+                }
+                else
+                {
+                    return calculateDistance(src, dest) == 1;
+                }
+            }
             if (getChessPieceAt(src).getRank()==7||getChessPieceAt(src).getRank()==6)
             {
                 if ((src.getRow()==2&&(src.getCol()==1||src.getCol()==2)&&dest.getRow()==6&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||

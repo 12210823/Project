@@ -3,6 +3,7 @@ package view;
 
 import controller.GameController;
 import model.*;
+import view.AnimalChessComponent.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,11 +50,16 @@ public class ChessboardComponent extends JComponent {
                 if (grid[i][j].getPiece() != null) {
                     ChessPiece chessPiece = grid[i][j].getPiece();
                     System.out.println(chessPiece.getOwner());
-                    gridComponents[i][j].add(
-                            new ChessComponent(
-                                    chessPiece.getOwner(),
-                                    CHESS_SIZE,
-                                    chessPiece.getRank()));
+                    switch (chessPiece.getRank()) {
+                        case 8 : gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 7 : gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 6 : gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 5 : gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 4 : gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 3 : gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 2 : gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 1 : gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                    }
                 }
             }
         }

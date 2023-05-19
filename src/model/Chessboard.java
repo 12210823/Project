@@ -130,29 +130,36 @@ public class Chessboard{
 
 
     public boolean isValidCapture(ChessboardPoint src, ChessboardPoint dest) {
-        if (getChessPieceAt(src).canCapture(getChessPieceAt(dest))||
-                (getChessPieceOwner(src)==PlayerColor.BLUE&&getChessPieceOwner(dest)==PlayerColor.RED&&
-                (dest.getRow()==0&&dest.getCol()==2)||(dest.getRow()==1&&dest.getCol()==3)||(dest.getRow()==0&&dest.getCol()==4))||
-                (getChessPieceOwner(src)==PlayerColor.RED&&getChessPieceOwner(dest)==PlayerColor.BLUE&&
-                (dest.getRow()==8&&dest.getCol()==2)||(dest.getRow()==7&&dest.getCol()==3)||(dest.getRow()==8&&dest.getCol()==4)))
-        {
-            if (getChessPieceAt(src).getRank()==1)
+        if ((dest.getRow()==3&&dest.getCol()==1)||(dest.getRow()==3&&dest.getCol()==2)||(dest.getRow()==4&&dest.getCol()==1)||
+                (dest.getRow()==4&&dest.getCol()==2)||(dest.getRow()==5&&dest.getCol()==1)||(dest.getRow()==5&&dest.getCol()==2)||
+                (dest.getRow()==3&&dest.getCol()==4)||(dest.getRow()==3&&dest.getCol()==5)||(dest.getRow()==4&&dest.getCol()==4)||
+                (dest.getRow()==4&&dest.getCol()==5)||(dest.getRow()==5&&dest.getCol()==4)||(dest.getRow()==5&&dest.getCol()==5))
             {
-                if ((src.getRow()==3&&src.getCol()==1)||(src.getRow()==3&&src.getCol()==2)||(src.getRow()==4&&src.getCol()==1)||
+                return false;
+            }
+        else if (getChessPieceAt(src).canCapture(getChessPieceAt(dest))||
+                ((getChessPieceOwner(src)==PlayerColor.BLUE&&getChessPieceOwner(dest)==PlayerColor.RED)&&
+                        ((dest.getRow()==0&&dest.getCol()==2)||(dest.getRow()==1&&dest.getCol()==3)||(dest.getRow()==0&&dest.getCol()==4)))||
+                ((getChessPieceOwner(src)==PlayerColor.RED&&getChessPieceOwner(dest)==PlayerColor.BLUE)&&
+                        ((dest.getRow()==8&&dest.getCol()==2)||(dest.getRow()==7&&dest.getCol()==3)||(dest.getRow()==8&&dest.getCol()==4))))
+            {
+                if (getChessPieceAt(src).getRank()==1)
+                {
+                    if ((src.getRow()==3&&src.getCol()==1)||(src.getRow()==3&&src.getCol()==2)||(src.getRow()==4&&src.getCol()==1)||
                         (src.getRow()==4&&src.getCol()==2)||(src.getRow()==5&&src.getCol()==1)||(src.getRow()==5&&src.getCol()==2)||
                         (src.getRow()==3&&src.getCol()==4)||(src.getRow()==3&&src.getCol()==5)||(src.getRow()==4&&src.getCol()==4)||
                         (src.getRow()==4&&src.getCol()==5)||(src.getRow()==5&&src.getCol()==4)||(src.getRow()==5&&src.getCol()==5))
-                {
-                    return false;
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return calculateDistance(src, dest) == 1;
+                    }
                 }
-                else
+                if (getChessPieceAt(src).getRank()==7||getChessPieceAt(src).getRank()==6)
                 {
-                    return calculateDistance(src, dest) == 1;
-                }
-            }
-            if (getChessPieceAt(src).getRank()==7||getChessPieceAt(src).getRank()==6)
-            {
-                if ((src.getRow()==2&&(src.getCol()==1||src.getCol()==2)&&dest.getRow()==6&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
+                    if ((src.getRow()==2&&(src.getCol()==1||src.getCol()==2)&&dest.getRow()==6&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
                         (src.getRow()==2&&(src.getCol()==4||src.getCol()==5)&&dest.getRow()==6&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
                         (src.getRow()==6&&(src.getCol()==1||src.getCol()==2)&&dest.getRow()==2&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
                         (src.getRow()==6&&(src.getCol()==4||src.getCol()==5)&&dest.getRow()==2&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
@@ -160,16 +167,16 @@ public class Chessboard{
                         (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==0&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
                         (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==6&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
                         (src.getCol()==6&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null))
-                {
-                    return true;
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return calculateDistance(src,dest)==1;
+                    }
                 }
-                else
-                {
-                    return calculateDistance(src,dest)==1;
-                }
+                return calculateDistance(src, dest) == 1;
             }
-            return calculateDistance(src, dest) == 1;
-        }
         // TODO:Fix this method
         return false;
     }

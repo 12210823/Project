@@ -112,8 +112,8 @@ public class Chessboard{
                 (src.getRow()==6&&(src.getCol()==4||src.getCol()==5)&&dest.getRow()==2&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
                         (src.getCol()==0&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
                         (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==0&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
-                        (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==6&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
-                        (src.getCol()==6&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null))
+                        (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==6&&dest.getRow()==src.getRow()&&grid[src.row][4].getPiece()==null&&grid[src.row][5].getPiece()==null)||
+                        (src.getCol()==6&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][4].getPiece()==null&&grid[src.row][5].getPiece()==null))
             {
                 return true;
             }
@@ -165,8 +165,8 @@ public class Chessboard{
                         (src.getRow()==6&&(src.getCol()==4||src.getCol()==5)&&dest.getRow()==2&&dest.getCol()==src.getCol()&&grid[3][src.col].getPiece()==null&&grid[4][src.col].getPiece()==null&&grid[5][src.col].getPiece()==null)||
                         (src.getCol()==0&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
                         (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==0&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
-                        (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==6&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null)||
-                        (src.getCol()==6&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][1].getPiece()==null&&grid[src.row][2].getPiece()==null))
+                        (src.getCol()==3&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==6&&dest.getRow()==src.getRow()&&grid[src.row][4].getPiece()==null&&grid[src.row][5].getPiece()==null)||
+                        (src.getCol()==6&&(src.getRow()==3||src.getRow()==4||src.getRow()==5)&&dest.getCol()==3&&dest.getRow()==src.getRow()&&grid[src.row][4].getPiece()==null&&grid[src.row][5].getPiece()==null))
                     {
                         return true;
                     }

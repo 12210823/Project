@@ -125,9 +125,7 @@ public class ChessGameFrame extends JFrame {
     private void addRestartButton() {
         JButton button = new JButton("Restart");
         button.addActionListener((e) -> {
-            ChessGameFrame mainFrame = new ChessGameFrame(1200, 810);
-            GameController gameController = new GameController(mainFrame.getChessboardComponent(), new Chessboard());
-            mainFrame.setVisible(true);
+            chessboardComponent.getGameController().Restart();
         });
         button.setLocation(HEIGTH + 90, HEIGTH / 10 + 360);
         button.setSize(200, 60);

@@ -68,6 +68,13 @@ public class ChessboardComponent extends JComponent {
     }
 
     public void initiateGridComponents() {
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                if (gridComponents[i][j]!=null) {
+                    this.remove(gridComponents[i][j]);
+                }
+            }
+        }
 
         riverCell.add(new ChessboardPoint(1,3));
         riverCell.add(new ChessboardPoint(2,3));
@@ -158,5 +165,9 @@ public class ChessboardComponent extends JComponent {
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint()), (ChessComponent) clickedComponent.getComponents()[0]);
             }
         }
+    }
+
+    public GameController getGameController() {
+        return gameController;
     }
 }

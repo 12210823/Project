@@ -2,16 +2,18 @@ package controller;
 
 
 import listener.GameListener;
-import model.Constant;
-import model.PlayerColor;
-import model.Chessboard;
-import model.ChessboardPoint;
+import model.*;
 import view.CellComponent;
 import view.ChessComponent;
 import view.ChessboardComponent;
 import view.Win;
 
 import javax.swing.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller is the connection between model and view,
@@ -30,6 +32,35 @@ public class GameController implements GameListener {
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
+    public int turn=0;
+    List<Steps> steps= new ArrayList<>();
+
+    public void loadGameFromFile(String path)
+    {
+        ObjectInputStream objectInputStream=null;
+        try {
+            FileInputStream inputStream = new FileInputStream(path);
+            objectInputStream=new ObjectInputStream(inputStream);
+            steps=(List<Steps>) objectInputStream.readObject();
+        } catch (ClassNotFoundException | IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void Restart()
+    {
+        //view.registerController(this);
+        model.initPieces();
+        view.initiateGridComponents();
+        view.initiateChessComponent(model);
+        view.repaint();
+        currentPlayer=PlayerColor.BLUE;
+        winner=null;
+        selectedPoint=null;
+        if (steps.size() > 0) {
+            steps.subList(0, steps.size()).clear();
+        }
+    }
 
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;

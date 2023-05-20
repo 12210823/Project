@@ -24,6 +24,11 @@ public class Chessboard{
     }
 
     public void initPieces() {
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                grid[i][j].removePiece();
+            }
+        }
         grid[0][0].setPiece(new ChessPiece(PlayerColor.BLUE, "Lion",7));
         grid[6][0].setPiece(new ChessPiece(PlayerColor.BLUE, "Tiger",6));
         grid[1][1].setPiece(new ChessPiece(PlayerColor.BLUE, "Dog",3));

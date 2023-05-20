@@ -21,7 +21,8 @@ public class ChessboardComponent extends JComponent {
     private final CellComponent[][] gridComponents = new CellComponent[CHESSBOARD_ROW_SIZE.getNum()][CHESSBOARD_COL_SIZE.getNum()];
     private final int CHESS_SIZE;
     private final Set<ChessboardPoint> riverCell = new HashSet<>();
-
+    private final Set<ChessboardPoint> trapCell = new HashSet<>();
+    private final Set<ChessboardPoint> densCell = new HashSet<>();
     private GameController gameController;
 
     public ChessboardComponent(int chessSize) {
@@ -82,17 +83,30 @@ public class ChessboardComponent extends JComponent {
         riverCell.add(new ChessboardPoint(4,5));
         riverCell.add(new ChessboardPoint(5,5));
 
+        trapCell.add(new ChessboardPoint(2,0));
+        trapCell.add(new ChessboardPoint(4,0));
+        trapCell.add(new ChessboardPoint(3,1));
+        trapCell.add(new ChessboardPoint(3,7));
+        trapCell.add(new ChessboardPoint(2,8));
+        trapCell.add(new ChessboardPoint(4,8));
+
+        densCell.add(new ChessboardPoint(3,0));
+        densCell.add(new ChessboardPoint(3,8));
+
         for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
                 ChessboardPoint temp = new ChessboardPoint(i, j);
                 CellComponent cell;
                 if (riverCell.contains(temp)) {
-                    cell = new CellComponent(Color.CYAN, calculatePoint(i, j), CHESS_SIZE);
-                    this.add(cell);
+                    cell = new CellComponent(GridType.RIVER, calculatePoint(i, j), CHESS_SIZE);
+                } else if (trapCell.contains(temp)) {
+                    cell = new CellComponent(GridType.TRAP, calculatePoint(i, j), CHESS_SIZE);
+                } else if (densCell.contains(temp)) {
+                    cell = new CellComponent(GridType.DENS, calculatePoint(i, j), CHESS_SIZE);
                 } else {
-                    cell = new CellComponent(Color.LIGHT_GRAY, calculatePoint(i, j), CHESS_SIZE);
-                    this.add(cell);
+                    cell = new CellComponent(GridType.LAND, calculatePoint(i, j), CHESS_SIZE);
                 }
+                this.add(cell);
                 gridComponents[i][j] = cell;
             }
         }
@@ -126,8 +140,6 @@ public class ChessboardComponent extends JComponent {
     private Point calculatePoint(int row, int col) {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
     }
-
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

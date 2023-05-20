@@ -118,7 +118,7 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this,"Input Path here");
-            //gameController.loadGameFromFile(path);
+            chessboardComponent.getGameController().loadGameFromFile(path);
         });
     }
 

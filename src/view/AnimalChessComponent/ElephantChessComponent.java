@@ -11,8 +11,8 @@ public class ElephantChessComponent extends ChessComponent {
     public ElephantChessComponent(PlayerColor owner, int size) {
         super(owner,size);
         if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/Elephant-blue.png");
-        }else icon = new ImageIcon("resource/Elephant-red.png");
+            icon = new ImageIcon("resource/AnimalIcons/elephantLeft.png");
+        }else icon = new ImageIcon("resource/AnimalIcons/elephantRight.png");
     }
 
     @Override

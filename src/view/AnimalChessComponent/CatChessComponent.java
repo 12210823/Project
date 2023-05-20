@@ -11,8 +11,8 @@ public class CatChessComponent extends ChessComponent {
     public CatChessComponent(PlayerColor owner, int size) {
         super(owner,size);
         if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/Elephant-blue.png");
-        }else icon = new ImageIcon("resource/Elephant-red.png");
+            icon = new ImageIcon("resource/AnimalIcons/catLeft.png");
+        }else icon = new ImageIcon("resource/AnimalIcons/catRight.png");
     }
 
     @Override

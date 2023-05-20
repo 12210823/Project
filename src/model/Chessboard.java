@@ -88,7 +88,8 @@ public class Chessboard{
     }
 
     public boolean isValidMove(ChessboardPoint src, ChessboardPoint dest) {
-        if (getChessPieceAt(src) == null || getChessPieceAt(dest) != null) {
+        if (getChessPieceAt(src) == null || getChessPieceAt(dest) != null||
+                (dest.col==0&&dest.row==3&&getChessPieceOwner(src)==PlayerColor.BLUE)||(dest.col==8&&dest.row==3&&getChessPieceOwner(src)==PlayerColor.RED)) {
             return false;
         }
         if (getChessPieceAt(src).getRank()!=7&&getChessPieceAt(src).getRank()!=6&&getChessPieceAt(src).getRank()!=1) {

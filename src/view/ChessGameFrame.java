@@ -58,7 +58,7 @@ public class ChessGameFrame extends JFrame {
      */
     private void addLabel() {
         JLabel statusLabel = new JLabel("Sample label");
-        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
+        statusLabel.setLocation(HEIGTH + 90, HEIGTH / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(statusLabel);
@@ -71,7 +71,7 @@ public class ChessGameFrame extends JFrame {
     private void addHelloButton() {
         JButton button = new JButton("Show Hello Here");
         button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
-        button.setLocation(HEIGTH, HEIGTH / 10 + 120);
+        button.setLocation(HEIGTH + 90, HEIGTH / 10 + 120);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -79,7 +79,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addLoadButton() {
         JButton button = new JButton("Load");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 240);
+        button.setLocation(HEIGTH + 90, HEIGTH / 10 + 240);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -98,7 +98,7 @@ public class ChessGameFrame extends JFrame {
             GameController gameController = new GameController(mainFrame.getChessboardComponent(), new Chessboard());
             mainFrame.setVisible(true);
         });
-        button.setLocation(HEIGTH, HEIGTH / 10 + 360);
+        button.setLocation(HEIGTH + 90, HEIGTH / 10 + 360);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);

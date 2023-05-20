@@ -26,8 +26,8 @@ public class ChessboardComponent extends JComponent {
 
     public ChessboardComponent(int chessSize) {
         CHESS_SIZE = chessSize;
-        int width = CHESS_SIZE * 7;
-        int height = CHESS_SIZE * 9;
+        int width = CHESS_SIZE * 9;
+        int height = CHESS_SIZE * 7;
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);// Allow mouse events to occur
         setLayout(null); // Use absolute layout.
         setSize(width, height);
@@ -68,18 +68,18 @@ public class ChessboardComponent extends JComponent {
 
     public void initiateGridComponents() {
 
-        riverCell.add(new ChessboardPoint(3,1));
-        riverCell.add(new ChessboardPoint(3,2));
-        riverCell.add(new ChessboardPoint(4,1));
-        riverCell.add(new ChessboardPoint(4,2));
-        riverCell.add(new ChessboardPoint(5,1));
-        riverCell.add(new ChessboardPoint(5,2));
+        riverCell.add(new ChessboardPoint(1,3));
+        riverCell.add(new ChessboardPoint(2,3));
+        riverCell.add(new ChessboardPoint(1,4));
+        riverCell.add(new ChessboardPoint(2,4));
+        riverCell.add(new ChessboardPoint(1,5));
+        riverCell.add(new ChessboardPoint(2,5));
 
-        riverCell.add(new ChessboardPoint(3,4));
-        riverCell.add(new ChessboardPoint(3,5));
+        riverCell.add(new ChessboardPoint(4,3));
+        riverCell.add(new ChessboardPoint(5,3));
         riverCell.add(new ChessboardPoint(4,4));
-        riverCell.add(new ChessboardPoint(4,5));
         riverCell.add(new ChessboardPoint(5,4));
+        riverCell.add(new ChessboardPoint(4,5));
         riverCell.add(new ChessboardPoint(5,5));
 
         for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {

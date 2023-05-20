@@ -43,8 +43,8 @@ public class GameController implements GameListener {
     }
 
     private void initialize() {
-        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
-            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+        for (int i = 0; i < Constant.CHESSBOARD_COL_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_ROW_SIZE.getNum(); j++) {
 
             }
         }
@@ -61,23 +61,23 @@ public class GameController implements GameListener {
         {
             for (int j=0;j<7;j++)
             {
-                if (model.grid[i][j].getPiece()!=null)
+                if (model.grid[j][i].getPiece()!=null)
                 {
-                    if (model.grid[i][j].getPiece().getOwner() == PlayerColor.BLUE) {
+                    if (model.grid[j][i].getPiece().getOwner() == PlayerColor.BLUE) {
                         b++;
                     }
-                    if (model.grid[i][j].getPiece().getOwner() == PlayerColor.RED) {
+                    if (model.grid[j][i].getPiece().getOwner() == PlayerColor.RED) {
                         r++;
                     }
                 }
             }
         }
-        if (model.grid[8][3].getPiece()!=null&&model.grid[8][3].getPiece().getOwner()==PlayerColor.BLUE)
+        if (model.grid[3][8].getPiece()!=null&&model.grid[3][8].getPiece().getOwner()==PlayerColor.BLUE)
         {
             winner=PlayerColor.BLUE;
             return true;
         }
-        else if (model.grid[0][3].getPiece()!=null&&model.grid[0][3].getPiece().getOwner()==PlayerColor.RED)
+        else if (model.grid[3][0].getPiece()!=null&&model.grid[3][0].getPiece().getOwner()==PlayerColor.RED)
         {
             winner=PlayerColor.RED;
             return true;

@@ -18,7 +18,7 @@ public class CellComponent extends JPanel {
         setLocation(location);
         setSize(size, size);
         if(type == GridType.RIVER){
-            if((x + y) % 2 == 0){
+            if((x + y) % 2 != 0){
                 background = new ImageIcon("resource/CellIcons/water1.png");
             }else background = new ImageIcon("resource/CellIcons/water2.png");
         } else if (type == GridType.DENS) {

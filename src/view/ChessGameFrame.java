@@ -1,15 +1,10 @@
 package view;
 
-import controller.GameController;
-import model.Chessboard;
+import view.UI.ImagePanel;
 import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -19,11 +14,7 @@ public class ChessGameFrame extends JFrame {
     private final int WIDTH;
     private final int HEIGTH;
     private final int ONE_CHESS_SIZE;
-    private static final int NUM_STEPS = 12; // 渐变的步数
-    private static final int DELAY = 1; //每一步的延迟时间（以毫秒为单位）
-
-    private static int currentStep = 0; // 当前步数
-    private static Timer timer; // 定时器
+    private ImagePanel mainPanel;
     private ChessboardComponent chessboardComponent;
     public ChessGameFrame(int width, int height) {
         setTitle("2023 CS109 Project Demo"); //设置标题
@@ -35,6 +26,8 @@ public class ChessGameFrame extends JFrame {
         setLocationRelativeTo(null); // Center the window.
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
         setLayout(null);
+        mainPanel = new ImagePanel("resource/Backgrounds/jungle2.png");
+
         initComponents();
     }
     public void initComponents(){

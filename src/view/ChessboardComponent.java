@@ -144,8 +144,8 @@ public class ChessboardComponent extends JComponent {
                             }
                             case LAND -> {
                                 if((cell.x + cell.y) % 2 != 0){
-                                    cell.setBackground(new ImageIcon("resource/CellIcons/grass2.png"));
-                                } else cell.setBackground(new ImageIcon("resource/CellIcons/grass1.png"));
+                                    cell.setBackground(new ImageIcon("resource/CellIcons/grass1.png"));
+                                } else cell.setBackground(new ImageIcon("resource/CellIcons/grass2.png"));
                             }
                             case TRAP -> cell.setBackground(new ImageIcon("resource/CellIcons/grassWithTrap.png"));
                             case DENS -> {

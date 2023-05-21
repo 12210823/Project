@@ -111,35 +111,4 @@ public class ChessGameFrame extends JFrame {
         button.setBorder(BorderFactory.createEmptyBorder());
         add(button);
     }
-    private static void startColorTransition(JButton button, Color targetColor) {
-        if (timer != null && timer.isRunning()) {
-            return; // 如果渐变动画已经在进行中，则直接返回
-        }
-
-        Color initialColor = button.getBackground();
-        currentStep = 0; // 重置当前步数
-
-        timer = new Timer(DELAY, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (currentStep >= NUM_STEPS) {
-                    timer.stop(); // 达到渐变的总步数后停止定时器
-                } else {
-                    float ratio = (float) currentStep / NUM_STEPS; // 计算当前步数与总步数的比例
-                    Color transitionColor = getTransitionColor(initialColor, targetColor, ratio); // 计算过渡颜色
-                    button.setBackground(transitionColor);
-                    currentStep++;
-                }
-            }
-        });
-
-        timer.start();
-    }
-
-    private static Color getTransitionColor(Color initialColor, Color targetColor, float ratio) {
-        int red = (int) (initialColor.getRed() + (targetColor.getRed() - initialColor.getRed()) * ratio);
-        int green = (int) (initialColor.getGreen() + (targetColor.getGreen() - initialColor.getGreen()) * ratio);
-        int blue = (int) (initialColor.getBlue() + (targetColor.getBlue() - initialColor.getBlue()) * ratio);
-        return new Color(red, green, blue);
-    }
 }

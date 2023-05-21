@@ -52,14 +52,16 @@ public class ChessboardComponent extends JComponent {
                     ChessPiece chessPiece = grid[i][j].getPiece();
                     System.out.println(chessPiece.getOwner());
                     switch (chessPiece.getRank()) {
-                        case 8 : gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 7 : gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 6 : gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 5 : gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 4 : gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 3 : gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 2 : gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
-                        case 1 : gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));break;
+                        case 8 ->
+                                gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 5 ->
+                                gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
                     }
                 }
             }
@@ -115,6 +117,47 @@ public class ChessboardComponent extends JComponent {
                 }
                 this.add(cell);
                 gridComponents[i][j] = cell;
+                cell.setHoverListener(new HoverListener() {
+                    @Override
+                    public void onHovered(CellComponent cellComponent) {
+                        switch (cell.type){
+                            case RIVER -> cell.setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
+                            case LAND -> cell.setBackground(new ImageIcon("resource/CellIcons/grassEntered.png"));
+                            case TRAP -> cell.setBackground(new ImageIcon("resource/CellIcons/trapEntered.png"));
+                            case DENS -> {
+                                if(cell.x == 0){
+                                    cell.setBackground(new ImageIcon("resource/CellIcons/caveLeftEntered.png"));
+                                } else cell.setBackground(new ImageIcon("resource/CellIcons/caveRightEntered.png"));
+                            }
+                        }
+                        cell.setHovered(true);
+                        repaint();
+                    }
+
+                    @Override
+                    public void onExited(CellComponent cellComponent) {
+                        switch (cell.type){
+                            case RIVER -> {
+                                if((cell.x + cell.y) % 2 != 0){
+                                    cell.setBackground(new ImageIcon("resource/CellIcons/water1.png"));
+                                } else cell.setBackground(new ImageIcon("resource/CellIcons/water2.png"));
+                            }
+                            case LAND -> {
+                                if((cell.x + cell.y) % 2 != 0){
+                                    cell.setBackground(new ImageIcon("resource/CellIcons/grass2.png"));
+                                } else cell.setBackground(new ImageIcon("resource/CellIcons/grass1.png"));
+                            }
+                            case TRAP -> cell.setBackground(new ImageIcon("resource/CellIcons/grassWithTrap.png"));
+                            case DENS -> {
+                                if(cell.x == 0){
+                                    cell.setBackground(new ImageIcon("resource/CellIcons/caveLeft.png"));
+                                } else cell.setBackground(new ImageIcon("resource/CellIcons/caveRight.png"));
+                            }
+                        }
+                        cell.setHovered(false);
+                        repaint();
+                    }
+                });
             }
         }
     }

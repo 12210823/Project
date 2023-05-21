@@ -15,27 +15,57 @@ public class ChessGameFrame extends JFrame {
     private final int HEIGTH;
     private final int ONE_CHESS_SIZE;
     private ImagePanel mainPanel;
+    private JLabel statusLabel;
+    private JButton RestartButton;
+    private JButton UndoButton;
+    private JButton SaveButton;
+    private JButton LoadButton;
+    private JButton SettingButton;
+    private JButton ExitButton;
     private ChessboardComponent chessboardComponent;
+    private String[] bgPaths = {
+            "resource/Backgrounds/spring.png",
+            "resource/Backgrounds/summer.png",
+            "resource/Backgrounds/autumn.png",
+            "resource/Backgrounds/winter.png"};
+
     public ChessGameFrame(int width, int height) {
         setTitle("2023 CS109 Project Demo"); //设置标题
         this.WIDTH = width;
         this.HEIGTH = height;
-        this.ONE_CHESS_SIZE = (HEIGTH * 4 / 5) / 9;
+        this.ONE_CHESS_SIZE = (HEIGTH * 4 / 5) / 7;
 
         setSize(WIDTH, HEIGTH);
         setLocationRelativeTo(null); // Center the window.
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
         setLayout(null);
-        mainPanel = new ImagePanel("resource/Backgrounds/jungle2.png");
 
+        addBackgroundImage();
         initComponents();
+        setupLayout();
+    }
+    private void addBackgroundImage() {
+        String defaultPath = bgPaths[0];
+        mainPanel = new ImagePanel(defaultPath);
+        setContentPane(mainPanel);
+        mainPanel.setLayout(null);
     }
     public void initComponents(){
         addChessboard();
         addLabel();
-        addHelloButton();
+        addSettingButton();
+        addSaveButton();
         addLoadButton();
         addRestartButton();
+        addExitButton();
+    }
+    public void setupLayout(){
+        SettingButton.setLocation(WIDTH - 290, HEIGTH - 106 - 460);
+        SaveButton.setLocation(WIDTH - 290, HEIGTH - 106 - 360);
+        LoadButton.setLocation(WIDTH - 290, HEIGTH - 106 - 260);
+        RestartButton.setLocation(WIDTH - 290, HEIGTH - 106 - 160);
+        ExitButton.setLocation(WIDTH - 290, HEIGTH - 106 - 60);
+        chessboardComponent.setLocation(100, HEIGTH / 14);
     }
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -50,7 +80,7 @@ public class ChessGameFrame extends JFrame {
      */
     private void addChessboard() {
         chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
-        chessboardComponent.setLocation(HEIGTH / 5, HEIGTH / 10);
+
         add(chessboardComponent);
     }
 
@@ -69,24 +99,24 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
      */
 
-    private void addHelloButton() {
-        RoundButton button = new RoundButton("Show Hello Here");
-        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
-        button.setLocation(HEIGTH + 90, HEIGTH / 10 + 120);
-        button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(button);
+    private void addSaveButton() {
+        SaveButton = new RoundButton("存档");
+        SaveButton.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
+        SaveButton.setBorder(BorderFactory.createEmptyBorder());
+        SaveButton.setSize(200, 60);
+        SaveButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        add(SaveButton);
     }
 
     private void addLoadButton() {
-        RoundButton button = new RoundButton("Load");
-        button.setForeground(Color.white);
-        button.setLocation(HEIGTH + 90, HEIGTH / 10 + 240);
-        button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-        button.setBorder(BorderFactory.createEmptyBorder());
-        add(button);
-        button.addActionListener(e -> {
+        LoadButton = new RoundButton("读档");
+        LoadButton.setForeground(Color.white);
+
+        LoadButton.setSize(200, 60);
+        LoadButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        LoadButton.setBorder(BorderFactory.createEmptyBorder());
+        add(LoadButton);
+        LoadButton.addActionListener(e -> {
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this,"Input Path here");
             chessboardComponent.getGameController().loadGameFromFile(path);
@@ -94,14 +124,36 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addRestartButton() {
-        RoundButton button = new RoundButton("Restart");
-        button.addActionListener((e) -> {
+        RestartButton = new RoundButton("重置");
+        RestartButton.addActionListener((e) -> {
             chessboardComponent.getGameController().Restart();
         });
-        button.setLocation(HEIGTH + 90, HEIGTH / 10 + 360);
-        button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-        button.setBorder(BorderFactory.createEmptyBorder());
-        add(button);
+
+        RestartButton.setSize(200, 60);
+        RestartButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        RestartButton.setBorder(BorderFactory.createEmptyBorder());
+        add(RestartButton);
+    }
+    private void addExitButton() {
+        ExitButton = new RoundButton("退出");
+        ExitButton.setSize(200, 60);
+        ExitButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        ExitButton.setBorder(BorderFactory.createEmptyBorder());
+        ExitButton.addActionListener(e -> {
+            System.out.println("Click exit");
+            SwingUtilities.invokeLater(() -> {
+                dispose();
+                MainGameFrame mainGameFrame = new MainGameFrame(800, 500);
+                mainGameFrame.setVisible(true);
+            });
+        });
+        add(ExitButton);
+    }
+    private void addSettingButton(){
+        SettingButton = new RoundButton("设置");
+        SettingButton.setSize(200, 60);
+        SettingButton.setBorder(BorderFactory.createEmptyBorder());
+        SettingButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        add(SettingButton);
     }
 }

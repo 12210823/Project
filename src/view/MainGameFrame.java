@@ -92,7 +92,7 @@ public class MainGameFrame extends JFrame {
         multiPlayerButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
                 dispose();
-                ChessGameFrame ChessGameFrame = new ChessGameFrame(1200, 810);
+                ChessGameFrame ChessGameFrame = new ChessGameFrame(1300, 800);
                 GameController gameController = new GameController(ChessGameFrame.getChessboardComponent(), new Chessboard());
                 ChessGameFrame.setVisible(true);
                 this.dispose();

@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static model.Constant.CHESSBOARD_COL_SIZE;
@@ -25,7 +26,18 @@ public class ChessboardComponent extends JComponent {
     private final Set<ChessboardPoint> trapCell = new HashSet<>();
     private final Set<ChessboardPoint> densCell = new HashSet<>();
     private Theme theme;
+
+    public void setChessGameFrame(ChessGameFrame chessGameFrame) {
+        this.chessGameFrame = chessGameFrame;
+    }
+
     private GameController gameController;
+
+    public ChessGameFrame getChessGameFrame() {
+        return chessGameFrame;
+    }
+
+    public ChessGameFrame chessGameFrame;
 
     public ChessboardComponent(int chessSize) {
         CHESS_SIZE = chessSize;
@@ -250,6 +262,28 @@ public class ChessboardComponent extends JComponent {
         getGridComponentAt(point).add(chess);
     }
 
+    public void playBack(List<Steps> steps)
+    {
+        for (Steps step: steps)
+        {
+            if (getGridComponentAt(step.dest).getComponents().length>0)
+            {
+                removeChessComponentAtGrid(step.dest);
+                switch (step.srcPiece.getRank()) {
+                    case 8 ->
+                            getGridComponentAt(step.dest).add(new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 7 -> getGridComponentAt(step.dest).add(new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 6 -> getGridComponentAt(step.dest).add(new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 5 ->
+                            getGridComponentAt(step.dest).add(new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 4 -> getGridComponentAt(step.dest).add(new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 3 -> getGridComponentAt(step.dest).add(new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 2 -> getGridComponentAt(step.dest).add(new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    case 1 -> getGridComponentAt(step.dest).add(new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                }
+            }
+        }
+    }
     public ChessComponent removeChessComponentAtGrid(ChessboardPoint point) {
         // Note re-validation is required after remove / removeAll.
         ChessComponent chess = (ChessComponent) getGridComponentAt(point).getComponents()[0];

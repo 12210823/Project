@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameController;
+import model.Chessboard;
 import view.UI.ImagePanel;
 import view.UI.RoundButton;
 
@@ -16,15 +18,15 @@ public class ChessGameFrame extends JFrame {
     private final int HEIGTH;
     private final int ONE_CHESS_SIZE;
     private ImagePanel mainPanel;
-    private Theme theme;
-    private JLabel statusLabel;
+    public Theme theme;
+    public JLabel statusLabel;
     private JButton RestartButton;
     private JButton UndoButton;
     private JButton SaveButton;
     private JButton LoadButton;
     private JButton SettingButton;
     private JButton ExitButton;
-    private ChessboardComponent chessboardComponent;
+    public ChessboardComponent chessboardComponent;
     private String[] bgPaths = {
             "resource/Backgrounds/spring.png",
             "resource/Backgrounds/summer.png",
@@ -93,17 +95,19 @@ public class ChessGameFrame extends JFrame {
      */
     private void addChessboard() {
         chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
-
-
+        new GameController(chessboardComponent, new Chessboard());
+        chessboardComponent.setChessGameFrame(this);
     }
 
     /**
      * 在游戏面板中添加标签
      */
     private void addLabel() {
-        JLabel statusLabel = new JLabel("Sample label");
-        statusLabel.setLocation(HEIGTH + 90, HEIGTH / 10);
+        statusLabel = new JLabel("Turn: " + chessboardComponent.getGameController().turn);
+        statusLabel.setLocation(WIDTH-290, 10);
         statusLabel.setSize(200, 60);
+        statusLabel.setBackground(Color.cyan);
+        statusLabel.setOpaque(true);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(statusLabel);
     }

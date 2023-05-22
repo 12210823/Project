@@ -72,6 +72,8 @@ public class GameController implements GameListener {
         currentPlayer=PlayerColor.BLUE;
         winner=null;
         selectedPoint=null;
+        turn=1;
+        view.getChessGameFrame().statusLabel.setText("Turn: " + view.getChessGameFrame().chessboardComponent.getGameController().turn);
         if (steps.size() > 0) {
             steps.subList(0, steps.size()).clear();
         }

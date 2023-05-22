@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class RoundButton extends JButton {
-    private static final int NUM_STEPS = 12; // 渐变的步数
+    private static final int NUM_STEPS = 4; // 渐变的步数
     private static final int DELAY = 1; //每一步的延迟时间（以毫秒为单位）
 
     private static int currentStep = 0; // 当前步数

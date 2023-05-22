@@ -14,30 +14,23 @@ public class CellComponent extends JPanel {
     private ImageIcon background = new ImageIcon();
     private boolean hovered;
     public GridType type;
+    public Theme theme;
     public int x;
     public int y;
     private HoverListener hoverListener;
-    public CellComponent(GridType type, Point location, int size) {
+    public CellComponent(GridType type, Point location, int size, Theme theme) {
         this.x = location.x / size;
         this.y = location.y / size;
+        this.theme = theme;
         setLayout(new GridLayout(1,1));
         setLocation(location);
         setSize(size, size);
         this.type = type;
-        if(type == GridType.RIVER){
-            if((x + y) % 2 != 0){
-                background = new ImageIcon("resource/CellIcons/water1.png");
-            }else background = new ImageIcon("resource/CellIcons/water2.png");
-        } else if (type == GridType.DENS) {
-            if(x == 0){
-                background = new ImageIcon("resource/CellIcons/caveLeft.png");
-            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
-        } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
-        } else {
-            if((x + y) % 2 == 0){
-                background = new ImageIcon("resource/CellIcons/grass2.png");
-            }else background = new ImageIcon("resource/CellIcons/grass1.png");
+        switch (theme) {
+            case spring -> spring();
+            case summer -> summer();
+            case autumn -> autumn();
+            case winter -> winter();
         }
         // Add mouse listener to this cell component
         addMouseListener(new MouseAdapter() {
@@ -83,5 +76,73 @@ public class CellComponent extends JPanel {
 
     public void setBackground(ImageIcon background) {
         this.background = background;
+    }
+    public void spring(){
+        if(type == GridType.RIVER){
+            if((x + y) % 2 != 0){
+                background = new ImageIcon("resource/CellIcons/water1.png");
+            }else background = new ImageIcon("resource/CellIcons/water2.png");
+        } else if (type == GridType.DENS) {
+            if(x == 0){
+                background = new ImageIcon("resource/CellIcons/caveLeft.png");
+            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+        } else if (type == GridType.TRAP) {
+            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+        } else {
+            if((x + y) % 2 == 0){
+                background = new ImageIcon("resource/CellIcons/grass2.png");
+            }else background = new ImageIcon("resource/CellIcons/grass1.png");
+        }
+    }
+    public void summer(){
+        if(type == GridType.RIVER){
+            if((x + y) % 2 != 0){
+                background = new ImageIcon("resource/CellIcons/water1.png");
+            }else background = new ImageIcon("resource/CellIcons/water2.png");
+        } else if (type == GridType.DENS) {
+            if(x == 0){
+                background = new ImageIcon("resource/CellIcons/caveLeft.png");
+            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+        } else if (type == GridType.TRAP) {
+            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+        } else {
+            if((x + y) % 2 == 0){
+                background = new ImageIcon("resource/CellIcons/summer2.png");
+            }else background = new ImageIcon("resource/CellIcons/summer1.png");
+        }
+    }
+    public void autumn(){
+        if(type == GridType.RIVER){
+            if((x + y) % 2 != 0){
+                background = new ImageIcon("resource/CellIcons/water1.png");
+            }else background = new ImageIcon("resource/CellIcons/water2.png");
+        } else if (type == GridType.DENS) {
+            if(x == 0){
+                background = new ImageIcon("resource/CellIcons/caveLeft.png");
+            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+        } else if (type == GridType.TRAP) {
+            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+        } else {
+            if((x + y) % 2 == 0){
+                background = new ImageIcon("resource/CellIcons/autumn2.png");
+            }else background = new ImageIcon("resource/CellIcons/autumn1.png");
+        }
+    }
+    public void winter(){
+        if(type == GridType.RIVER){
+            if((x + y) % 2 != 0){
+                background = new ImageIcon("resource/CellIcons/water1.png");
+            }else background = new ImageIcon("resource/CellIcons/water2.png");
+        } else if (type == GridType.DENS) {
+            if(x == 0){
+                background = new ImageIcon("resource/CellIcons/caveLeft.png");
+            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+        } else if (type == GridType.TRAP) {
+            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+        } else {
+            if((x + y) % 2 == 0){
+                background = new ImageIcon("resource/CellIcons/winter2.png");
+            }else background = new ImageIcon("resource/CellIcons/winter1.png");
+        }
     }
 }

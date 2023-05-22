@@ -15,7 +15,7 @@ public class MainGameFrame extends JFrame {
     private JLabel titleLabel;
     private JButton singlePlayerButton;
     private JButton multiPlayerButton;
-    private JButton settingsButton;
+    private JButton settingButton;
     private JButton exitButton;
 
     public MainGameFrame(int width, int height) {
@@ -30,7 +30,7 @@ public class MainGameFrame extends JFrame {
     }
 
     private void initFrame() {
-        setTitle("2023 CS109 Project Demo");
+        setTitle("斗兽棋");
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null); // Center the window.
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
@@ -44,7 +44,7 @@ public class MainGameFrame extends JFrame {
 
         titleLabel = createTitle("斗兽棋");
         multiPlayerButton = addButton("多人游戏");
-        settingsButton = addButton("设置");
+        settingButton = addButton("设置");
         exitButton = addButton("退出");
     }
 
@@ -76,7 +76,7 @@ public class MainGameFrame extends JFrame {
 
         // Add buttons to the layout
         addButtonToLayout(multiPlayerButton, gbc, 0, 1);
-        addButtonToLayout(settingsButton, gbc, 0, 2);
+        addButtonToLayout(settingButton, gbc, 0, 2);
         addButtonToLayout(exitButton, gbc, 0, 3);
 
     }
@@ -98,7 +98,12 @@ public class MainGameFrame extends JFrame {
                 this.dispose();
             });
         });
-
+        settingButton.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> {
+                SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
+                SettingGameFrame.setVisible(true);
+            });
+        });
         exitButton.addActionListener(e -> System.exit(0));
     }
 }

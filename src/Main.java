@@ -14,9 +14,9 @@ public class Main {
         });
         File musicFile = new File("resource/Music/09 高级动物.wav");
 
-        URL musicURL = null;
+        URL musicURL;
         try {
-            musicURL = musicFile.toURL();
+            musicURL = musicFile.toURI().toURL();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

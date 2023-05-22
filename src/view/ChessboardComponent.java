@@ -23,6 +23,7 @@ public class ChessboardComponent extends JComponent {
     private final Set<ChessboardPoint> riverCell = new HashSet<>();
     private final Set<ChessboardPoint> trapCell = new HashSet<>();
     private final Set<ChessboardPoint> densCell = new HashSet<>();
+    private Theme theme;
     private GameController gameController;
 
     public ChessboardComponent(int chessSize) {
@@ -33,6 +34,7 @@ public class ChessboardComponent extends JComponent {
         setLayout(null); // Use absolute layout.
         setSize(width, height);
         System.out.printf("chessboard width, height = [%d : %d], chess size = %d\n", width, height, CHESS_SIZE);
+        setDefaultTheme();
 
         initiateGridComponents();
     }
@@ -107,13 +109,13 @@ public class ChessboardComponent extends JComponent {
                 ChessboardPoint temp = new ChessboardPoint(i, j);
                 CellComponent cell;
                 if (riverCell.contains(temp)) {
-                    cell = new CellComponent(GridType.RIVER, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(GridType.RIVER, calculatePoint(i, j), CHESS_SIZE, theme);
                 } else if (trapCell.contains(temp)) {
-                    cell = new CellComponent(GridType.TRAP, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(GridType.TRAP, calculatePoint(i, j), CHESS_SIZE, theme);
                 } else if (densCell.contains(temp)) {
-                    cell = new CellComponent(GridType.DENS, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(GridType.DENS, calculatePoint(i, j), CHESS_SIZE, theme);
                 } else {
-                    cell = new CellComponent(GridType.LAND, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(GridType.LAND, calculatePoint(i, j), CHESS_SIZE, theme);
                 }
                 this.add(cell);
                 gridComponents[i][j] = cell;
@@ -136,28 +138,127 @@ public class ChessboardComponent extends JComponent {
 
                     @Override
                     public void onExited(CellComponent cellComponent) {
-                        switch (cell.type){
-                            case RIVER -> {
-                                if((cell.x + cell.y) % 2 != 0){
-                                    cell.setBackground(new ImageIcon("resource/CellIcons/water1.png"));
-                                } else cell.setBackground(new ImageIcon("resource/CellIcons/water2.png"));
-                            }
-                            case LAND -> {
-                                if((cell.x + cell.y) % 2 != 0){
-                                    cell.setBackground(new ImageIcon("resource/CellIcons/grass1.png"));
-                                } else cell.setBackground(new ImageIcon("resource/CellIcons/grass2.png"));
-                            }
-                            case TRAP -> cell.setBackground(new ImageIcon("resource/CellIcons/grassWithTrap.png"));
-                            case DENS -> {
-                                if(cell.x == 0){
-                                    cell.setBackground(new ImageIcon("resource/CellIcons/caveLeft.png"));
-                                } else cell.setBackground(new ImageIcon("resource/CellIcons/caveRight.png"));
-                            }
+                        switch (cell.theme){
+                            case spring -> cell.spring();
+                            case summer -> cell.summer();
+                            case autumn -> cell.autumn();
+                            case winter -> cell.winter();
                         }
                         cell.setHovered(false);
                         repaint();
                     }
                 });
+            }
+        }
+    }
+
+    public void setDefaultTheme(){
+        this.theme = Theme.spring;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+        Chessboard chessboard = gameController.getModel();
+
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                if (gridComponents[i][j]!=null) {
+                    this.remove(gridComponents[i][j]);
+                }
+            }
+        }
+
+        riverCell.add(new ChessboardPoint(1,3));
+        riverCell.add(new ChessboardPoint(2,3));
+        riverCell.add(new ChessboardPoint(1,4));
+        riverCell.add(new ChessboardPoint(2,4));
+        riverCell.add(new ChessboardPoint(1,5));
+        riverCell.add(new ChessboardPoint(2,5));
+
+        riverCell.add(new ChessboardPoint(4,3));
+        riverCell.add(new ChessboardPoint(5,3));
+        riverCell.add(new ChessboardPoint(4,4));
+        riverCell.add(new ChessboardPoint(5,4));
+        riverCell.add(new ChessboardPoint(4,5));
+        riverCell.add(new ChessboardPoint(5,5));
+
+        trapCell.add(new ChessboardPoint(2,0));
+        trapCell.add(new ChessboardPoint(4,0));
+        trapCell.add(new ChessboardPoint(3,1));
+        trapCell.add(new ChessboardPoint(3,7));
+        trapCell.add(new ChessboardPoint(2,8));
+        trapCell.add(new ChessboardPoint(4,8));
+
+        densCell.add(new ChessboardPoint(3,0));
+        densCell.add(new ChessboardPoint(3,8));
+        for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
+                ChessboardPoint temp = new ChessboardPoint(i, j);
+                CellComponent cell;
+                if (riverCell.contains(temp)) {
+                    cell = new CellComponent(GridType.RIVER, calculatePoint(i, j), CHESS_SIZE, theme);
+                } else if (trapCell.contains(temp)) {
+                    cell = new CellComponent(GridType.TRAP, calculatePoint(i, j), CHESS_SIZE, theme);
+                } else if (densCell.contains(temp)) {
+                    cell = new CellComponent(GridType.DENS, calculatePoint(i, j), CHESS_SIZE, theme);
+                } else {
+                    cell = new CellComponent(GridType.LAND, calculatePoint(i, j), CHESS_SIZE, theme);
+                }
+                this.add(cell);
+                gridComponents[i][j] = cell;
+                cell.setHoverListener(new HoverListener() {
+                    @Override
+                    public void onHovered(CellComponent cellComponent) {
+                        switch (cell.type){
+                            case RIVER -> cell.setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
+                            case LAND -> cell.setBackground(new ImageIcon("resource/CellIcons/grassEntered.png"));
+                            case TRAP -> cell.setBackground(new ImageIcon("resource/CellIcons/trapEntered.png"));
+                            case DENS -> {
+                                if(cell.x == 0){
+                                    cell.setBackground(new ImageIcon("resource/CellIcons/caveLeftEntered.png"));
+                                } else cell.setBackground(new ImageIcon("resource/CellIcons/caveRightEntered.png"));
+                            }
+                        }
+                        cell.setHovered(true);
+                        repaint();
+                    }
+
+                    @Override
+                    public void onExited(CellComponent cellComponent) {
+                        switch (cell.theme){
+                            case spring -> cell.spring();
+                            case summer -> cell.summer();
+                            case autumn -> cell.autumn();
+                            case winter -> cell.winter();
+                        }
+                        cell.setHovered(false);
+                        repaint();
+                    }
+                });
+            }
+        }
+
+        Cell[][] grid = chessboard.getGrid();
+        for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
+                // TODO: Implement the initialization checkerboard
+
+                if (grid[i][j].getPiece() != null) {
+                    ChessPiece chessPiece = grid[i][j].getPiece();
+                    System.out.println(chessPiece.getOwner());
+                    switch (chessPiece.getRank()) {
+                        case 8 ->
+                                gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 5 ->
+                                gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    }
+                }
             }
         }
     }

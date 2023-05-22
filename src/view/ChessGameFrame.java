@@ -15,6 +15,7 @@ public class ChessGameFrame extends JFrame {
     private final int HEIGTH;
     private final int ONE_CHESS_SIZE;
     private ImagePanel mainPanel;
+    private Theme theme;
     private JLabel statusLabel;
     private JButton RestartButton;
     private JButton UndoButton;
@@ -61,11 +62,22 @@ public class ChessGameFrame extends JFrame {
     }
     public void setupLayout(){
         SettingButton.setLocation(WIDTH - 290, HEIGTH - 106 - 460);
+        mainPanel.add(SettingButton);
+
         SaveButton.setLocation(WIDTH - 290, HEIGTH - 106 - 360);
+        mainPanel.add(SaveButton);
+
         LoadButton.setLocation(WIDTH - 290, HEIGTH - 106 - 260);
+        mainPanel.add(LoadButton);
+
         RestartButton.setLocation(WIDTH - 290, HEIGTH - 106 - 160);
+        mainPanel.add(RestartButton);
+
         ExitButton.setLocation(WIDTH - 290, HEIGTH - 106 - 60);
+        mainPanel.add(ExitButton);
+
         chessboardComponent.setLocation(100, HEIGTH / 14);
+        add(chessboardComponent);
     }
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -81,7 +93,7 @@ public class ChessGameFrame extends JFrame {
     private void addChessboard() {
         chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
 
-        add(chessboardComponent);
+
     }
 
     /**
@@ -105,7 +117,7 @@ public class ChessGameFrame extends JFrame {
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
         SaveButton.setSize(200, 60);
         SaveButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
-        add(SaveButton);
+
     }
 
     private void addLoadButton() {
@@ -115,7 +127,7 @@ public class ChessGameFrame extends JFrame {
         LoadButton.setSize(200, 60);
         LoadButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
-        add(LoadButton);
+
         LoadButton.addActionListener(e -> {
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this,"Input Path here");
@@ -132,7 +144,7 @@ public class ChessGameFrame extends JFrame {
         RestartButton.setSize(200, 60);
         RestartButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
         RestartButton.setBorder(BorderFactory.createEmptyBorder());
-        add(RestartButton);
+
     }
     private void addExitButton() {
         ExitButton = new RoundButton("退出");
@@ -147,13 +159,41 @@ public class ChessGameFrame extends JFrame {
                 mainGameFrame.setVisible(true);
             });
         });
-        add(ExitButton);
+
     }
     private void addSettingButton(){
         SettingButton = new RoundButton("设置");
         SettingButton.setSize(200, 60);
         SettingButton.setBorder(BorderFactory.createEmptyBorder());
         SettingButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
-        add(SettingButton);
+        SettingButton.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> {
+                SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
+                SettingGameFrame.setVisible(true);
+            });
+        });
+    }
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+        switch (this.theme){
+            case spring -> {
+                mainPanel.setBackgroundImage(bgPaths[0]);
+                chessboardComponent.setTheme(Theme.spring);
+            }
+            case summer -> {
+                mainPanel.setBackgroundImage(bgPaths[1]);
+                chessboardComponent.setTheme(Theme.summer);
+            }
+            case autumn -> {
+                mainPanel.setBackgroundImage(bgPaths[2]);
+                chessboardComponent.setTheme(Theme.autumn);
+            }
+            case winter -> {
+                mainPanel.setBackgroundImage(bgPaths[3]);
+                chessboardComponent.setTheme(Theme.winter);
+            }
+        }
+        mainPanel.repaint();
+        chessboardComponent.repaint();
     }
 }

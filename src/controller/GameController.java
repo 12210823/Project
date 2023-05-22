@@ -181,4 +181,8 @@ public class GameController implements GameListener {
         }
         // TODO: Implement capture function
     }
+
+    public Chessboard getModel() {
+        return model;
+    }
 }

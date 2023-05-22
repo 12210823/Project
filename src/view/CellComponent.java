@@ -101,10 +101,10 @@ public class CellComponent extends JPanel {
             }else background = new ImageIcon("resource/CellIcons/water2.png");
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/caveLeft.png");
-            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+                background = new ImageIcon("resource/CellIcons/leftSummer.png");
+            }else background = new ImageIcon("resource/CellIcons/rightSummer.png");
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+            background = new ImageIcon("resource/CellIcons/trapSummer.png");
         } else {
             if((x + y) % 2 == 0){
                 background = new ImageIcon("resource/CellIcons/summer2.png");
@@ -118,10 +118,10 @@ public class CellComponent extends JPanel {
             }else background = new ImageIcon("resource/CellIcons/water2.png");
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/caveLeft.png");
-            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+                background = new ImageIcon("resource/CellIcons/leftAutumn.png");
+            }else background = new ImageIcon("resource/CellIcons/rightAutumn.png");
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+            background = new ImageIcon("resource/CellIcons/trapAutumn.png");
         } else {
             if((x + y) % 2 == 0){
                 background = new ImageIcon("resource/CellIcons/autumn2.png");
@@ -135,10 +135,10 @@ public class CellComponent extends JPanel {
             }else background = new ImageIcon("resource/CellIcons/water2.png");
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/caveLeft.png");
-            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+                background = new ImageIcon("resource/CellIcons/leftWinter.png");
+            }else background = new ImageIcon("resource/CellIcons/rightWinter.png");
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+            background = new ImageIcon("resource/CellIcons/trapWinter.png");
         } else {
             if((x + y) % 2 == 0){
                 background = new ImageIcon("resource/CellIcons/winter2.png");

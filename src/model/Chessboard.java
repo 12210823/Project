@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /**
  * This class store the real chess information.
  * The Chessboard has 9*7 cells, and each cell has a position for chess
@@ -67,6 +69,14 @@ public class Chessboard{
 
     public void setChessPiece(ChessboardPoint point, ChessPiece chessPiece) {
         getGridAt(point).setPiece(chessPiece);
+    }
+    public void playBack(List<Steps> steps)
+    {
+        for (Steps step: steps)
+        {
+            setChessPiece(step.src,null);
+            setChessPiece(step.dest,step.srcPiece);
+        }
     }
 
     public void moveChessPiece(ChessboardPoint src, ChessboardPoint dest) {

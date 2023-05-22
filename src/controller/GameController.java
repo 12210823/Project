@@ -9,9 +9,7 @@ import view.ChessboardComponent;
 import view.Win;
 
 import javax.swing.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +42,17 @@ public class GameController implements GameListener {
             steps=(List<Steps>) objectInputStream.readObject();
         } catch (ClassNotFoundException | IOException e)
         {
+            e.printStackTrace();
+        }
+    }
+    public void saveGameToFile(String path)
+    {
+        ObjectOutputStream objectOutputStream=null;
+        try {
+            FileOutputStream outputStream = new FileOutputStream(path);
+            objectOutputStream=new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(steps);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

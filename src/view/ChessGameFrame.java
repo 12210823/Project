@@ -113,7 +113,11 @@ public class ChessGameFrame extends JFrame {
 
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");
-        SaveButton.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
+        SaveButton.addActionListener((e) -> {
+            System.out.println("Click save");
+            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            chessboardComponent.getGameController().saveGameToFile(path);
+        });
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
         SaveButton.setSize(200, 60);
         SaveButton.setFont(new Font("微软雅黑", Font.BOLD, 20));

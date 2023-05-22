@@ -9,10 +9,13 @@ public class Win extends JFrame {
     private JLabel label;
 
     public Win(PlayerColor a) {
-        super("Game Over");
+        super("游戏结束");
         setLayout(new FlowLayout());
-        label = new JLabel(a.toString()+" win!");
-        label.setFont(new Font("San Serif", Font.PLAIN, 30));
+        if(a == PlayerColor.BLUE){
+            label = new JLabel("左方胜利");
+        }else label = new JLabel("右方胜利");
+
+        label.setFont(new Font("微软雅黑", Font.PLAIN, 30));
         add(label);
     }
 }

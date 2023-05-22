@@ -226,4 +226,5 @@ public class GameController implements GameListener {
     public Chessboard getModel() {
         return model;
     }
+
 }

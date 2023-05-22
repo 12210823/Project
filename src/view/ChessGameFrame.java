@@ -5,6 +5,7 @@ import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -114,9 +115,12 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");
         SaveButton.addActionListener((e) -> {
-            System.out.println("Click save");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
-            chessboardComponent.getGameController().saveGameToFile(path);
+            JFileChooser fd = new JFileChooser();
+            //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fd.showOpenDialog(null);
+            File f = fd.getSelectedFile();
+            if(f != null){}
+            chessboardComponent.getGameController().saveGameToFile(f.getPath());
         });
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
         SaveButton.setSize(200, 60);
@@ -133,9 +137,12 @@ public class ChessGameFrame extends JFrame {
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
 
         LoadButton.addActionListener(e -> {
-            System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
-            chessboardComponent.getGameController().loadGameFromFile(path);
+            JFileChooser fd = new JFileChooser();
+            //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fd.showOpenDialog(null);
+            File f = fd.getSelectedFile();
+            if(f != null){}
+            chessboardComponent.getGameController().loadGameFromFile(f.getPath());
         });
     }
 

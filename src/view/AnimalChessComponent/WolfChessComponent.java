@@ -1,5 +1,6 @@
 package view.AnimalChessComponent;
 
+import model.ChessboardPoint;
 import model.PlayerColor;
 import view.ChessComponent;
 

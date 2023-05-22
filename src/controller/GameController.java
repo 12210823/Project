@@ -144,6 +144,12 @@ public class GameController implements GameListener {
             model.moveChessPiece(selectedPoint, point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             selectedPoint = null;
+            for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                    ChessboardPoint temp = new ChessboardPoint(i,j);
+                    view.getGridComponentAt(temp).setSelected(false);
+                }
+            }
             swapColor();
             view.repaint();
             // TODO: if the chess enter Dens or Traps and so on
@@ -159,17 +165,25 @@ public class GameController implements GameListener {
 
     // click a cell with a chess
     @Override
-    public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent component) {
+    public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent chess, ArrayList<CellComponent> Valid) {
         if (selectedPoint == null) {
             if (model.getChessPieceOwner(point).equals(currentPlayer)) {
                 selectedPoint = point;
-                component.setSelected(true);
-                component.repaint();
+                for (int i = 0; i < Valid.size(); i++) {
+                    Valid.get(i).setSelected(true);
+                    Valid.get(i).repaint();
+                }
+                chess.setSelected(true);
+                chess.repaint();
             }
         } else if (selectedPoint.equals(point)) {
             selectedPoint = null;
-            component.setSelected(false);
-            component.repaint();
+            for (int i = 0; i < Valid.size(); i++) {
+                Valid.get(i).setSelected(false);
+                Valid.get(i).repaint();
+            }
+            chess.setSelected(false);
+            chess.repaint();
         }
         if (selectedPoint != null) {
             if (model.isValidCapture(selectedPoint, point)) {
@@ -178,6 +192,13 @@ public class GameController implements GameListener {
                 view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
                 selectedPoint = null;
                 swapColor();
+                for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                    for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                        ChessboardPoint temp = new ChessboardPoint(i,j);
+                        view.getGridComponentAt(temp).setSelected(false);
+                        view.getGridComponentAt(temp).repaint();
+                    }
+                }
                 view.repaint();
             }
         }

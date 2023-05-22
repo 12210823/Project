@@ -1,6 +1,8 @@
 package view;
 
 
+import controller.GameController;
+import model.ChessboardPoint;
 import model.PlayerColor;
 
 import javax.swing.*;
@@ -13,7 +15,6 @@ import java.awt.*;
 public class ChessComponent extends JComponent {
     private PlayerColor owner;
     private boolean selected;
-    private int rank;
     public ChessComponent(PlayerColor owner, int size) {
         this.owner = owner;
         this.selected = false;
@@ -38,8 +39,6 @@ public class ChessComponent extends JComponent {
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.BLACK);
             g.drawOval(0, 0, getWidth(), getHeight());
-            g.drawOval(1, 1, getWidth() - 1, getHeight() - 1);
-            g.drawOval(2, 2, getWidth() - 2, getHeight() - 2);
         }
     }
 }

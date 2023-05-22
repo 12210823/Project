@@ -30,7 +30,7 @@ public class GameController implements GameListener {
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
-    public int turn=0;
+    public int turn=1;
     List<Steps> steps= new ArrayList<>();
 
     public void loadGameFromFile(String path)
@@ -40,6 +40,10 @@ public class GameController implements GameListener {
             FileInputStream inputStream = new FileInputStream(path);
             objectInputStream=new ObjectInputStream(inputStream);
             steps=(List<Steps>) objectInputStream.readObject();
+            Restart();
+            model.playBack(steps);
+            view.playBack(steps);
+            view.repaint();
         } catch (ClassNotFoundException | IOException e)
         {
             e.printStackTrace();
@@ -52,6 +56,8 @@ public class GameController implements GameListener {
             FileOutputStream outputStream = new FileOutputStream(path);
             objectOutputStream=new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(steps);
+            objectOutputStream.flush();
+            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,6 +99,8 @@ public class GameController implements GameListener {
     // after a valid move swap the player
     private void swapColor() {
         currentPlayer = currentPlayer == PlayerColor.BLUE ? PlayerColor.RED : PlayerColor.BLUE;
+        turn++;
+        view.getChessGameFrame().statusLabel.setText("Turn: " + view.getChessGameFrame().chessboardComponent.getGameController().turn);
     }
 
     private boolean win() {
@@ -190,6 +198,7 @@ public class GameController implements GameListener {
                 model.captureChessPiece(selectedPoint, point);
                 view.removeChessComponentAtGrid(point);
                 view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
+                steps.add(new Steps(model.getChessPieceAt(selectedPoint),model.getChessPieceAt(point),selectedPoint,point,turn));
                 selectedPoint = null;
                 swapColor();
                 for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {

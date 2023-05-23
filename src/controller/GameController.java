@@ -43,7 +43,7 @@ public class GameController implements GameListener {
                 Restart();
                 for (Steps step : stepList) {
                     model.runStep(step);
-                    view.playBack(stepList);
+                    view.runStep(step);
                     view.repaint();
                     try {
                         Thread.sleep(250);

@@ -103,18 +103,14 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中添加标签
      */
     private void addLabel() {
-        statusLabel = new JLabel("Turn: " + chessboardComponent.getGameController().turn);
+        statusLabel = new JLabel("第1回合，左方行棋");
         statusLabel.setLocation(WIDTH-290, 10);
         statusLabel.setSize(200, 60);
         statusLabel.setBackground(Color.cyan);
         statusLabel.setOpaque(true);
-        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        statusLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
         add(statusLabel);
     }
-
-    /**
-     * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
-     */
 
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");

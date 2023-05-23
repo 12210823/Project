@@ -319,18 +319,17 @@ public class ChessboardComponent extends JComponent {
                 gameController.onPlayerClickCell(getChessboardPoint(e.getPoint()), (CellComponent) clickedComponent);
             } else {
                 ArrayList Valid = new ArrayList<CellComponent>();
-                for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+               /* for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
                     for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
                         ChessboardPoint temp = new ChessboardPoint(i,j);
                         if(gameController.getModel().isValidMove(getChessboardPoint(e.getPoint()), temp)){
                             Valid.add(getGridComponentAt(temp));
                         }
                     }
-                }
+                }*/
                 System.out.print("One chess here and ");
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint())
-                        , (ChessComponent) clickedComponent.getComponents()[0]
-                        , Valid);
+                        , (ChessComponent) clickedComponent.getComponents()[0]);
             }
         }
     }

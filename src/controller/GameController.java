@@ -102,7 +102,10 @@ public class GameController implements GameListener {
     private void swapColor() {
         currentPlayer = currentPlayer == PlayerColor.BLUE ? PlayerColor.RED : PlayerColor.BLUE;
         turn++;
-        view.getChessGameFrame().statusLabel.setText("Turn: " + view.getChessGameFrame().chessboardComponent.getGameController().turn);
+        int round = (turn + 1) / 2;
+        if(turn % 2 == 1){
+            view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
+        }else view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
     }
 
     private boolean win() {
@@ -175,22 +178,37 @@ public class GameController implements GameListener {
 
     // click a cell with a chess
     @Override
-    public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent chess, ArrayList<CellComponent> Valid) {
+    public void onPlayerClickChessPiece(ChessboardPoint point, ChessComponent chess) {
         if (selectedPoint == null) {
             if (model.getChessPieceOwner(point).equals(currentPlayer)) {
                 selectedPoint = point;
-                for (int i = 0; i < Valid.size(); i++) {
-                    Valid.get(i).setSelected(true);
-                    Valid.get(i).repaint();
+                for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                    for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                        ChessboardPoint temp = new ChessboardPoint(i,j);
+                        if (model.getChessPieceAt(temp) == null){
+                            if(model.isValidMove(selectedPoint, temp)){
+                                view.getGridComponentAt(temp).setSelected(true);
+                                view.getGridComponentAt(temp).repaint();
+                            }
+                        } else {
+                            if(model.isValidCapture(selectedPoint,temp)){
+                                view.getGridComponentAt(temp).setSelected(true);
+                                view.getGridComponentAt(temp).repaint();
+                            }
+                        }
+                    }
                 }
                 chess.setSelected(true);
                 chess.repaint();
             }
         } else if (selectedPoint.equals(point)) {
             selectedPoint = null;
-            for (int i = 0; i < Valid.size(); i++) {
-                Valid.get(i).setSelected(false);
-                Valid.get(i).repaint();
+            for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                    ChessboardPoint temp = new ChessboardPoint(i,j);
+                    view.getGridComponentAt(temp).setSelected(false);
+                    view.getGridComponentAt(temp).repaint();
+                }
             }
             chess.setSelected(false);
             chess.repaint();

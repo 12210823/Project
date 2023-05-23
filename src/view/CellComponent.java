@@ -59,7 +59,6 @@ public class CellComponent extends JPanel {
     public boolean isSelected() {
         return selected;
     }
-
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
@@ -206,6 +205,34 @@ public class CellComponent extends JPanel {
             if((x + y) % 2 == 0){
                 background = new ImageIcon("resource/CellIcons/winter2.png");
             }else background = new ImageIcon("resource/CellIcons/winter1.png");
+        }
+    }
+    public void warn(){
+        switch (theme){
+            case spring, summer, winter -> {
+                switch (type){
+                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
+                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/autumnEntered.png"));
+                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapAutumnEntered.png"));
+                    case DENS -> {
+                        if(x == 0){
+                            setBackground(new ImageIcon("resource/CellIcons/leftAutumnEntered.png"));
+                        } else setBackground(new ImageIcon("resource/CellIcons/rightAutumnEntered.png"));
+                    }
+                }
+            }
+            case autumn -> {
+                switch (type){
+                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
+                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/grassEntered.png"));
+                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapEntered.png"));
+                    case DENS -> {
+                        if(x == 0){
+                            setBackground(new ImageIcon("resource/CellIcons/caveLeftEntered.png"));
+                        } else setBackground(new ImageIcon("resource/CellIcons/caveRightEntered.png"));
+                    }
+                }
+            }
         }
     }
 }

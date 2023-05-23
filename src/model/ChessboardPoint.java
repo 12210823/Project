@@ -1,12 +1,14 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * This class represents positions on the checkerboard, such as (0, 0), (0, 7), and so on
  * Where, the upper left corner is (0, 0), the lower left corner is (7, 0), the upper right corner is (0, 7), and the lower right corner is (7, 7).
  */
-public class ChessboardPoint {
-    public final int row;
-    public final int col;
+public class ChessboardPoint implements Serializable {
+    public int row;
+    public int col;
 
     public ChessboardPoint(int row, int col) {
         this.row = row;
@@ -40,4 +42,5 @@ public class ChessboardPoint {
     public String toString() {
         return "("+row + ","+col+") " + "on the chessboard is clicked!";
     }
+
 }

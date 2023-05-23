@@ -121,12 +121,7 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");
         SaveButton.addActionListener((e) -> {
-            JFileChooser fd = new JFileChooser();
-            //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            fd.showOpenDialog(null);
-            File f = fd.getSelectedFile();
-            if(f != null){}
-            chessboardComponent.getGameController().saveGameToFile(f.getPath());
+            chessboardComponent.getGameController().saveGameToFile();
         });
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
         SaveButton.setSize(200, 60);
@@ -143,12 +138,7 @@ public class ChessGameFrame extends JFrame {
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
 
         LoadButton.addActionListener(e -> {
-            JFileChooser fd = new JFileChooser();
-            //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            fd.showOpenDialog(null);
-            File f = fd.getSelectedFile();
-            if(f != null){}
-            chessboardComponent.getGameController().loadGameFromFile(f.getPath());
+            chessboardComponent.getGameController().loadGameFromFile();
         });
     }
 

@@ -19,7 +19,7 @@ public class ChessGameFrame extends JFrame {
     private final int ONE_CHESS_SIZE;
     private ImagePanel mainPanel;
     public Theme theme;
-    public JLabel statusLabel;
+    public RoundButton statusLabel;
     private JButton RestartButton;
     private JButton UndoButton;
     private JButton SaveButton;
@@ -103,12 +103,12 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中添加标签
      */
     private void addLabel() {
-        statusLabel = new JLabel("第1回合，左方行棋");
-        statusLabel.setLocation(WIDTH-290, 10);
-        statusLabel.setSize(200, 60);
-        statusLabel.setBackground(Color.cyan);
-        statusLabel.setOpaque(true);
-        statusLabel.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        statusLabel = new RoundButton("第1回合，左方行棋");
+        statusLabel.setLocation(WIDTH-340, 0);
+        statusLabel.setSize(300, 50);
+        statusLabel.setForeground(Color.white);
+        statusLabel.setBorder(BorderFactory.createEmptyBorder());
+        statusLabel.setFont(new Font("微软雅黑", Font.BOLD, 22));
         add(statusLabel);
     }
 

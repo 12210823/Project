@@ -31,7 +31,7 @@ public class GameController implements GameListener {
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
     public int turn=1;
-    List<Steps> steps= new ArrayList<>();
+    public List<Steps> steps= new ArrayList<>();
 
     public void loadGameFromFile(String path)
     {
@@ -79,6 +79,13 @@ public class GameController implements GameListener {
         }
     }
 
+    public void Replay()
+    {
+        Restart();
+        model.playBack(steps);
+        view.playBack(steps);
+        view.repaint();
+    }
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
         this.model = model;
@@ -154,6 +161,7 @@ public class GameController implements GameListener {
     @Override
     public void onPlayerClickCell(ChessboardPoint point, CellComponent component) {
         if (selectedPoint != null && model.isValidMove(selectedPoint, point)) {
+            steps.add(new Steps(model.getChessPieceAt(selectedPoint),model.getChessPieceAt(point),selectedPoint,point,turn));
             model.moveChessPiece(selectedPoint, point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             selectedPoint = null;
@@ -215,10 +223,10 @@ public class GameController implements GameListener {
         }
         if (selectedPoint != null) {
             if (model.isValidCapture(selectedPoint, point)) {
+                steps.add(new Steps(model.getChessPieceAt(selectedPoint),model.getChessPieceAt(point),selectedPoint,point,turn));
                 model.captureChessPiece(selectedPoint, point);
                 view.removeChessComponentAtGrid(point);
                 view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
-                steps.add(new Steps(model.getChessPieceAt(selectedPoint),model.getChessPieceAt(point),selectedPoint,point,turn));
                 selectedPoint = null;
                 swapColor();
                 for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {

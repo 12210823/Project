@@ -74,8 +74,18 @@ public class Chessboard{
     {
         for (Steps step: steps)
         {
-            setChessPiece(step.src,null);
-            setChessPiece(step.dest,step.srcPiece);
+            if (isValidMove(step.src,step.dest))
+            {
+                moveChessPiece(step.src,step.dest);
+            }
+            else if (isValidCapture(step.src,step.dest))
+            {
+                captureChessPiece(step.src,step.dest);
+            }
+            else
+            {
+
+            }
         }
     }
 

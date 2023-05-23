@@ -26,6 +26,7 @@ public class ChessGameFrame extends JFrame {
     private JButton LoadButton;
     private JButton SettingButton;
     private JButton ExitButton;
+    public JButton ReplayButton;
     public ChessboardComponent chessboardComponent;
     private String[] bgPaths = {
             "resource/Backgrounds/spring.png",
@@ -62,6 +63,8 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addRestartButton();
         addExitButton();
+        addRestartButton();
+        addReplayButton();
     }
     public void setupLayout(){
         SettingButton.setLocation(WIDTH - 290, HEIGTH - 106 - 460);
@@ -81,6 +84,9 @@ public class ChessGameFrame extends JFrame {
 
         chessboardComponent.setLocation(100, HEIGTH / 14);
         add(chessboardComponent);
+
+        ReplayButton.setLocation(WIDTH - 290, HEIGTH - 106 - 560);
+        mainPanel.add(ReplayButton);
     }
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -182,6 +188,15 @@ public class ChessGameFrame extends JFrame {
                 SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
                 SettingGameFrame.setVisible(true);
             });
+        });
+    }
+    private void addReplayButton(){
+        ReplayButton = new RoundButton("复盘");
+        ReplayButton.setSize(200, 60);
+        ReplayButton.setBorder(BorderFactory.createEmptyBorder());
+        ReplayButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        ReplayButton.addActionListener(e -> {
+            chessboardComponent.getGameController().Replay();
         });
     }
     public void setTheme(Theme theme) {

@@ -269,19 +269,27 @@ public class ChessboardComponent extends JComponent {
             if (getGridComponentAt(step.dest).getComponents().length>0)
             {
                 removeChessComponentAtGrid(step.dest);
-                switch (step.srcPiece.getRank()) {
-                    case 8 ->
-                            getGridComponentAt(step.dest).add(new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 7 -> getGridComponentAt(step.dest).add(new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 6 -> getGridComponentAt(step.dest).add(new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 5 ->
-                            getGridComponentAt(step.dest).add(new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 4 -> getGridComponentAt(step.dest).add(new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 3 -> getGridComponentAt(step.dest).add(new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 2 -> getGridComponentAt(step.dest).add(new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                    case 1 -> getGridComponentAt(step.dest).add(new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-                }
             }
+            switch (step.srcPiece.getRank())
+            {
+            case 8 ->
+                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 7 ->
+                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 6 ->
+                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 5 ->
+                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 4 ->
+                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 3 ->
+                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 2 ->
+                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 1 ->
+                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            }
+            removeChessComponentAtGrid(step.src);
         }
     }
     public ChessComponent removeChessComponentAtGrid(ChessboardPoint point) {

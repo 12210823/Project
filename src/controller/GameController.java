@@ -3,12 +3,10 @@ package controller;
 
 import listener.GameListener;
 import model.*;
-import view.CellComponent;
-import view.ChessComponent;
-import view.ChessboardComponent;
-import view.Win;
+import view.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,21 +33,37 @@ public class GameController implements GameListener,Serializable {
 
     public void loadGameFromFile(String path)
     {
-        ObjectInputStream objectInputStream=null;
-        try {
-            FileInputStream inputStream = new FileInputStream(path);
-            objectInputStream=new ObjectInputStream(inputStream);
-            steps=(List<Steps>) objectInputStream.readObject();
-            List<Steps> steps = new ArrayList<>(this.steps);
-            Restart();
-            model.playBack(steps);
-            view.playBack(steps);
-            view.repaint();
-            this.steps=steps;
-            turn=steps.size();
-        } catch (ClassNotFoundException | IOException e)
+        if (!path.substring(path.lastIndexOf(".")).equals("txt"))
         {
-            e.printStackTrace();
+            FileWarning fileWarning=new FileWarning();
+            fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            fileWarning.setSize(250, 100);
+            fileWarning.setVisible(true);
+            Restart();
+        }
+        else
+        {
+            ObjectInputStream objectInputStream=null;
+            try {
+                FileInputStream inputStream = new FileInputStream(path);
+                objectInputStream=new ObjectInputStream(inputStream);
+                steps=(List<Steps>) objectInputStream.readObject();
+                List<Steps> steps = new ArrayList<>(this.steps);
+                Restart();
+                model.playBack(steps);
+                view.playBack(steps);
+                view.repaint();
+                this.steps=steps;
+                turn=steps.size();
+            } catch (ClassNotFoundException | IOException e)
+            {
+                FileWarning fileWarning=new FileWarning();
+                fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+                fileWarning.setSize(250, 100);
+                fileWarning.setVisible(true);
+                Restart();
+                e.printStackTrace();
+            }
         }
     }
     public void saveGameToFile(String path)
@@ -83,6 +97,24 @@ public class GameController implements GameListener,Serializable {
     }
 
     public void Replay()
+    {
+        List<Steps> steps = new ArrayList<>(this.steps);
+        System.out.println(steps.size());
+        Restart();
+        //view.repaint();
+        if (steps.size()>0) {
+            for (int i = 0; i < steps.size() - 1; i++) {
+                model.playBack(steps.get(i));
+                view.playBack(steps.get(i));
+                view.repaint();
+            }
+            steps.remove(steps.size()-1);
+            this.steps = steps;
+            turn = steps.size();
+        }
+    }
+
+    public void Playback()
     {
         List<Steps> steps = new ArrayList<>(this.steps);
         System.out.println(steps.size());

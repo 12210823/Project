@@ -22,7 +22,7 @@ public class ChessGameFrame extends JFrame {
     public Theme theme;
     public RoundButton statusLabel;
     private JButton RestartButton;
-    private JButton UndoButton;
+    public JButton PlaybackButton;
     private JButton SaveButton;
     private JButton LoadButton;
     private JButton SettingButton;
@@ -36,7 +36,7 @@ public class ChessGameFrame extends JFrame {
             "resource/Backgrounds/winter.png"};
 
     public ChessGameFrame(int width, int height) {
-        setTitle("2023 CS109 Project Demo"); //设置标题
+        setTitle("2023 CS109 Project"); //设置标题
         this.WIDTH = width;
         this.HEIGTH = height;
         this.ONE_CHESS_SIZE = (HEIGTH * 4 / 5) / 7;
@@ -66,18 +66,19 @@ public class ChessGameFrame extends JFrame {
         addExitButton();
         addRestartButton();
         addReplayButton();
+        addPlaybackButton();
     }
     public void setupLayout(){
-        SettingButton.setLocation(WIDTH - 290, HEIGTH - 106 - 460);
+        SettingButton.setLocation(WIDTH - 290, HEIGTH - 106 - 380);
         mainPanel.add(SettingButton);
 
-        SaveButton.setLocation(WIDTH - 290, HEIGTH - 106 - 360);
+        SaveButton.setLocation(WIDTH - 290, HEIGTH - 106 - 300);
         mainPanel.add(SaveButton);
 
-        LoadButton.setLocation(WIDTH - 290, HEIGTH - 106 - 260);
+        LoadButton.setLocation(WIDTH - 290, HEIGTH - 106 - 220);
         mainPanel.add(LoadButton);
 
-        RestartButton.setLocation(WIDTH - 290, HEIGTH - 106 - 160);
+        RestartButton.setLocation(WIDTH - 290, HEIGTH - 106 - 140);
         mainPanel.add(RestartButton);
 
         ExitButton.setLocation(WIDTH - 290, HEIGTH - 106 - 60);
@@ -86,8 +87,11 @@ public class ChessGameFrame extends JFrame {
         chessboardComponent.setLocation(100, HEIGTH / 14);
         add(chessboardComponent);
 
-        ReplayButton.setLocation(WIDTH - 290, HEIGTH - 106 - 560);
+        ReplayButton.setLocation(WIDTH - 290, HEIGTH - 106 - 460);
         mainPanel.add(ReplayButton);
+
+        PlaybackButton.setLocation(WIDTH - 290, HEIGTH - 106 - 540);
+        mainPanel.add(PlaybackButton);
     }
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -198,6 +202,15 @@ public class ChessGameFrame extends JFrame {
         ReplayButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
         ReplayButton.addActionListener(e -> {
             chessboardComponent.getGameController().Replay();
+        });
+    }
+    private void addPlaybackButton(){
+        PlaybackButton = new RoundButton("回放");
+        PlaybackButton.setSize(200, 60);
+        PlaybackButton.setBorder(BorderFactory.createEmptyBorder());
+        PlaybackButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        PlaybackButton.addActionListener(e -> {
+            chessboardComponent.getGameController().Playback();
         });
     }
     public void setTheme(Theme theme) {

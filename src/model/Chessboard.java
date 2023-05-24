@@ -1,5 +1,8 @@
 package model;
 
+import view.FileWarning;
+
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -84,7 +87,10 @@ public class Chessboard{
             }
             else
             {
-
+                FileWarning fileWarning=new FileWarning();
+                fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+                fileWarning.setSize(250, 100);
+                fileWarning.setVisible(true);
             }
         }
     }
@@ -101,7 +107,10 @@ public class Chessboard{
         }
         else
         {
-
+            FileWarning fileWarning=new FileWarning();
+            fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            fileWarning.setSize(250, 100);
+            fileWarning.setVisible(true);
         }
     }
 

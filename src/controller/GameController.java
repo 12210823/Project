@@ -10,7 +10,7 @@ import view.Win;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ import java.util.List;
  * [in this demo the request methods are onPlayerClickCell() and onPlayerClickChessPiece()]
  *
 */
-public class GameController implements GameListener {
+public class GameController implements GameListener,Serializable {
 
 
     private Chessboard model;
@@ -30,51 +30,39 @@ public class GameController implements GameListener {
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
-    public int turn = 1;
-    public List<Steps> steps;
+    public int turn=1;
+    public List<Steps> steps= new ArrayList<>();
 
-    public void loadGameFromFile() {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showOpenDialog(view.getChessGameFrame());
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))) {
-                List<Steps> stepList = (List<Steps>) inputStream.readObject();
-                Restart();
-                for (Steps step : stepList) {
-                    model.runStep(step);
-                    view.runStep(step);
-                    view.repaint();
-                    try {
-                        Thread.sleep(250);
-                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                /*for (Steps step : stepList) {
-                    model.runStep(step);
-                }
-                view.playBack(stepList);
-                view.repaint();*/
-                //这样也行，不过是直接复原，学长的那个是每过一段时间走一步
-                this.steps = stepList;
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+    public void loadGameFromFile(String path)
+    {
+        ObjectInputStream objectInputStream=null;
+        try {
+            FileInputStream inputStream = new FileInputStream(path);
+            objectInputStream=new ObjectInputStream(inputStream);
+            steps=(List<Steps>) objectInputStream.readObject();
+            List<Steps> steps = new ArrayList<>(this.steps);
+            Restart();
+            model.playBack(steps);
+            view.playBack(steps);
+            view.repaint();
+            this.steps=steps;
+            turn=steps.size();
+        } catch (ClassNotFoundException | IOException e)
+        {
+            e.printStackTrace();
         }
     }
-    public void saveGameToFile()
+    public void saveGameToFile(String path)
     {
-        JFileChooser fileChooser = new JFileChooser();
-        int result = fileChooser.showSaveDialog(view.getChessGameFrame());
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file))) {
-                outputStream.writeObject(steps);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        ObjectOutputStream objectOutputStream=null;
+        try {
+            FileOutputStream outputStream = new FileOutputStream(path);
+            objectOutputStream=new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(steps);
+            objectOutputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public void Restart()
@@ -88,7 +76,7 @@ public class GameController implements GameListener {
         winner=null;
         selectedPoint=null;
         turn=1;
-        view.getChessGameFrame().statusLabel.setText("Turn: " + view.getChessGameFrame().chessboardComponent.getGameController().turn);
+        view.getChessGameFrame().statusLabel.setText("第" + turn + "回合，左方行棋");
         if (steps.size() > 0) {
             steps.subList(0, steps.size()).clear();
         }
@@ -96,17 +84,25 @@ public class GameController implements GameListener {
 
     public void Replay()
     {
+        List<Steps> steps = new ArrayList<>(this.steps);
+        System.out.println(steps.size());
         Restart();
-        model.playBack(steps);
-        view.playBack(steps);
-        view.repaint();
+        //view.repaint();
+        if (steps.size()>0) {
+            for (int i = 0; i < steps.size() - 1; i++) {
+                model.playBack(steps.get(i));
+                view.playBack(steps.get(i));
+                view.repaint();
+            }
+            steps.remove(steps.size()-1);
+            this.steps = steps;
+            turn = steps.size();
+        }
     }
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
         this.model = model;
         this.currentPlayer = PlayerColor.BLUE;
-
-        steps = new LinkedList<>();
 
         view.registerController(this);
         initialize();
@@ -178,8 +174,7 @@ public class GameController implements GameListener {
     @Override
     public void onPlayerClickCell(ChessboardPoint point, CellComponent component) {
         if (selectedPoint != null && model.isValidMove(selectedPoint, point)) {
-            Steps step = model.recordStep(selectedPoint,point,currentPlayer,turn);
-            steps.add(step);
+            steps.add(new Steps(model.getChessPieceAt(selectedPoint),model.getChessPieceAt(point),selectedPoint,point,turn));
             model.moveChessPiece(selectedPoint, point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             selectedPoint = null;
@@ -241,8 +236,7 @@ public class GameController implements GameListener {
         }
         if (selectedPoint != null) {
             if (model.isValidCapture(selectedPoint, point)) {
-                Steps step = model.recordStep(selectedPoint,point,currentPlayer,turn);
-                steps.add(step);
+                steps.add(new Steps(model.getChessPieceAt(selectedPoint),model.getChessPieceAt(point),selectedPoint,point,turn));
                 model.captureChessPiece(selectedPoint, point);
                 view.removeChessComponentAtGrid(point);
                 view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));

@@ -7,8 +7,8 @@ import java.io.Serializable;
  * Where, the upper left corner is (0, 0), the lower left corner is (7, 0), the upper right corner is (0, 7), and the lower right corner is (7, 7).
  */
 public class ChessboardPoint implements Serializable {
-    public int row;
-    public int col;
+    public final int row;
+    public final int col;
 
     public ChessboardPoint(int row, int col) {
         this.row = row;
@@ -42,5 +42,4 @@ public class ChessboardPoint implements Serializable {
     public String toString() {
         return "("+row + ","+col+") " + "on the chessboard is clicked!";
     }
-
 }

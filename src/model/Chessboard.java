@@ -48,13 +48,7 @@ public class Chessboard{
         grid[2][6].setPiece(new ChessPiece(PlayerColor.RED, "Wolf",4));
         grid[0][6].setPiece(new ChessPiece(PlayerColor.RED, "Elephant",8));
     }
-    public Steps recordStep(ChessboardPoint fromPoint, ChessboardPoint toPoint, PlayerColor currentPlayer, int turn){
-        ChessPiece fromPiece = getChessPieceAt(fromPoint);
-        ChessPiece toPiece = getChessPieceAt(toPoint);
-        Steps step = new Steps(fromPiece, toPiece, fromPoint, toPoint, currentPlayer, turn);
-//        System.out.println(step);
-        return step;
-    }
+
     public ChessPiece getChessPieceAt(ChessboardPoint point) {
         return getGridAt(point).getPiece();
     }
@@ -76,13 +70,6 @@ public class Chessboard{
     public void setChessPiece(ChessboardPoint point, ChessPiece chessPiece) {
         getGridAt(point).setPiece(chessPiece);
     }
-    public void runStep(Steps step){
-        ChessboardPoint fromPoint = step.getSrc();
-        ChessboardPoint toPoint = step.getDest();
-        ChessPiece fromPiece = step.getSrcPiece();
-        setChessPiece(fromPoint, null);
-        setChessPiece(toPoint, fromPiece);
-    }
     public void playBack(List<Steps> steps)
     {
         for (Steps step: steps)
@@ -99,6 +86,22 @@ public class Chessboard{
             {
 
             }
+        }
+    }
+
+    public void playBack(Steps step)
+    {
+        if (isValidMove(step.src,step.dest))
+        {
+            moveChessPiece(step.src,step.dest);
+        }
+        else if (isValidCapture(step.src,step.dest))
+        {
+            captureChessPiece(step.src,step.dest);
+        }
+        else
+        {
+
         }
     }
 

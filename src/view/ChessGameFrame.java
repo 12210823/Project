@@ -8,6 +8,7 @@ import view.UI.RoundButton;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -121,7 +122,12 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");
         SaveButton.addActionListener((e) -> {
-            chessboardComponent.getGameController().saveGameToFile();
+            JFileChooser fd = new JFileChooser();
+            //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fd.showOpenDialog(null);
+            File f = fd.getSelectedFile();
+            if(f != null){}
+            chessboardComponent.getGameController().saveGameToFile(f.getPath());
         });
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
         SaveButton.setSize(200, 60);
@@ -138,7 +144,12 @@ public class ChessGameFrame extends JFrame {
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
 
         LoadButton.addActionListener(e -> {
-            chessboardComponent.getGameController().loadGameFromFile();
+            JFileChooser fd = new JFileChooser();
+            //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fd.showOpenDialog(null);
+            File f = fd.getSelectedFile();
+            if(f != null){}
+            chessboardComponent.getGameController().loadGameFromFile(f.getPath());
         });
     }
 
@@ -181,7 +192,7 @@ public class ChessGameFrame extends JFrame {
         });
     }
     private void addReplayButton(){
-        ReplayButton = new RoundButton("复盘");
+        ReplayButton = new RoundButton("悔棋");
         ReplayButton.setSize(200, 60);
         ReplayButton.setBorder(BorderFactory.createEmptyBorder());
         ReplayButton.setFont(new Font("微软雅黑", Font.BOLD, 20));

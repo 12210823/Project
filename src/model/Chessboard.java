@@ -89,6 +89,22 @@ public class Chessboard{
         }
     }
 
+    public void playBack(Steps step)
+    {
+        if (isValidMove(step.src,step.dest))
+        {
+            moveChessPiece(step.src,step.dest);
+        }
+        else if (isValidCapture(step.src,step.dest))
+        {
+            captureChessPiece(step.src,step.dest);
+        }
+        else
+        {
+
+        }
+    }
+
     public void moveChessPiece(ChessboardPoint src, ChessboardPoint dest) {
         if (!isValidMove(src, dest)) {
             throw new IllegalArgumentException("Illegal chess move!");

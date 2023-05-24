@@ -292,6 +292,34 @@ public class ChessboardComponent extends JComponent {
             removeChessComponentAtGrid(step.src);
         }
     }
+
+    public void playBack(Steps step)
+    {
+        if (getGridComponentAt(step.dest).getComponents().length>0)
+        {
+            removeChessComponentAtGrid(step.dest);
+        }
+        switch (step.srcPiece.getRank())
+        {
+            case 8 ->
+                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 7 ->
+                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 6 ->
+                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 5 ->
+                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 4 ->
+                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 3 ->
+                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 2 ->
+                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+            case 1 ->
+                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        }
+        removeChessComponentAtGrid(step.src);
+    }
     public ChessComponent removeChessComponentAtGrid(ChessboardPoint point) {
         // Note re-validation is required after remove / removeAll.
         ChessComponent chess = (ChessComponent) getGridComponentAt(point).getComponents()[0];

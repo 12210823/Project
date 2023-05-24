@@ -20,7 +20,7 @@ import java.util.List;
  * [in this demo the request methods are onPlayerClickCell() and onPlayerClickChessPiece()]
  *
 */
-public class GameController implements GameListener {
+public class GameController implements GameListener,Serializable {
 
 
     private Chessboard model;
@@ -40,10 +40,13 @@ public class GameController implements GameListener {
             FileInputStream inputStream = new FileInputStream(path);
             objectInputStream=new ObjectInputStream(inputStream);
             steps=(List<Steps>) objectInputStream.readObject();
+            List<Steps> steps = new ArrayList<>(this.steps);
             Restart();
             model.playBack(steps);
             view.playBack(steps);
             view.repaint();
+            this.steps=steps;
+            turn=steps.size();
         } catch (ClassNotFoundException | IOException e)
         {
             e.printStackTrace();
@@ -73,7 +76,7 @@ public class GameController implements GameListener {
         winner=null;
         selectedPoint=null;
         turn=1;
-        view.getChessGameFrame().statusLabel.setText("Turn: " + view.getChessGameFrame().chessboardComponent.getGameController().turn);
+        view.getChessGameFrame().statusLabel.setText("第" + turn + "回合，左方行棋");
         if (steps.size() > 0) {
             steps.subList(0, steps.size()).clear();
         }
@@ -81,10 +84,20 @@ public class GameController implements GameListener {
 
     public void Replay()
     {
+        List<Steps> steps = new ArrayList<>(this.steps);
+        System.out.println(steps.size());
         Restart();
-        model.playBack(steps);
-        view.playBack(steps);
-        view.repaint();
+        //view.repaint();
+        if (steps.size()>0) {
+            for (int i = 0; i < steps.size() - 1; i++) {
+                model.playBack(steps.get(i));
+                view.playBack(steps.get(i));
+                view.repaint();
+            }
+            steps.remove(steps.size()-1);
+            this.steps = steps;
+            turn = steps.size();
+        }
     }
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;

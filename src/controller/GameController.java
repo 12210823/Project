@@ -33,9 +33,9 @@ public class GameController implements GameListener,Serializable {
 
     public void loadGameFromFile(String path)
     {
-        if (!path.substring(path.lastIndexOf(".")).equals("txt"))
+        if (!path.substring(path.lastIndexOf(".")).equals(".txt"))
         {
-            FileWarning fileWarning=new FileWarning();
+           FileWarning fileWarning=new FileWarning();
             fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
             fileWarning.setSize(250, 100);
             fileWarning.setVisible(true);
@@ -120,13 +120,18 @@ public class GameController implements GameListener,Serializable {
         System.out.println(steps.size());
         Restart();
         //view.repaint();
+        view.paintImmediately(0,0,view.getWidth(),view.getHeight());
         if (steps.size()>0) {
-            for (int i = 0; i < steps.size() - 1; i++) {
-                model.playBack(steps.get(i));
-                view.playBack(steps.get(i));
-                view.repaint();
+            for (Steps step : steps) {
+                model.playBack(step);
+                view.playBack(step);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
             }
-            steps.remove(steps.size()-1);
             this.steps = steps;
             turn = steps.size();
         }

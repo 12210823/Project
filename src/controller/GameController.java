@@ -33,10 +33,18 @@ public class GameController implements GameListener,Serializable {
     public List<Steps> possibleSteps= new ArrayList<>();
     public void loadGameFromFile(String path)
     {
-        if (!path.substring(path.lastIndexOf(".")).equals(".txt"))
+        int dot=0;
+        for (int i=0;i<path.length();i++)
+        {
+            if (path.charAt(i)=='.')
+            {
+                dot++;
+            }
+        }
+        if (dot==0||!path.substring(path.lastIndexOf(".")).equals(".txt"))
         {
            FileWarning fileWarning=new FileWarning();
-            fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
             fileWarning.setSize(250, 100);
             fileWarning.setVisible(true);
             Restart();
@@ -62,7 +70,7 @@ public class GameController implements GameListener,Serializable {
             } catch (ClassNotFoundException | IOException e)
             {
                 FileWarning fileWarning=new FileWarning();
-                fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+                //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
                 fileWarning.setSize(250, 100);
                 fileWarning.setVisible(true);
                 Restart();
@@ -228,23 +236,24 @@ public class GameController implements GameListener,Serializable {
                 }
             }
             swapColor();
-            view.repaint();
+            view.paintImmediately(0,0,view.getWidth(),view.getHeight());
             // TODO: if the chess enter Dens or Traps and so on
         }
         if (win())
         {
             Win gui = new Win(winner);
-            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
             gui.setSize(250, 100);
             gui.setVisible(true);
         }
-        Computer();
-        if (win())
-        {
-            Win gui = new Win(winner);
-            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            gui.setSize(250, 100);
-            gui.setVisible(true);
+        else {
+            Computer();
+            if (win()) {
+                Win gui = new Win(winner);
+                //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+                gui.setSize(250, 100);
+                gui.setVisible(true);
+            }
         }
     }
 
@@ -300,23 +309,24 @@ public class GameController implements GameListener,Serializable {
                         view.getGridComponentAt(temp).repaint();
                     }
                 }
-                view.repaint();
+                view.paintImmediately(0,0,view.getWidth(),view.getHeight());
             }
         }
         if (win())
         {
             Win gui = new Win(winner);
-            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
             gui.setSize(250, 100);
             gui.setVisible(true);
         }
-        Computer();
-        if (win())
-        {
-            Win gui = new Win(winner);
-            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            gui.setSize(250, 100);
-            gui.setVisible(true);
+        else {
+            Computer();
+            if (win()) {
+                Win gui = new Win(winner);
+                //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+                gui.setSize(250, 100);
+                gui.setVisible(true);
+            }
         }
         // TODO: Implement capture function
     }
@@ -360,13 +370,18 @@ public class GameController implements GameListener,Serializable {
                 if (currentPlayer.equals(PlayerColor.RED)) {
                     int j = (int) (Math.random() * PossibleStep().size());
                     Steps step=possibleSteps.get(j);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     System.out.println(step.toString());
                     model.playBack(step);
                     System.out.println(step);
                     view.playBack(step);
                     System.out.println(step);
                     swapColor();
-                    view.repaint();
+                    view.paintImmediately(0,0,view.getWidth(),view.getHeight());
                 }
             }
             if (type==2)

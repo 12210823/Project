@@ -43,6 +43,7 @@ public class MainGameFrame extends JFrame {
         mainPanel.setLayout(new GridBagLayout());
 
         titleLabel = createTitle("斗兽棋");
+        singlePlayerButton= addButton("单人游戏");
         multiPlayerButton = addButton("多人游戏");
         settingButton = addButton("设置");
         exitButton = addButton("退出");
@@ -75,6 +76,7 @@ public class MainGameFrame extends JFrame {
 
 
         // Add buttons to the layout
+        addButtonToLayout(singlePlayerButton,gbc,0,0);
         addButtonToLayout(multiPlayerButton, gbc, 0, 1);
         addButtonToLayout(settingButton, gbc, 0, 2);
         addButtonToLayout(exitButton, gbc, 0, 3);
@@ -89,10 +91,19 @@ public class MainGameFrame extends JFrame {
     private void setupListeners() {
         // Add listeners for buttons
 
+        singlePlayerButton.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> {
+                dispose();
+                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,1);
+                //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
+                chessGameFrame.setVisible(true);
+                this.dispose();
+            });
+        });
         multiPlayerButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
                 dispose();
-                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800);
+                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,0);
                 //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();

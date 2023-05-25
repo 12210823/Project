@@ -20,7 +20,7 @@ import java.util.List;
 */
 public class GameController implements GameListener,Serializable {
 
-
+    public int type;
     private Chessboard model;
     private ChessboardComponent view;
     private PlayerColor currentPlayer;
@@ -30,7 +30,7 @@ public class GameController implements GameListener,Serializable {
     private ChessboardPoint selectedPoint;
     public int turn=1;
     public List<Steps> steps= new ArrayList<>();
-
+    public List<Steps> possibleSteps= new ArrayList<>();
     public void loadGameFromFile(String path)
     {
         if (!path.substring(path.lastIndexOf(".")).equals(".txt"))
@@ -55,6 +55,10 @@ public class GameController implements GameListener,Serializable {
                 view.repaint();
                 this.steps=steps;
                 turn=steps.size();
+                int round = (turn + 1) / 2;
+                if(turn % 2 == 1){
+                    view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
+                }else view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
             } catch (ClassNotFoundException | IOException e)
             {
                 FileWarning fileWarning=new FileWarning();
@@ -106,6 +110,7 @@ public class GameController implements GameListener,Serializable {
             for (int i = 0; i < steps.size() - 1; i++) {
                 model.playBack(steps.get(i));
                 view.playBack(steps.get(i));
+                swapColor();
                 view.repaint();
             }
             steps.remove(steps.size()-1);
@@ -136,10 +141,11 @@ public class GameController implements GameListener,Serializable {
             turn = steps.size();
         }
     }
-    public GameController(ChessboardComponent view, Chessboard model) {
+    public GameController(ChessboardComponent view, Chessboard model, int type) {
         this.view = view;
         this.model = model;
         this.currentPlayer = PlayerColor.BLUE;
+        this.type=type;
 
         view.registerController(this);
         initialize();
@@ -232,6 +238,14 @@ public class GameController implements GameListener,Serializable {
             gui.setSize(250, 100);
             gui.setVisible(true);
         }
+        Computer();
+        if (win())
+        {
+            Win gui = new Win(winner);
+            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            gui.setSize(250, 100);
+            gui.setVisible(true);
+        }
     }
 
     // click a cell with a chess
@@ -296,11 +310,73 @@ public class GameController implements GameListener,Serializable {
             gui.setSize(250, 100);
             gui.setVisible(true);
         }
+        Computer();
+        if (win())
+        {
+            Win gui = new Win(winner);
+            gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+            gui.setSize(250, 100);
+            gui.setVisible(true);
+        }
         // TODO: Implement capture function
     }
 
     public Chessboard getModel() {
         return model;
     }
+    public List<Steps> PossibleStep()
+    {
+        if (possibleSteps.size() > 0) {
+            possibleSteps.subList(0, possibleSteps.size()).clear();
+        }
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                ChessboardPoint temp = new ChessboardPoint(i,j);
+                if (model.getChessPieceAt(temp) != null){
+                    if(model.getChessPieceOwner(temp).equals(currentPlayer)){
+                        for (int x = 0; x < Constant.CHESSBOARD_ROW_SIZE.getNum(); x++) {
+                            for (int y = 0; y < Constant.CHESSBOARD_COL_SIZE.getNum(); y++) {
+                                ChessboardPoint temp1 = new ChessboardPoint(x,y);
+                                if(model.isValidMove(temp, temp1)){
+                                   possibleSteps.add(new Steps(model.getChessPieceAt(temp),model.getChessPieceAt(temp1),temp,temp1,turn));
+                                }
+                                else if(model.getChessPieceAt(temp1)!=null&&model.isValidCapture(temp,temp1)){
+                                    possibleSteps.add(new Steps(model.getChessPieceAt(temp),model.getChessPieceAt(temp1),temp,temp1,turn));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return possibleSteps;
+    }
 
+    public void Computer()
+    {
+        if (!win()&&type!=0)
+        {
+            if (type==1) {
+                if (currentPlayer.equals(PlayerColor.RED)) {
+                    int j = (int) (Math.random() * PossibleStep().size());
+                    Steps step=possibleSteps.get(j);
+                    System.out.println(step.toString());
+                    model.playBack(step);
+                    System.out.println(step);
+                    view.playBack(step);
+                    System.out.println(step);
+                    swapColor();
+                    view.repaint();
+                }
+            }
+            if (type==2)
+            {
+
+            }
+            if (type==3)
+            {
+
+            }
+        }
+    }
 }

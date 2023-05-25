@@ -35,7 +35,7 @@ public class ChessGameFrame extends JFrame {
             "resource/Backgrounds/autumn.png",
             "resource/Backgrounds/winter.png"};
 
-    public ChessGameFrame(int width, int height) {
+    public ChessGameFrame(int width, int height ,int type) {
         setTitle("2023 CS109 Project"); //设置标题
         this.WIDTH = width;
         this.HEIGTH = height;
@@ -47,7 +47,22 @@ public class ChessGameFrame extends JFrame {
         setLayout(null);
 
         addBackgroundImage();
-        initComponents();
+        if (type==0)
+        {
+            initComponents();
+        }
+        else if (type==1)
+        {
+            initComponentsAI1();
+        }
+        else if (type==2)
+        {
+
+        }
+        else if (type==3)
+        {
+
+        }
         setupLayout();
     }
     private void addBackgroundImage() {
@@ -58,6 +73,18 @@ public class ChessGameFrame extends JFrame {
     }
     public void initComponents(){
         addChessboard();
+        addLabel();
+        addSettingButton();
+        addSaveButton();
+        addLoadButton();
+        addRestartButton();
+        addExitButton();
+        addRestartButton();
+        addReplayButton();
+        addPlaybackButton();
+    }
+    public void initComponentsAI1(){
+        addChessboardAI1();
         addLabel();
         addSettingButton();
         addSaveButton();
@@ -106,10 +133,15 @@ public class ChessGameFrame extends JFrame {
      */
     private void addChessboard() {
         chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
-        new GameController(chessboardComponent, new Chessboard());
+        new GameController(chessboardComponent, new Chessboard(),0);
         chessboardComponent.setChessGameFrame(this);
     }
 
+    private void addChessboardAI1() {
+        chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
+        new GameController(chessboardComponent, new Chessboard(),1);
+        chessboardComponent.setChessGameFrame(this);
+    }
     /**
      * 在游戏面板中添加标签
      */

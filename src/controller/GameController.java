@@ -369,7 +369,7 @@ public class GameController implements GameListener,Serializable {
             if (type==1) {
                 if (currentPlayer.equals(PlayerColor.RED)) {
                     int j = (int) (Math.random() * PossibleStep().size());
-                    Steps step=possibleSteps.get(j);
+                    Steps step = possibleSteps.get(j);
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {

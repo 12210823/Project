@@ -67,7 +67,7 @@ public class MainGameFrame extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(4, 5, 5, 5);
 
         // Add title to the layout
         gbc.gridx = 0;
@@ -76,10 +76,10 @@ public class MainGameFrame extends JFrame {
 
 
         // Add buttons to the layout
-        addButtonToLayout(singlePlayerButton,gbc,0,0);
-        addButtonToLayout(multiPlayerButton, gbc, 0, 1);
-        addButtonToLayout(settingButton, gbc, 0, 2);
-        addButtonToLayout(exitButton, gbc, 0, 3);
+        addButtonToLayout(singlePlayerButton,gbc,0,1);
+        addButtonToLayout(multiPlayerButton, gbc, 0, 2);
+        addButtonToLayout(settingButton, gbc, 0, 3);
+        addButtonToLayout(exitButton, gbc, 0, 4);
 
     }
 

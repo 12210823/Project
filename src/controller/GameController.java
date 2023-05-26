@@ -370,18 +370,55 @@ public class GameController implements GameListener,Serializable {
                 if (currentPlayer.equals(PlayerColor.RED)) {
                     int j = (int) (Math.random() * PossibleStep().size());
                     Steps step = possibleSteps.get(j);
+                    selectedPoint = step.src;
+                    view.getGridComponentAt(selectedPoint).setSelected(true);
+                    view.paintImmediately(0,0,view.getWidth(),view.getHeight());
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+                    view.getGridComponentAt(selectedPoint).setSelected(false);
+                    view.paintImmediately(0,0,view.getWidth(),view.getHeight());
+                    for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                        for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                            ChessboardPoint temp = new ChessboardPoint(i,k);
+                            if (model.getChessPieceAt(temp) == null){
+                                if(model.isValidMove(selectedPoint, temp)){
+                                    view.getGridComponentAt(temp).setSelected(true);
+                                }
+                            } else {
+                                if(model.isValidCapture(selectedPoint,temp)){
+                                    view.getGridComponentAt(temp).setSelected(true);
+                                }
+                            }
+                        }
+                    }
+                    view.paintImmediately(0,0,view.getWidth(),view.getHeight());
+
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                        for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                            ChessboardPoint temp = new ChessboardPoint(i,k);
+                            view.getGridComponentAt(temp).setSelected(false);
+                        }
+                    }
+
                     System.out.println(step.toString());
                     model.playBack(step);
                     System.out.println(step);
                     view.playBack(step);
                     System.out.println(step);
+                    selectedPoint = null;
+
                     swapColor();
                     view.paintImmediately(0,0,view.getWidth(),view.getHeight());
+
                 }
             }
             if (type==2)

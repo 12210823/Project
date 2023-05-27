@@ -31,6 +31,7 @@ public class GameController implements GameListener,Serializable {
     public int turn=1;
     public List<Steps> steps= new ArrayList<>();
     public List<Steps> possibleSteps= new ArrayList<>();
+    public List<Steps> possibleForwards= new ArrayList<>();
     public void loadGameFromFile(String path)
     {
         int dot=0;
@@ -348,7 +349,7 @@ public class GameController implements GameListener,Serializable {
                             for (int y = 0; y < Constant.CHESSBOARD_COL_SIZE.getNum(); y++) {
                                 ChessboardPoint temp1 = new ChessboardPoint(x,y);
                                 if(model.isValidMove(temp, temp1)){
-                                   possibleSteps.add(new Steps(model.getChessPieceAt(temp),model.getChessPieceAt(temp1),temp,temp1,turn));
+                                    possibleSteps.add(new Steps(model.getChessPieceAt(temp),model.getChessPieceAt(temp1),temp,temp1,turn));
                                 }
                                 else if(model.getChessPieceAt(temp1)!=null&&model.isValidCapture(temp,temp1)){
                                     possibleSteps.add(new Steps(model.getChessPieceAt(temp),model.getChessPieceAt(temp1),temp,temp1,turn));
@@ -362,6 +363,30 @@ public class GameController implements GameListener,Serializable {
         return possibleSteps;
     }
 
+    public List<Steps> PossibleForwards()
+    {
+        if (possibleForwards.size() > 0) {
+            possibleForwards.subList(0, possibleForwards.size()).clear();
+        }
+        List<Steps> possiblesteps=PossibleStep();
+        for (Steps step:possiblesteps)
+        {
+            if (model.calculateDistance(step.src,new ChessboardPoint(3,0))>=model.calculateDistance(step.dest,new ChessboardPoint(3,0)))
+            {
+                possibleForwards.add(step);
+            }
+
+        }
+        if (possibleForwards.size()==0)
+        {
+            possibleForwards.addAll(possibleSteps);
+            return possiblesteps;
+        }
+        else
+        {
+            return possibleForwards;
+        }
+    }
     public void Computer()
     {
         if (!win()&&type!=0)
@@ -408,14 +433,9 @@ public class GameController implements GameListener,Serializable {
                             view.getGridComponentAt(temp).setSelected(false);
                         }
                     }
-
-                    System.out.println(step.toString());
                     model.playBack(step);
-                    System.out.println(step);
                     view.playBack(step);
-                    System.out.println(step);
                     selectedPoint = null;
-
                     swapColor();
                     view.paintImmediately(0,0,view.getWidth(),view.getHeight());
 
@@ -423,7 +443,55 @@ public class GameController implements GameListener,Serializable {
             }
             if (type==2)
             {
+                if (currentPlayer.equals(PlayerColor.RED)) {
+                    int j = (int) (Math.random() * PossibleForwards().size());
+                    System.out.println(j);
+                    Steps step = possibleForwards.get(j);
+                    System.out.println(step.toString());
+                    selectedPoint = step.src;
+                    view.getGridComponentAt(selectedPoint).setSelected(true);
+                    view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    view.getGridComponentAt(selectedPoint).setSelected(false);
+                    view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                    for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                        for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                            ChessboardPoint temp = new ChessboardPoint(i, k);
+                            if (model.getChessPieceAt(temp) == null) {
+                                if (model.isValidMove(selectedPoint, temp)) {
+                                    view.getGridComponentAt(temp).setSelected(true);
+                                }
+                            } else {
+                                if (model.isValidCapture(selectedPoint, temp)) {
+                                    view.getGridComponentAt(temp).setSelected(true);
+                                }
+                            }
+                        }
+                    }
+                    view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
 
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                        for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                            ChessboardPoint temp = new ChessboardPoint(i, k);
+                            view.getGridComponentAt(temp).setSelected(false);
+                        }
+                    }
+                    model.playBack(step);
+                    view.playBack(step);
+                    selectedPoint = null;
+                    swapColor();
+                    view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                }
             }
             if (type==3)
             {

@@ -3,11 +3,15 @@ package view;
 
 import controller.GameController;
 import model.*;
+import music.MusicThread;
 import view.AnimalChessComponent.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -348,6 +352,21 @@ public class ChessboardComponent extends JComponent {
 
     @Override
     protected void processMouseEvent(MouseEvent e) {
+        File musicFile = new File("resource/Music/click.wav");
+
+        URL musicURL;
+        try {
+            musicURL = musicFile.toURI().toURL();
+        } catch (MalformedURLException e1) {
+            throw new RuntimeException(e1);
+        }
+        // 创建音乐线程实例
+        MusicThread musicThread = new MusicThread(musicURL, false);
+
+        // 创建线程并启动
+        Thread music = new Thread(musicThread);
+        music.start();
+        musicThread.setVolume(0.5f);
         if (e.getID() == MouseEvent.MOUSE_PRESSED) {
             JComponent clickedComponent = (JComponent) getComponentAt(e.getX(), e.getY());
             if (clickedComponent.getComponentCount() == 0) {

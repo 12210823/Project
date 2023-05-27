@@ -8,7 +8,6 @@ import view.UI.RoundButton;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.Serializable;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -47,22 +46,7 @@ public class ChessGameFrame extends JFrame {
         setLayout(null);
 
         addBackgroundImage();
-        if (type==0)
-        {
-            initComponents();
-        }
-        else if (type==1)
-        {
-            initComponentsAI1();
-        }
-        else if (type==2)
-        {
-
-        }
-        else if (type==3)
-        {
-
-        }
+        initComponents(type);
         setupLayout();
     }
     private void addBackgroundImage() {
@@ -71,20 +55,8 @@ public class ChessGameFrame extends JFrame {
         setContentPane(mainPanel);
         mainPanel.setLayout(null);
     }
-    public void initComponents(){
-        addChessboard();
-        addLabel();
-        addSettingButton();
-        addSaveButton();
-        addLoadButton();
-        addRestartButton();
-        addExitButton();
-        addRestartButton();
-        addReplayButton();
-        addPlaybackButton();
-    }
-    public void initComponentsAI1(){
-        addChessboardAI1();
+    public void initComponents(int x){
+        addChessboard(x);
         addLabel();
         addSettingButton();
         addSaveButton();
@@ -131,17 +103,12 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加棋盘
      */
-    private void addChessboard() {
+    private void addChessboard(int x) {
         chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
-        new GameController(chessboardComponent, new Chessboard(),0);
+        new GameController(chessboardComponent, new Chessboard(),x);
         chessboardComponent.setChessGameFrame(this);
     }
 
-    private void addChessboardAI1() {
-        chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
-        new GameController(chessboardComponent, new Chessboard(),1);
-        chessboardComponent.setChessGameFrame(this);
-    }
     /**
      * 在游戏面板中添加标签
      */

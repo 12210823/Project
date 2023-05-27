@@ -93,11 +93,50 @@ public class MainGameFrame extends JFrame {
 
         singlePlayerButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
-                dispose();
-                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,1);
-                //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
-                chessGameFrame.setVisible(true);
-                this.dispose();
+                JDialog backgroundDialog = new JDialog(this, "模式选择", true);
+                backgroundDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                backgroundDialog.setSize(300, 225);
+                backgroundDialog.setLocationRelativeTo(this);
+                JPanel inputPanel = new ImagePanel("resource/Backgrounds/jungle3.gif");
+                inputPanel.setLayout(new GridLayout(3, 1, 10, 10));
+                inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 70, 10, 70));
+                JButton mode1 = new RoundButton("简单模式");
+                JButton mode2 = new RoundButton("中等模式");
+                JButton mode3 = new RoundButton("困难模式");
+
+                mode1.addActionListener(e1 -> {
+                    dispose();
+                    ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,1);
+                    //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
+                    chessGameFrame.setVisible(true);
+                    this.dispose();
+                });
+
+                mode2.addActionListener(e1 -> {
+                    dispose();
+                    ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,2);
+                    //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
+                    chessGameFrame.setVisible(true);
+                    this.dispose();
+                });
+
+                mode3.addActionListener(e1 -> {
+                    dispose();
+                    ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,3);
+                    //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
+                    chessGameFrame.setVisible(true);
+                    this.dispose();
+                });
+
+                mode1.setFont(new Font("微软雅黑",Font.PLAIN,18));
+                mode2.setFont(new Font("微软雅黑",Font.PLAIN,18));
+                mode3.setFont(new Font("微软雅黑",Font.PLAIN,18));
+                inputPanel.add(mode1);
+                inputPanel.add(mode2);
+                inputPanel.add(mode3);
+
+                backgroundDialog.add(inputPanel, BorderLayout.CENTER);
+                backgroundDialog.setVisible(true);
             });
         });
         multiPlayerButton.addActionListener(e -> {

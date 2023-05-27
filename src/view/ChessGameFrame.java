@@ -2,12 +2,15 @@ package view;
 
 import controller.GameController;
 import model.Chessboard;
+import music.MusicThread;
 import view.UI.ImagePanel;
 import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -125,6 +128,21 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");
         SaveButton.addActionListener((e) -> {
+            File musicFile = new File("resource/Music/click.wav");
+
+            URL musicURL;
+            try {
+                musicURL = musicFile.toURI().toURL();
+            } catch (MalformedURLException e1) {
+                throw new RuntimeException(e1);
+            }
+            // 创建音乐线程实例
+            MusicThread musicThread = new MusicThread(musicURL, false);
+
+            // 创建线程并启动
+            Thread music = new Thread(musicThread);
+            music.start();
+            musicThread.setVolume(0.5f);
             JFileChooser fd = new JFileChooser();
             //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fd.showOpenDialog(null);
@@ -147,6 +165,21 @@ public class ChessGameFrame extends JFrame {
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
 
         LoadButton.addActionListener(e -> {
+            File musicFile = new File("resource/Music/click.wav");
+
+            URL musicURL;
+            try {
+                musicURL = musicFile.toURI().toURL();
+            } catch (MalformedURLException e1) {
+                throw new RuntimeException(e1);
+            }
+            // 创建音乐线程实例
+            MusicThread musicThread = new MusicThread(musicURL, false);
+
+            // 创建线程并启动
+            Thread music = new Thread(musicThread);
+            music.start();
+            musicThread.setVolume(0.5f);
             JFileChooser fd = new JFileChooser();
             //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fd.showOpenDialog(null);

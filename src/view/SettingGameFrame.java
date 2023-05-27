@@ -1,5 +1,6 @@
 package view;
 
+import music.MusicThread;
 import view.UI.ImagePanel;
 import view.UI.RoundButton;
 
@@ -7,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class SettingGameFrame extends JFrame {
     private final int WIDTH;
@@ -94,18 +98,22 @@ public class SettingGameFrame extends JFrame {
             JButton autumnButton = new RoundButton("秋");
             JButton winterButton = new RoundButton("冬");
             springButton.addActionListener(e1 -> {
+                click();
                 backgroundDialog.dispose();
                 chessGameFrame.setTheme(Theme.spring);
             });
             summerButton.addActionListener(e1 -> {
+                click();
                 backgroundDialog.dispose();
                 chessGameFrame.setTheme(Theme.summer);
             });
             autumnButton.addActionListener(e1 -> {
+                click();
                 backgroundDialog.dispose();
                 chessGameFrame.setTheme(Theme.autumn);
             });
             winterButton.addActionListener(e1 -> {
+                click();
                 backgroundDialog.dispose();
                 chessGameFrame.setTheme(Theme.winter);
             });
@@ -128,7 +136,10 @@ public class SettingGameFrame extends JFrame {
         ruleButton.setFont(new Font("微软雅黑", Font.BOLD, 24));
 
         // Add an ActionListener to the ruleButton
-        ruleButton.addActionListener(e -> showGameRules());
+        ruleButton.addActionListener(e -> {
+            click();
+            showGameRules();
+        });
     }
     public void showGameRules(){
         String gameRule = "斗兽棋是中国一种棋类游戏，双方有八只棋子，依大小顺序为象、狮、虎、豹、犬、狼、猫、鼠。较大的可吃较小的，同类可以互吃，而鼠则可吃象，象不能吃鼠。动物走一格，前后左右都可以。\n\n棋盘横七列，纵九行。棋子放在格子中。双方底在线各有三个陷阱（作品字排）和一个兽穴(于品字中间)。如果一方进入了对方的兽穴便胜出。任何一方都不能进入自己的兽穴。如果对方的兽类走进陷阱，己方任何一只兽都可以把它吃掉，如果敌兽进入陷阱，一回合后，自己的兽类不吃掉陷阱中的敌兽，当对方进入己方兽穴时，则本方输。中间有两条小河（跟湖差不多）。狮、虎可以横直方向跳过河，而且可以直接把对岸的动物吃掉。只有鼠可以下水，在水中的鼠可以阻隔狮、虎跳河。两鼠在水内可以互吃。水里的不可直接吃陆上的,陆上的也不可吃水里的。";
@@ -148,5 +159,22 @@ public class SettingGameFrame extends JFrame {
                 "游戏规则",
                 JOptionPane.INFORMATION_MESSAGE
         );
+    }
+    public void click(){
+        File musicFile = new File("resource/Music/click.wav");
+
+        URL musicURL;
+        try {
+            musicURL = musicFile.toURI().toURL();
+        } catch (MalformedURLException e2) {
+            throw new RuntimeException(e2);
+        }
+        // 创建音乐线程实例
+        MusicThread musicThread = new MusicThread(musicURL, false);
+
+        // 创建线程并启动
+        Thread music = new Thread(musicThread);
+        music.start();
+        musicThread.setVolume(0.5f);
     }
 }

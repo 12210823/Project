@@ -2,11 +2,15 @@ package view;
 
 import controller.GameController;
 import model.Chessboard;
+import music.MusicThread;
 import view.UI.ImagePanel;
 import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainGameFrame extends JFrame {
     private final int WIDTH;
@@ -93,6 +97,7 @@ public class MainGameFrame extends JFrame {
 
         singlePlayerButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
+                click();
                 JDialog backgroundDialog = new JDialog(this, "模式选择", true);
                 backgroundDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                 backgroundDialog.setSize(300, 225);
@@ -105,6 +110,7 @@ public class MainGameFrame extends JFrame {
                 JButton mode3 = new RoundButton("困难模式");
 
                 mode1.addActionListener(e1 -> {
+                    click();
                     dispose();
                     ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,1);
                     //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
@@ -113,6 +119,7 @@ public class MainGameFrame extends JFrame {
                 });
 
                 mode2.addActionListener(e1 -> {
+                    click();
                     dispose();
                     ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,2);
                     //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
@@ -121,6 +128,7 @@ public class MainGameFrame extends JFrame {
                 });
 
                 mode3.addActionListener(e1 -> {
+                    click();
                     dispose();
                     ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,3);
                     //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
@@ -150,11 +158,32 @@ public class MainGameFrame extends JFrame {
         });
         settingButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
+                click();
                 SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
                 SettingGameFrame.setVisible(true);
             });
         });
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> {
+            click();
+            System.exit(0);
+        });
+    }
+    public void click(){
+        File musicFile = new File("resource/Music/click.wav");
+
+        URL musicURL;
+        try {
+            musicURL = musicFile.toURI().toURL();
+        } catch (MalformedURLException e2) {
+            throw new RuntimeException(e2);
+        }
+        // 创建音乐线程实例
+        MusicThread musicThread = new MusicThread(musicURL, false);
+
+        // 创建线程并启动
+        Thread music = new Thread(musicThread);
+        music.start();
+        musicThread.setVolume(0.5f);
     }
 }
 

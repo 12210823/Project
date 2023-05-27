@@ -614,6 +614,7 @@ public class GameController implements GameListener,Serializable {
                         }
                         view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
 
+
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {

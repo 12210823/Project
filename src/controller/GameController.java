@@ -4,6 +4,8 @@ package controller;
 import listener.GameListener;
 import model.*;
 import view.*;
+import view.UI.ImagePanel;
+import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -243,18 +245,20 @@ public class GameController implements GameListener,Serializable {
         }
         if (win())
         {
-            Win gui = new Win(winner);
+            End();
+            //Win gui = new Win(winner,type);
             //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            gui.setSize(250, 100);
-            gui.setVisible(true);
+            //gui.setSize(250, 100);
+            //gui.setVisible(true);
         }
         else {
             Computer();
             if (win()) {
-                Win gui = new Win(winner);
+                End();
+                //Win gui = new Win(winner,type);
                 //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                gui.setSize(250, 100);
-                gui.setVisible(true);
+                //gui.setSize(250, 100);
+                //gui.setVisible(true);
             }
         }
     }
@@ -316,18 +320,20 @@ public class GameController implements GameListener,Serializable {
         }
         if (win())
         {
-            Win gui = new Win(winner);
+            End();
+            //Win gui = new Win(winner,type);
             //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            gui.setSize(250, 100);
-            gui.setVisible(true);
+            //gui.setSize(250, 100);
+            //gui.setVisible(true);
         }
         else {
             Computer();
             if (win()) {
-                Win gui = new Win(winner);
+                End();
+                //Win gui = new Win(winner,type);
                 //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                gui.setSize(250, 100);
-                gui.setVisible(true);
+                //gui.setSize(250, 100);
+                //gui.setVisible(true);
             }
         }
         // TODO: Implement capture function
@@ -629,5 +635,52 @@ public class GameController implements GameListener,Serializable {
                 }
             }
         }
+    }
+    public void End(){
+        JDialog end = new JDialog(this.view.getChessGameFrame(),"游戏结束",true);
+        end.setSize(320,200);
+        JPanel panel = new ImagePanel("resource/Backgrounds/fallBackground.gif");
+        panel.setLayout(new GridLayout(3, 1, 20, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 70, 10, 70));
+
+        JLabel label;
+        if(type == 0){
+            if(winner == PlayerColor.BLUE){
+                label = new JLabel("左方胜利",JLabel.CENTER);
+            }else label = new JLabel("右方胜利",JLabel.CENTER);
+        }else{
+            if(winner == PlayerColor.BLUE){
+                label = new JLabel("你赢了",JLabel.CENTER);
+            }else label = new JLabel("你输了",JLabel.CENTER);
+        }
+        label.setForeground(Color.white);
+        label.setFont(new Font("微软雅黑", Font.PLAIN, 40));
+
+        JButton restart = new RoundButton("重新开始");
+        JButton exit = new RoundButton("退出");
+        restart.setFont(new Font("微软雅黑", Font.PLAIN, 20));
+        exit.setFont(new Font("微软雅黑", Font.PLAIN, 20));
+        restart.setSize(100,50);
+        exit.setSize(100,50);
+
+        restart.addActionListener(e -> {
+            end.dispose();
+            Restart();
+        });
+        exit.addActionListener(e -> {
+            end.dispose();
+            view.chessGameFrame.dispose();
+            MainGameFrame mainGameFrame = new MainGameFrame(800, 500);
+            mainGameFrame.setVisible(true);
+        });
+
+        panel.add(label);
+        panel.add(restart);
+        panel.add(exit);
+
+
+        end.add(panel);
+        end.setLocationRelativeTo(this.view.chessGameFrame);
+        end.setVisible(true);
     }
 }

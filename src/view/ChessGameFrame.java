@@ -71,28 +71,28 @@ public class ChessGameFrame extends JFrame {
         addPlaybackButton();
     }
     public void setupLayout(){
-        SettingButton.setLocation(WIDTH - 290, HEIGTH - 106 - 380);
+        SettingButton.setLocation(WIDTH - 220, HEIGTH - 76 - 300);
         mainPanel.add(SettingButton);
 
-        SaveButton.setLocation(WIDTH - 290, HEIGTH - 106 - 300);
+        SaveButton.setLocation(WIDTH - 220, HEIGTH - 76 - 220);
         mainPanel.add(SaveButton);
 
-        LoadButton.setLocation(WIDTH - 290, HEIGTH - 106 - 220);
+        LoadButton.setLocation(WIDTH - 140, HEIGTH - 76 - 220);
         mainPanel.add(LoadButton);
 
-        RestartButton.setLocation(WIDTH - 290, HEIGTH - 106 - 140);
+        RestartButton.setLocation(WIDTH - 220, HEIGTH - 76 - 140);
         mainPanel.add(RestartButton);
 
-        ExitButton.setLocation(WIDTH - 290, HEIGTH - 106 - 60);
+        ExitButton.setLocation(WIDTH - 220, HEIGTH - 76 - 60);
         mainPanel.add(ExitButton);
 
-        chessboardComponent.setLocation(100, HEIGTH / 14);
+        chessboardComponent.setLocation(90, HEIGTH / 14 + 30);
         add(chessboardComponent);
 
-        ReplayButton.setLocation(WIDTH - 290, HEIGTH - 106 - 460);
+        ReplayButton.setLocation(WIDTH - 220, HEIGTH - 76 - 380);
         mainPanel.add(ReplayButton);
 
-        PlaybackButton.setLocation(WIDTH - 290, HEIGTH - 106 - 540);
+        PlaybackButton.setLocation(WIDTH - 220, HEIGTH - 76 - 460);
         mainPanel.add(PlaybackButton);
     }
     public ChessboardComponent getChessboardComponent() {
@@ -117,16 +117,16 @@ public class ChessGameFrame extends JFrame {
      */
     private void addLabel() {
         statusLabel = new RoundButton("第1回合，左方行棋");
-        statusLabel.setLocation(WIDTH-340, 0);
-        statusLabel.setSize(300, 50);
+        statusLabel.setLocation(WIDTH / 2 - 125, 0);
+        statusLabel.setSize(270, 60);
         statusLabel.setForeground(Color.white);
         statusLabel.setBorder(BorderFactory.createEmptyBorder());
-        statusLabel.setFont(new Font("微软雅黑", Font.BOLD, 22));
+        statusLabel.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         add(statusLabel);
     }
 
     private void addSaveButton() {
-        SaveButton = new RoundButton("存档");
+        SaveButton = new RoundButton("存");
         SaveButton.addActionListener((e) -> {
             File musicFile = new File("resource/Music/click.wav");
 
@@ -151,17 +151,17 @@ public class ChessGameFrame extends JFrame {
             chessboardComponent.getGameController().saveGameToFile(f.getPath());
         });
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
-        SaveButton.setSize(200, 60);
-        SaveButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        SaveButton.setSize(60, 60);
+        SaveButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
 
     }
 
     private void addLoadButton() {
-        LoadButton = new RoundButton("读档");
+        LoadButton = new RoundButton("读");
         LoadButton.setForeground(Color.white);
 
-        LoadButton.setSize(200, 60);
-        LoadButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        LoadButton.setSize(60, 60);
+        LoadButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
 
         LoadButton.addActionListener(e -> {
@@ -193,15 +193,15 @@ public class ChessGameFrame extends JFrame {
         RestartButton = new RoundButton("重置");
         RestartButton.addActionListener((e) -> chessboardComponent.getGameController().Restart());
 
-        RestartButton.setSize(200, 60);
-        RestartButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        RestartButton.setSize(140, 60);
+        RestartButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         RestartButton.setBorder(BorderFactory.createEmptyBorder());
 
     }
     private void addExitButton() {
         ExitButton = new RoundButton("退出");
-        ExitButton.setSize(200, 60);
-        ExitButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        ExitButton.setSize(140, 60);
+        ExitButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         ExitButton.setBorder(BorderFactory.createEmptyBorder());
         ExitButton.addActionListener(e -> {
             System.out.println("Click exit");
@@ -215,9 +215,9 @@ public class ChessGameFrame extends JFrame {
     }
     private void addSettingButton(){
         SettingButton = new RoundButton("设置");
-        SettingButton.setSize(200, 60);
+        SettingButton.setSize(140, 60);
         SettingButton.setBorder(BorderFactory.createEmptyBorder());
-        SettingButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        SettingButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         SettingButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
             SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
             SettingGameFrame.setVisible(true);
@@ -225,16 +225,16 @@ public class ChessGameFrame extends JFrame {
     }
     private void addReplayButton(){
         ReplayButton = new RoundButton("悔棋");
-        ReplayButton.setSize(200, 60);
+        ReplayButton.setSize(140, 60);
         ReplayButton.setBorder(BorderFactory.createEmptyBorder());
-        ReplayButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        ReplayButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         ReplayButton.addActionListener(e -> chessboardComponent.getGameController().Replay());
     }
     private void addPlaybackButton(){
         PlaybackButton = new RoundButton("回放");
-        PlaybackButton.setSize(200, 60);
+        PlaybackButton.setSize(140, 60);
         PlaybackButton.setBorder(BorderFactory.createEmptyBorder());
-        PlaybackButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
+        PlaybackButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
         PlaybackButton.addActionListener(e -> chessboardComponent.getGameController().Playback());
     }
     public void setTheme(Theme theme) {

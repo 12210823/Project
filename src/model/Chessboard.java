@@ -1,7 +1,5 @@
 package model;
 
-import controller.GameController;
-import view.FileWarning;
 import view.UI.ImagePanel;
 
 import javax.swing.*;
@@ -96,7 +94,7 @@ public class Chessboard{
                 panel.setLayout(new GridLayout(2, 1, 20, 10));
                 panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
                 JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
-                JLabel w2 = new JLabel("已从新开始。",SwingConstants.CENTER);
+                JLabel w2 = new JLabel("已重新开始。",SwingConstants.CENTER);
                 w1.setForeground(Color.white);
                 w2.setForeground(Color.white);
                 w1.setFont(new Font("微软雅黑",Font.PLAIN,30));
@@ -134,7 +132,7 @@ public class Chessboard{
             panel.setLayout(new GridLayout(2, 1, 20, 10));
             panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
             JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
-            JLabel w2 = new JLabel("已从新开始。",SwingConstants.CENTER);
+            JLabel w2 = new JLabel("已重新开始。",SwingConstants.CENTER);
             w1.setForeground(Color.white);
             w2.setForeground(Color.white);
             w1.setFont(new Font("微软雅黑",Font.PLAIN,30));

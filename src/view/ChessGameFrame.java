@@ -191,9 +191,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addRestartButton() {
         RestartButton = new RoundButton("重置");
-        RestartButton.addActionListener((e) -> {
-            chessboardComponent.getGameController().Restart();
-        });
+        RestartButton.addActionListener((e) -> chessboardComponent.getGameController().Restart());
 
         RestartButton.setSize(200, 60);
         RestartButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
@@ -220,30 +218,24 @@ public class ChessGameFrame extends JFrame {
         SettingButton.setSize(200, 60);
         SettingButton.setBorder(BorderFactory.createEmptyBorder());
         SettingButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
-        SettingButton.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> {
-                SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
-                SettingGameFrame.setVisible(true);
-            });
-        });
+        SettingButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
+            SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
+            SettingGameFrame.setVisible(true);
+        }));
     }
     private void addReplayButton(){
         ReplayButton = new RoundButton("悔棋");
         ReplayButton.setSize(200, 60);
         ReplayButton.setBorder(BorderFactory.createEmptyBorder());
         ReplayButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
-        ReplayButton.addActionListener(e -> {
-            chessboardComponent.getGameController().Replay();
-        });
+        ReplayButton.addActionListener(e -> chessboardComponent.getGameController().Replay());
     }
     private void addPlaybackButton(){
         PlaybackButton = new RoundButton("回放");
         PlaybackButton.setSize(200, 60);
         PlaybackButton.setBorder(BorderFactory.createEmptyBorder());
         PlaybackButton.setFont(new Font("微软雅黑", Font.BOLD, 20));
-        PlaybackButton.addActionListener(e -> {
-            chessboardComponent.getGameController().Playback();
-        });
+        PlaybackButton.addActionListener(e -> chessboardComponent.getGameController().Playback());
     }
     public void setTheme(Theme theme) {
         this.theme = theme;

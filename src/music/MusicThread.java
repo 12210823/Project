@@ -1,12 +1,14 @@
 package music;
 
-import javax.sound.sampled.*;
-import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.net.URL;
 
 public class MusicThread implements Runnable {
-    private URL musicPath;
-    private boolean isLoop;
+    private final URL musicPath;
+    private final boolean isLoop;
     private FloatControl gainControl;
 
     public MusicThread(URL musicPath, boolean isLoop) {

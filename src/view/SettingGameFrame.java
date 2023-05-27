@@ -6,8 +6,6 @@ import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,6 +61,7 @@ public class SettingGameFrame extends JFrame {
     public void initComponents(){
         addThemeButton();
         addRuleButton();
+        addBackButton();
     }
 
     public void setupLayout(){
@@ -70,6 +69,8 @@ public class SettingGameFrame extends JFrame {
         themeButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, 10);
         mainPanel.add(ruleButton);
         ruleButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, BUTTON_HEIGHT + 20);
+        mainPanel.add(backButton);
+        backButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, 2 * BUTTON_HEIGHT + 30);
     }
     public void addThemeButton(){
         themeButton = new RoundButton("主题");
@@ -139,6 +140,15 @@ public class SettingGameFrame extends JFrame {
         ruleButton.addActionListener(e -> {
             click();
             showGameRules();
+        });
+    }
+    public void addBackButton(){
+        backButton = new RoundButton("返回");
+        backButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+        backButton.setFont(new Font("微软雅黑", Font.BOLD, 24));
+        backButton.addActionListener(e -> {
+            click();
+            this.dispose();
         });
     }
     public void showGameRules(){

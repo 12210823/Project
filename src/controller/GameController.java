@@ -32,6 +32,7 @@ public class GameController implements GameListener,Serializable {
     public List<Steps> steps= new ArrayList<>();
     public List<Steps> possibleSteps= new ArrayList<>();
     public List<Steps> possibleForwards= new ArrayList<>();
+    public List<Steps> possibleCaptures=new ArrayList<>();
     public void loadGameFromFile(String path)
     {
         int dot=0;
@@ -387,6 +388,36 @@ public class GameController implements GameListener,Serializable {
             return possibleForwards;
         }
     }
+    public Steps BiggestCaptures()
+    {
+        if (possibleCaptures.size() > 0) {
+            possibleCaptures.subList(0, possibleCaptures.size()).clear();
+        }
+        List<Steps> possiblesteps=PossibleStep();
+        Steps biggestCapture=possiblesteps.get(0);
+        for (Steps step:possiblesteps)
+        {
+            if (model.getChessPieceAt(step.dest)!=null)
+            {
+                possibleCaptures.add(step);
+            }
+        }
+        for (Steps step:possibleCaptures)
+        {
+            if (step.destPiece!=null)
+            {
+                if (biggestCapture.destPiece==null)
+                {
+                    biggestCapture=step;
+                }
+                else if (step.destPiece.rank>biggestCapture.destPiece.rank)
+                {
+                    biggestCapture=step;
+                }
+            }
+        }
+        return biggestCapture;
+    }
     public void Computer()
     {
         if (!win()&&type!=0)
@@ -495,7 +526,107 @@ public class GameController implements GameListener,Serializable {
             }
             if (type==3)
             {
+                if (currentPlayer.equals(PlayerColor.RED)) {
+                    if (BiggestCaptures().destPiece==null)
+                    {
+                        int j = (int) (Math.random() * PossibleForwards().size());
+                        System.out.println(j);
+                        Steps step = possibleForwards.get(j);
+                        System.out.println(step.toString());
+                        selectedPoint = step.src;
+                        view.getGridComponentAt(selectedPoint).setSelected(true);
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        view.getGridComponentAt(selectedPoint).setSelected(false);
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                            for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                                ChessboardPoint temp = new ChessboardPoint(i, k);
+                                if (model.getChessPieceAt(temp) == null) {
+                                    if (model.isValidMove(selectedPoint, temp)) {
+                                        view.getGridComponentAt(temp).setSelected(true);
+                                    }
+                                } else {
+                                    if (model.isValidCapture(selectedPoint, temp)) {
+                                        view.getGridComponentAt(temp).setSelected(true);
+                                    }
+                                }
+                            }
+                        }
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
 
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                            for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                                ChessboardPoint temp = new ChessboardPoint(i, k);
+                                view.getGridComponentAt(temp).setSelected(false);
+                            }
+                        }
+                        model.playBack(step);
+                        view.playBack(step);
+                        selectedPoint = null;
+                        swapColor();
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                        PossibleStep();
+                    }
+                    else
+                    {
+                        Steps step = BiggestCaptures();
+                        System.out.println(step.toString());
+                        selectedPoint = step.src;
+                        view.getGridComponentAt(selectedPoint).setSelected(true);
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        view.getGridComponentAt(selectedPoint).setSelected(false);
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                            for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                                ChessboardPoint temp = new ChessboardPoint(i, k);
+                                if (model.getChessPieceAt(temp) == null) {
+                                    if (model.isValidMove(selectedPoint, temp)) {
+                                        view.getGridComponentAt(temp).setSelected(true);
+                                    }
+                                } else {
+                                    if (model.isValidCapture(selectedPoint, temp)) {
+                                        view.getGridComponentAt(temp).setSelected(true);
+                                    }
+                                }
+                            }
+                        }
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+                            for (int k = 0; k < Constant.CHESSBOARD_COL_SIZE.getNum(); k++) {
+                                ChessboardPoint temp = new ChessboardPoint(i, k);
+                                view.getGridComponentAt(temp).setSelected(false);
+                            }
+                        }
+                        model.playBack(step);
+                        view.playBack(step);
+                        selectedPoint = null;
+                        swapColor();
+                        view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                    }
+                }
             }
         }
     }

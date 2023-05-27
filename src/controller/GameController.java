@@ -66,7 +66,7 @@ public class GameController implements GameListener,Serializable {
                 view.playBack(steps);
                 view.repaint();
                 this.steps=steps;
-                turn=steps.size();
+                turn=steps.size()+1;
                 int round = (turn + 1) / 2;
                 if(turn % 2 == 1){
                     view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
@@ -114,20 +114,42 @@ public class GameController implements GameListener,Serializable {
 
     public void Replay()
     {
-        List<Steps> steps = new ArrayList<>(this.steps);
-        System.out.println(steps.size());
-        Restart();
-        //view.repaint();
-        if (steps.size()>0) {
-            for (int i = 0; i < steps.size() - 1; i++) {
-                model.playBack(steps.get(i));
-                view.playBack(steps.get(i));
-                swapColor();
-                view.repaint();
+        if (type==0)
+        {
+            List<Steps> steps = new ArrayList<>(this.steps);
+            System.out.println(steps.size());
+            Restart();
+            //view.repaint();
+            if (steps.size()>0) {
+                for (int i = 0; i < steps.size() - 1; i++) {
+                    model.playBack(steps.get(i));
+                    view.playBack(steps.get(i));
+                    swapColor();
+                    view.repaint();
+                }
+                steps.remove(steps.size()-1);
+                this.steps = steps;
+                turn = steps.size();
             }
-            steps.remove(steps.size()-1);
-            this.steps = steps;
-            turn = steps.size();
+        }
+        else
+        {
+            List<Steps> steps = new ArrayList<>(this.steps);
+            System.out.println(steps.size());
+            Restart();
+            //view.repaint();
+            if (steps.size()>=2) {
+                for (int i = 0; i < steps.size() - 2; i++) {
+                    model.playBack(steps.get(i));
+                    view.playBack(steps.get(i));
+                    swapColor();
+                    view.repaint();
+                }
+                steps.remove(steps.size()-1);
+                steps.remove(steps.size()-1);
+                this.steps = steps;
+                turn = steps.size();
+            }
         }
     }
 
@@ -433,6 +455,7 @@ public class GameController implements GameListener,Serializable {
                     int j = (int) (Math.random() * PossibleStep().size());
                     Steps step = possibleSteps.get(j);
                     selectedPoint = step.src;
+                    steps.add(step);
                     view.getGridComponentAt(selectedPoint).setSelected(true);
                     view.paintImmediately(0,0,view.getWidth(),view.getHeight());
                     try {
@@ -484,6 +507,7 @@ public class GameController implements GameListener,Serializable {
                     int j = (int) (Math.random() * PossibleForwards().size());
                     System.out.println(j);
                     Steps step = possibleForwards.get(j);
+                    steps.add(step);
                     System.out.println(step.toString());
                     selectedPoint = step.src;
                     view.getGridComponentAt(selectedPoint).setSelected(true);
@@ -538,6 +562,7 @@ public class GameController implements GameListener,Serializable {
                         int j = (int) (Math.random() * PossibleForwards().size());
                         System.out.println(j);
                         Steps step = possibleForwards.get(j);
+                        steps.add(step);
                         System.out.println(step.toString());
                         selectedPoint = step.src;
                         view.getGridComponentAt(selectedPoint).setSelected(true);

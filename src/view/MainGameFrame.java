@@ -109,7 +109,7 @@ public class MainGameFrame extends JFrame {
             mode1.addActionListener(e1 -> {
                 click();
                 dispose();
-                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,1);
+                ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,1);
                 //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();
@@ -118,7 +118,7 @@ public class MainGameFrame extends JFrame {
             mode2.addActionListener(e1 -> {
                 click();
                 dispose();
-                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,2);
+                ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,2);
                 //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();
@@ -127,7 +127,7 @@ public class MainGameFrame extends JFrame {
             mode3.addActionListener(e1 -> {
                 click();
                 dispose();
-                ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,3);
+                ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,3);
                 //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();
@@ -145,7 +145,7 @@ public class MainGameFrame extends JFrame {
         }));
         multiPlayerButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
             dispose();
-            ChessGameFrame chessGameFrame = new ChessGameFrame(1300, 800,0);
+            ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,0);
             //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
             chessGameFrame.setVisible(true);
             this.dispose();

@@ -24,7 +24,7 @@ public class GameController implements GameListener,Serializable {
 
     public int type;
     private Chessboard model;
-    private ChessboardComponent view;
+    public ChessboardComponent view;
     private PlayerColor currentPlayer;
     public PlayerColor winner;
 
@@ -47,10 +47,26 @@ public class GameController implements GameListener,Serializable {
         }
         if (dot==0||!path.substring(path.lastIndexOf(".")).equals(".txt"))
         {
-           FileWarning fileWarning=new FileWarning();
+            JDialog warning = new JDialog(this.view.getChessGameFrame(),"游戏结束",true);
+            warning.setSize(350,200);
+            JPanel panel = new ImagePanel("resource/Backgrounds/warning.png");
+            panel.setLayout(new GridLayout(2, 1, 20, 10));
+            panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+            JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
+            JLabel w2 = new JLabel("已从新开始。",SwingConstants.CENTER);
+            w1.setForeground(Color.white);
+            w2.setForeground(Color.white);
+            w1.setFont(new Font("微软雅黑",Font.PLAIN,30));
+            w2.setFont(new Font("微软雅黑",Font.PLAIN,30));
+            panel.add(w1);
+            panel.add(w2);
+
+            warning.add(panel);
+            warning.setVisible(true);
+           //FileWarning fileWarning=new FileWarning();
             //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            fileWarning.setSize(250, 100);
-            fileWarning.setVisible(true);
+            //fileWarning.setSize(250, 100);
+            //fileWarning.setVisible(true);
             Restart();
         }
         else
@@ -81,10 +97,23 @@ public class GameController implements GameListener,Serializable {
                 }
             } catch (ClassNotFoundException | IOException e)
             {
-                FileWarning fileWarning=new FileWarning();
-                //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                fileWarning.setSize(250, 100);
-                fileWarning.setVisible(true);
+                JDialog warning = new JDialog(this.view.getChessGameFrame(),"游戏结束",true);
+                warning.setSize(350,200);
+                JPanel panel = new ImagePanel("resource/Backgrounds/warning.png");
+                panel.setLayout(new GridLayout(2, 1, 20, 10));
+                panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+                JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
+                JLabel w2 = new JLabel("已从新开始。",SwingConstants.CENTER);
+                w1.setForeground(Color.white);
+                w2.setForeground(Color.white);
+                w1.setFont(new Font("微软雅黑",Font.PLAIN,30));
+                w2.setFont(new Font("微软雅黑",Font.PLAIN,30));
+                panel.add(w1);
+                panel.add(w2);
+
+                warning.add(panel);
+                warning.setVisible(true);
+
                 Restart();
                 e.printStackTrace();
             }

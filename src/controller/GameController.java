@@ -62,15 +62,23 @@ public class GameController implements GameListener,Serializable {
                 steps=(List<Steps>) objectInputStream.readObject();
                 List<Steps> steps = new ArrayList<>(this.steps);
                 Restart();
-                model.playBack(steps);
-                view.playBack(steps);
-                view.repaint();
-                this.steps=steps;
-                turn=steps.size()+1;
-                int round = (turn + 1) / 2;
-                if(turn % 2 == 1){
-                    view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
-                }else view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                if (model.playBack(steps))
+                {
+                    view.playBack(steps);
+                    view.repaint();
+                    this.steps=steps;
+                    turn=steps.size()+1;
+                    int round = (turn + 1) / 2;
+                    if(turn % 2 == 1)
+                    {
+                        view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
+                    }else
+                        view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                }
+                else
+                {
+                    Restart();
+                }
             } catch (ClassNotFoundException | IOException e)
             {
                 FileWarning fileWarning=new FileWarning();

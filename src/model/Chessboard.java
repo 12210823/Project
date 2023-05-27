@@ -73,7 +73,7 @@ public class Chessboard{
     public void setChessPiece(ChessboardPoint point, ChessPiece chessPiece) {
         getGridAt(point).setPiece(chessPiece);
     }
-    public void playBack(List<Steps> steps)
+    public boolean playBack(List<Steps> steps)
     {
         for (Steps step: steps)
         {
@@ -91,8 +91,10 @@ public class Chessboard{
                 //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
                 fileWarning.setSize(250, 100);
                 fileWarning.setVisible(true);
+                return false;
             }
         }
+        return true;
     }
 
     public void playBack(Steps step)

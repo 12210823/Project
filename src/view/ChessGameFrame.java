@@ -30,6 +30,8 @@ public class ChessGameFrame extends JFrame {
     private JButton SettingButton;
     private JButton ExitButton;
     public JButton ReplayButton;
+    private JButton MenuButton;
+
     public ChessboardComponent chessboardComponent;
     private String[] bgPaths = {
             "resource/Backgrounds/spring.png",
@@ -69,9 +71,10 @@ public class ChessGameFrame extends JFrame {
         addRestartButton();
         addReplayButton();
         addPlaybackButton();
+        addMenuButton();
     }
     public void setupLayout(){
-        SettingButton.setLocation(WIDTH - 220, HEIGTH - 76 - 300);
+        /*SettingButton.setLocation(WIDTH - 220, HEIGTH - 76 - 300);
         mainPanel.add(SettingButton);
 
         SaveButton.setLocation(WIDTH - 220, HEIGTH - 76 - 220);
@@ -81,19 +84,19 @@ public class ChessGameFrame extends JFrame {
         mainPanel.add(LoadButton);
 
         RestartButton.setLocation(WIDTH - 220, HEIGTH - 76 - 140);
-        mainPanel.add(RestartButton);
+        mainPanel.add(RestartButton);*/
 
-        ExitButton.setLocation(WIDTH - 220, HEIGTH - 76 - 60);
+        ExitButton.setLocation(WIDTH - 79 - 140 - 5, HEIGTH - 76 - 60);
         mainPanel.add(ExitButton);
 
-        chessboardComponent.setLocation(90, HEIGTH / 14 + 30);
+        chessboardComponent.setLocation(79, HEIGTH / 14 + 30);
         add(chessboardComponent);
 
-        ReplayButton.setLocation(WIDTH - 220, HEIGTH - 76 - 380);
+        ReplayButton.setLocation(WIDTH - 79 - 140 - 5, HEIGTH - 76 - 220);
         mainPanel.add(ReplayButton);
 
-        PlaybackButton.setLocation(WIDTH - 220, HEIGTH - 76 - 460);
-        mainPanel.add(PlaybackButton);
+        MenuButton.setLocation(WIDTH - 79 - 140 - 5,HEIGTH - 76 - 140);
+        mainPanel.add(MenuButton);
     }
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -115,9 +118,59 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加标签
      */
+    private void addMenuButton(){
+        MenuButton = new RoundButton("菜单");
+        MenuButton.setBorder(BorderFactory.createEmptyBorder());
+        MenuButton.setSize(140, 60);
+        MenuButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+
+        MenuButton.addActionListener(e -> {
+            File musicFile = new File("resource/Music/click.wav");
+
+            URL musicURL;
+            try {
+                musicURL = musicFile.toURI().toURL();
+            } catch (MalformedURLException e1) {
+                throw new RuntimeException(e1);
+            }
+            // 创建音乐线程实例
+            MusicThread musicThread = new MusicThread(musicURL, false);
+
+            // 创建线程并启动
+            Thread music = new Thread(musicThread);
+            music.start();
+            musicThread.setVolume(0.5f);
+
+            JDialog menu = new JDialog(this,"菜单",true);
+            menu.setSize(400,300);
+            menu.setLocationRelativeTo(this);
+
+            JPanel backGround = new ImagePanel("resource/Backgrounds/jungle3.gif");
+            backGround.setBorder(BorderFactory.createEmptyBorder(30, 70, 30, 70));
+            backGround.setLayout(new GridLayout(3, 2, 30, 30));
+            JButton back = new RoundButton("返回");
+            back.addActionListener(e1 -> menu.dispose());
+            SettingButton.addActionListener(e1 -> menu.dispose());
+            RestartButton.addActionListener(e1 -> menu.dispose());
+            SaveButton.addActionListener(e1 -> menu.dispose());
+            LoadButton.addActionListener(e1 -> menu.dispose());
+            PlaybackButton.addActionListener(e1 -> menu.dispose());
+
+            backGround.add(SettingButton);
+            backGround.add(RestartButton);
+            backGround.add(SaveButton);
+            backGround.add(LoadButton);
+            backGround.add(PlaybackButton);
+            backGround.add(back);
+
+            menu.add(backGround);
+
+            menu.setVisible(true);
+        });
+    }
     private void addLabel() {
         statusLabel = new RoundButton("第1回合，左方行棋");
-        statusLabel.setLocation(WIDTH / 2 - 125, 0);
+        statusLabel.setLocation(WIDTH - 289, 0);
         statusLabel.setSize(270, 60);
         statusLabel.setForeground(Color.white);
         statusLabel.setBorder(BorderFactory.createEmptyBorder());
@@ -126,7 +179,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addSaveButton() {
-        SaveButton = new RoundButton("存");
+        SaveButton = new RoundButton("存档");
         SaveButton.addActionListener((e) -> {
             File musicFile = new File("resource/Music/click.wav");
 
@@ -157,7 +210,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addLoadButton() {
-        LoadButton = new RoundButton("读");
+        LoadButton = new RoundButton("读档");
         LoadButton.setForeground(Color.white);
 
         LoadButton.setSize(60, 60);

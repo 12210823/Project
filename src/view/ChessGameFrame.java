@@ -22,6 +22,7 @@ public class ChessGameFrame extends JFrame {
     private final int ONE_CHESS_SIZE;
     private ImagePanel mainPanel;
     public Theme theme;
+    public int style;
     public RoundButton statusLabel;
     private JButton RestartButton;
     public JButton PlaybackButton;
@@ -289,5 +290,10 @@ public class ChessGameFrame extends JFrame {
         }
         mainPanel.repaint();
         chessboardComponent.repaint();
+    }
+
+    public void setStyle(int style) {
+        this.style = style;
+        chessboardComponent.setStyle(style);
     }
 }

@@ -15,9 +15,19 @@ import java.awt.*;
 public class ChessComponent extends JComponent {
     private PlayerColor owner;
     private boolean selected;
+    private int style;
+    public ChessComponent(PlayerColor owner, int size,int style) {
+        this.owner = owner;
+        this.selected = false;
+        this.style = style;
+        setSize(size, size);
+        setLocation(0,0);
+        setVisible(true);
+    }
     public ChessComponent(PlayerColor owner, int size) {
         this.owner = owner;
         this.selected = false;
+        this.style = 0;
         setSize(size, size);
         setLocation(0,0);
         setVisible(true);

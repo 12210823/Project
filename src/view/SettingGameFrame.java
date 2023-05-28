@@ -24,7 +24,7 @@ public class SettingGameFrame extends JFrame {
     private RoundButton rankButton;
     private RoundButton volumeButton;
     private RoundButton themeButton;
-    private RoundButton chessboardButton;
+    private RoundButton styleButton;
     private RoundButton ruleButton;
     private RoundButton backButton;
     public SettingGameFrame(int width, int height, JFrame mainFrame) {
@@ -62,15 +62,18 @@ public class SettingGameFrame extends JFrame {
         addThemeButton();
         addRuleButton();
         addBackButton();
+        addStyleButton();
     }
 
     public void setupLayout(){
         mainPanel.add(themeButton);
         themeButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, 10);
         mainPanel.add(ruleButton);
-        ruleButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, BUTTON_HEIGHT + 20);
+        ruleButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, 2 * BUTTON_HEIGHT + 30);
         mainPanel.add(backButton);
-        backButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, 2 * BUTTON_HEIGHT + 30);
+        backButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, 3 * BUTTON_HEIGHT + 40);
+        mainPanel.add(styleButton);
+        styleButton.setLocation(getWidth() / 2 - BUTTON_WIDTH / 2, BUTTON_HEIGHT + 20);
     }
     public void addThemeButton(){
         themeButton = new RoundButton("主题");
@@ -149,6 +152,63 @@ public class SettingGameFrame extends JFrame {
         backButton.addActionListener(e -> {
             click();
             this.dispose();
+        });
+    }
+    public void addStyleButton(){
+        styleButton = new RoundButton("棋子样式");
+        styleButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+        styleButton.setFont(new Font("微软雅黑", Font.BOLD, 24));
+        styleButton.addActionListener(e -> {
+            if (chessGameFrame == null) {
+                System.out.println("chessGameFrame is null");
+                return;
+            }
+            // 创建背景选择对话框
+            JDialog backgroundDialog = new JDialog(this, "Background", true);
+            backgroundDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            backgroundDialog.setSize(300, 225);
+            backgroundDialog.setLocationRelativeTo(this);
+
+
+            // 添加背景选择按钮
+            JPanel inputPanel = new ImagePanel("resource/Backgrounds/jungle3.gif");
+            ImageIcon color = new ImageIcon("resource/AnimalIcons/catLeft.png");
+            ImageIcon black = new ImageIcon("resource/AnimalIcons/catL.png");
+
+            JButton button0 = new JButton();
+            button0.setContentAreaFilled(false);
+            button0.setBorder(BorderFactory.createEmptyBorder());
+            button0.setSize(130,130);
+            Image co = color.getImage().getScaledInstance(button0.getWidth(),button0.getHeight(),color.getImage().SCALE_DEFAULT);
+            color = new ImageIcon(co);
+            button0.setIcon(color);
+
+            JButton button1 = new JButton();
+            button1.setContentAreaFilled(false);
+            button1.setBorder(BorderFactory.createEmptyBorder());
+            button1.setSize(130,130);
+            Image bl = black.getImage().getScaledInstance(button0.getWidth(),button0.getHeight(),color.getImage().SCALE_DEFAULT);
+            black = new ImageIcon(bl);
+            button1.setIcon(black);
+
+            button0.addActionListener(e1 -> {
+                click();
+                backgroundDialog.dispose();
+                chessGameFrame.setStyle(0);
+            });
+            button1.addActionListener(e1 -> {
+                click();
+                backgroundDialog.dispose();
+                chessGameFrame.setStyle(1);
+            });
+
+            inputPanel.add(button0);
+            inputPanel.add(button1);
+            button0.setLocation(20,50);
+            button1.setLocation(180,50);
+
+            backgroundDialog.add(inputPanel);
+            backgroundDialog.setVisible(true);
         });
     }
     public void showGameRules(){

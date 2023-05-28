@@ -13,8 +13,8 @@ public class Main {
             mainFrame.setVisible(true);
         });
 
-        URL musicURL = Main.class.getResource("/Music/bgMusic.wav");
-        MusicThread musicThread = new MusicThread(musicURL, true);
+        URL musicURL = Main.class.getClassLoader().getResource("/Music/bgMusic.wav");
+        MusicThread musicThread = new MusicThread("resource/Music/bgMusic.wav", true);
 
         musicThread.start();
     }

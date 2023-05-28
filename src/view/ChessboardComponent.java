@@ -30,6 +30,7 @@ public class ChessboardComponent extends JComponent {
     private final Set<ChessboardPoint> trapCell = new HashSet<>();
     private final Set<ChessboardPoint> densCell = new HashSet<>();
     private Theme theme;
+    private int style;
 
     public void setChessGameFrame(ChessGameFrame chessGameFrame) {
         this.chessGameFrame = chessGameFrame;
@@ -71,14 +72,14 @@ public class ChessboardComponent extends JComponent {
                     ChessPiece chessPiece = grid[i][j].getPiece();
                     System.out.println(chessPiece.getOwner());
                     switch (chessPiece.getRank()) {
-                        case 8 -> gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 5 ->gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 8 -> gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 5 ->gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
                     }
                 }
             }
@@ -244,14 +245,14 @@ public class ChessboardComponent extends JComponent {
                     ChessPiece chessPiece = grid[i][j].getPiece();
                     System.out.println(chessPiece.getOwner());
                     switch (chessPiece.getRank()) {
-                        case 8 -> gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 5 ->gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                        case 8 -> gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 5 ->gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
                     }
                 }
             }
@@ -277,21 +278,21 @@ public class ChessboardComponent extends JComponent {
             switch (step.srcPiece.getRank())
             {
             case 8 ->
-                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 7 ->
-                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 6 ->
-                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 5 ->
-                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 4 ->
-                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 3 ->
-                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 2 ->
-                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 1 ->
-                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             }
             removeChessComponentAtGrid(step.src);
         }
@@ -306,21 +307,21 @@ public class ChessboardComponent extends JComponent {
         switch (step.srcPiece.getRank())
         {
             case 8 ->
-                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 7 ->
-                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 6 ->
-                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 5 ->
-                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 4 ->
-                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 3 ->
-                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 2 ->
-                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
             case 1 ->
-                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE, style));
         }
         removeChessComponentAtGrid(step.src);
     }
@@ -379,6 +380,67 @@ public class ChessboardComponent extends JComponent {
                         , (ChessComponent) clickedComponent.getComponents()[0]);
             }
         }
+    }
+
+    public void setStyle(int style) {
+        this.style = style;
+        Cell[][] grid = getGameController().getModel().getGrid();
+        for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
+                // TODO: Implement the initialization checkerboard
+
+                if (grid[i][j].getPiece() != null) {
+                    ChessPiece chessPiece = grid[i][j].getPiece();
+                    System.out.println(chessPiece.getOwner());
+                    switch (chessPiece.getRank()) {
+                        case 8 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 7 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 6 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 5 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 4 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 3 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 2 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                        case 1 -> {
+                            gridComponents[i][j].remove(0);
+                            gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE, style));
+                            gridComponents[i][j].repaint();
+                        }
+                    }
+                }
+            }
+        }
+        this.repaint();
+    }
+    public void setDefaultStyle(){
+        style = 0;
     }
 
     public GameController getGameController() {

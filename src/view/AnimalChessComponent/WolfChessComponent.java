@@ -9,11 +9,17 @@ import java.awt.*;
 
 public class WolfChessComponent extends ChessComponent {
     private ImageIcon icon = new ImageIcon();
-    public WolfChessComponent(PlayerColor owner, int size) {
-        super(owner,size);
-        if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/AnimalIcons/wolfLeft.png");
-        }else icon = new ImageIcon("resource/AnimalIcons/wolfRight.png");
+    public WolfChessComponent(PlayerColor owner, int size, int style) {
+        super(owner,size,style);
+        if(style == 0){
+            if(owner == PlayerColor.BLUE){
+                icon = new ImageIcon("resource/AnimalIcons/wolfLeft.png");
+            }else icon = new ImageIcon("resource/AnimalIcons/wolfRight.png");
+        }else {
+            if(owner == PlayerColor.BLUE){
+                icon = new ImageIcon("resource/AnimalIcons/wolfL.png");
+            }else icon = new ImageIcon("resource/AnimalIcons/wolfR.png");
+        }
     }
 
     @Override

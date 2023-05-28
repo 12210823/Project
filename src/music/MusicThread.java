@@ -14,6 +14,10 @@ public class MusicThread extends Thread {
         this.musicFilePath = filePath;
         this.isLoop = isLoop;
     }
+    public MusicThread(URL filePath,boolean isLoop) {
+        this.musicFilePath = filePath.getPath();
+        this.isLoop = isLoop;
+    }
 
     @Override
     public void run() {

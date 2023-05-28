@@ -361,12 +361,11 @@ public class ChessboardComponent extends JComponent {
             throw new RuntimeException(e1);
         }
         // 创建音乐线程实例
-        MusicThread musicThread = new MusicThread(musicURL, false);
+        MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
         // 创建线程并启动
         Thread music = new Thread(musicThread);
         music.start();
-        musicThread.setVolume(0.5f);
         if (e.getID() == MouseEvent.MOUSE_PRESSED) {
             JComponent clickedComponent = (JComponent) getComponentAt(e.getX(), e.getY());
             if (clickedComponent.getComponentCount() == 0) {
@@ -374,14 +373,7 @@ public class ChessboardComponent extends JComponent {
                 gameController.onPlayerClickCell(getChessboardPoint(e.getPoint()), (CellComponent) clickedComponent);
             } else {
                 ArrayList Valid = new ArrayList<CellComponent>();
-               /* for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
-                    for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
-                        ChessboardPoint temp = new ChessboardPoint(i,j);
-                        if(gameController.getModel().isValidMove(getChessboardPoint(e.getPoint()), temp)){
-                            Valid.add(getGridComponentAt(temp));
-                        }
-                    }
-                }*/
+
                 System.out.print("One chess here and ");
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint())
                         , (ChessComponent) clickedComponent.getComponents()[0]);

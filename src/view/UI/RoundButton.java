@@ -62,21 +62,11 @@ public class RoundButton extends JButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 button.setBackground(new Color(49, 3, 1)); // 鼠标点击时颜色变为绿色
-                File musicFile = new File("resource/Music/click.wav");
 
-                URL musicURL;
-                try {
-                    musicURL = musicFile.toURI().toURL();
-                } catch (MalformedURLException e1) {
-                    throw new RuntimeException(e1);
-                }
-                // 创建音乐线程实例
-                MusicThread musicThread = new MusicThread(musicURL, false);
+                MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
-                // 创建线程并启动
                 Thread music = new Thread(musicThread);
                 music.start();
-                musicThread.setVolume(0.5f);
             }
         });
     }

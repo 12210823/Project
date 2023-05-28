@@ -104,10 +104,6 @@ public class Chessboard{
 
                 warning.add(panel);
                 warning.setVisible(true);
-                //FileWarning fileWarning=new FileWarning();
-                //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                //fileWarning.setSize(250, 100);
-                //fileWarning.setVisible(true);
                 return false;
             }
         }
@@ -142,10 +138,6 @@ public class Chessboard{
 
             warning.add(panel);
             warning.setVisible(true);
-            //FileWarning fileWarning=new FileWarning();
-            //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            //fileWarning.setSize(250, 100);
-            //fileWarning.setVisible(true);
         }
     }
 

@@ -74,18 +74,6 @@ public class ChessGameFrame extends JFrame {
         addMenuButton();
     }
     public void setupLayout(){
-        /*SettingButton.setLocation(WIDTH - 220, HEIGTH - 76 - 300);
-        mainPanel.add(SettingButton);
-
-        SaveButton.setLocation(WIDTH - 220, HEIGTH - 76 - 220);
-        mainPanel.add(SaveButton);
-
-        LoadButton.setLocation(WIDTH - 140, HEIGTH - 76 - 220);
-        mainPanel.add(LoadButton);
-
-        RestartButton.setLocation(WIDTH - 220, HEIGTH - 76 - 140);
-        mainPanel.add(RestartButton);*/
-
         ExitButton.setLocation(WIDTH - 79 - 140 - 5, HEIGTH - 76 - 60);
         mainPanel.add(ExitButton);
 
@@ -122,7 +110,7 @@ public class ChessGameFrame extends JFrame {
         MenuButton = new RoundButton("菜单");
         MenuButton.setBorder(BorderFactory.createEmptyBorder());
         MenuButton.setSize(140, 60);
-        MenuButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        MenuButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
 
         MenuButton.addActionListener(e -> {
             File musicFile = new File("resource/Music/click.wav");
@@ -133,22 +121,22 @@ public class ChessGameFrame extends JFrame {
             } catch (MalformedURLException e1) {
                 throw new RuntimeException(e1);
             }
-            // 创建音乐线程实例
-            MusicThread musicThread = new MusicThread(musicURL, false);
+            MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
-            // 创建线程并启动
             Thread music = new Thread(musicThread);
             music.start();
-            musicThread.setVolume(0.5f);
 
             JDialog menu = new JDialog(this,"菜单",true);
             menu.setSize(400,300);
             menu.setLocationRelativeTo(this);
 
             JPanel backGround = new ImagePanel("resource/Backgrounds/jungle3.gif");
-            backGround.setBorder(BorderFactory.createEmptyBorder(30, 70, 30, 70));
-            backGround.setLayout(new GridLayout(3, 2, 30, 30));
+            backGround.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+            backGround.setLayout(new GridLayout(3, 2, 20, 15));
+
             JButton back = new RoundButton("返回");
+            back.setFont(new Font("微软雅黑", Font.BOLD, 25));
+            back.setBorder(BorderFactory.createEmptyBorder());
             back.addActionListener(e1 -> menu.dispose());
             SettingButton.addActionListener(e1 -> menu.dispose());
             RestartButton.addActionListener(e1 -> menu.dispose());
@@ -174,7 +162,7 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setSize(270, 60);
         statusLabel.setForeground(Color.white);
         statusLabel.setBorder(BorderFactory.createEmptyBorder());
-        statusLabel.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        statusLabel.setFont(new Font("微软雅黑", Font.BOLD, 25));
         add(statusLabel);
     }
 
@@ -190,12 +178,11 @@ public class ChessGameFrame extends JFrame {
                 throw new RuntimeException(e1);
             }
             // 创建音乐线程实例
-            MusicThread musicThread = new MusicThread(musicURL, false);
+            MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
             // 创建线程并启动
             Thread music = new Thread(musicThread);
             music.start();
-            musicThread.setVolume(0.5f);
             JFileChooser fd = new JFileChooser();
             //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fd.showOpenDialog(null);
@@ -205,7 +192,7 @@ public class ChessGameFrame extends JFrame {
         });
         SaveButton.setBorder(BorderFactory.createEmptyBorder());
         SaveButton.setSize(60, 60);
-        SaveButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        SaveButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
 
     }
 
@@ -214,25 +201,15 @@ public class ChessGameFrame extends JFrame {
         LoadButton.setForeground(Color.white);
 
         LoadButton.setSize(60, 60);
-        LoadButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        LoadButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
         LoadButton.setBorder(BorderFactory.createEmptyBorder());
 
         LoadButton.addActionListener(e -> {
-            File musicFile = new File("resource/Music/click.wav");
 
-            URL musicURL;
-            try {
-                musicURL = musicFile.toURI().toURL();
-            } catch (MalformedURLException e1) {
-                throw new RuntimeException(e1);
-            }
-            // 创建音乐线程实例
-            MusicThread musicThread = new MusicThread(musicURL, false);
+            MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
-            // 创建线程并启动
             Thread music = new Thread(musicThread);
             music.start();
-            musicThread.setVolume(0.5f);
             JFileChooser fd = new JFileChooser();
             //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fd.showOpenDialog(null);
@@ -247,14 +224,14 @@ public class ChessGameFrame extends JFrame {
         RestartButton.addActionListener((e) -> chessboardComponent.getGameController().Restart());
 
         RestartButton.setSize(140, 60);
-        RestartButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        RestartButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
         RestartButton.setBorder(BorderFactory.createEmptyBorder());
 
     }
     private void addExitButton() {
         ExitButton = new RoundButton("退出");
         ExitButton.setSize(140, 60);
-        ExitButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        ExitButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
         ExitButton.setBorder(BorderFactory.createEmptyBorder());
         ExitButton.addActionListener(e -> {
             System.out.println("Click exit");
@@ -270,7 +247,7 @@ public class ChessGameFrame extends JFrame {
         SettingButton = new RoundButton("设置");
         SettingButton.setSize(140, 60);
         SettingButton.setBorder(BorderFactory.createEmptyBorder());
-        SettingButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        SettingButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
         SettingButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
             SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
             SettingGameFrame.setVisible(true);
@@ -280,14 +257,14 @@ public class ChessGameFrame extends JFrame {
         ReplayButton = new RoundButton("悔棋");
         ReplayButton.setSize(140, 60);
         ReplayButton.setBorder(BorderFactory.createEmptyBorder());
-        ReplayButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        ReplayButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
         ReplayButton.addActionListener(e -> chessboardComponent.getGameController().Replay());
     }
     private void addPlaybackButton(){
         PlaybackButton = new RoundButton("回放");
         PlaybackButton.setSize(140, 60);
         PlaybackButton.setBorder(BorderFactory.createEmptyBorder());
-        PlaybackButton.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+        PlaybackButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
         PlaybackButton.addActionListener(e -> chessboardComponent.getGameController().Playback());
     }
     public void setTheme(Theme theme) {

@@ -3,49 +3,42 @@ package music;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
+import java.io.File;
 import java.net.URL;
 
-public class MusicThread implements Runnable {
-    private final URL musicPath;
+public class MusicThread extends Thread {
+    private final String musicFilePath;
     private final boolean isLoop;
-    private FloatControl gainControl;
 
-    public MusicThread(URL musicPath, boolean isLoop) {
-        this.musicPath = musicPath;
+    public MusicThread(String filePath,boolean isLoop) {
+        this.musicFilePath = filePath;
         this.isLoop = isLoop;
     }
 
     @Override
     public void run() {
         try {
+            File music = new File(musicFilePath);
+            URL url = music.toURI().toURL();
+            // 加载音乐文件
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(url);
+
+            // 创建音频剪辑
             Clip clip = AudioSystem.getClip();
-            AudioInputStream ais = AudioSystem.getAudioInputStream(musicPath);
-            clip.open(ais);
 
-            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            // 打开音频流
+            clip.open(audioInputStream);
 
-            if (isLoop) {
+            if(isLoop){
+                // 设置循环播放
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-            } else {
-                clip.start();
             }
+
+            // 播放音频
+            clip.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void setVolume(float volume) {
-        if (gainControl != null) {
-            float dB = (float) (Math.log(volume) / Math.log(10.0) * 20.0);
-            gainControl.setValue(dB);
-        }
-    }
-
-    public float getVolume() {
-        if (gainControl != null) {
-            return (float) Math.pow(10.0, gainControl.getValue() / 20.0);
-        }
-        return 0.0f;
-    }
 }

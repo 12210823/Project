@@ -6,9 +6,6 @@ import view.UI.RoundButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MainGameFrame extends JFrame {
     private final int WIDTH;
@@ -110,7 +107,6 @@ public class MainGameFrame extends JFrame {
                 click();
                 dispose();
                 ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,1);
-                //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();
             });
@@ -119,7 +115,6 @@ public class MainGameFrame extends JFrame {
                 click();
                 dispose();
                 ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,2);
-                //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();
             });
@@ -128,7 +123,6 @@ public class MainGameFrame extends JFrame {
                 click();
                 dispose();
                 ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,3);
-                //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
                 chessGameFrame.setVisible(true);
                 this.dispose();
             });
@@ -146,7 +140,6 @@ public class MainGameFrame extends JFrame {
         multiPlayerButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
             dispose();
             ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,0);
-            //GameController gameController = new GameController(chessGameFrame.getChessboardComponent(), new Chessboard());
             chessGameFrame.setVisible(true);
             this.dispose();
         }));
@@ -161,21 +154,11 @@ public class MainGameFrame extends JFrame {
         });
     }
     public void click(){
-        File musicFile = new File("resource/Music/click.wav");
 
-        URL musicURL;
-        try {
-            musicURL = musicFile.toURI().toURL();
-        } catch (MalformedURLException e2) {
-            throw new RuntimeException(e2);
-        }
-        // 创建音乐线程实例
-        MusicThread musicThread = new MusicThread(musicURL, false);
+        MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
-        // 创建线程并启动
         Thread music = new Thread(musicThread);
         music.start();
-        musicThread.setVolume(0.5f);
     }
 }
 

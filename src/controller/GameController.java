@@ -63,10 +63,6 @@ public class GameController implements GameListener,Serializable {
 
             warning.add(panel);
             warning.setVisible(true);
-           //FileWarning fileWarning=new FileWarning();
-            //fileWarning.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            //fileWarning.setSize(250, 100);
-            //fileWarning.setVisible(true);
             Restart();
         }
         else
@@ -305,19 +301,11 @@ public class GameController implements GameListener,Serializable {
         if (win())
         {
             End();
-            //Win gui = new Win(winner,type);
-            //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            //gui.setSize(250, 100);
-            //gui.setVisible(true);
         }
         else {
             Computer();
             if (win()) {
                 End();
-                //Win gui = new Win(winner,type);
-                //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                //gui.setSize(250, 100);
-                //gui.setVisible(true);
             }
         }
     }
@@ -380,19 +368,11 @@ public class GameController implements GameListener,Serializable {
         if (win())
         {
             End();
-            //Win gui = new Win(winner,type);
-            //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-            //gui.setSize(250, 100);
-            //gui.setVisible(true);
         }
         else {
             Computer();
             if (win()) {
                 End();
-                //Win gui = new Win(winner,type);
-                //gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-                //gui.setSize(250, 100);
-                //gui.setVisible(true);
             }
         }
         // TODO: Implement capture function

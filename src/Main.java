@@ -13,7 +13,8 @@ public class Main {
             mainFrame.setVisible(true);
         });
 
-        MusicThread musicThread = new MusicThread("resource/Music/09 高级动物.wav", true);
+        URL musicURL = Main.class.getResource("/Music/bgMusic.wav");
+        MusicThread musicThread = new MusicThread(musicURL, true);
 
         musicThread.start();
     }

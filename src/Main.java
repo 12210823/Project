@@ -12,26 +12,9 @@ public class Main {
             MainGameFrame mainFrame = new MainGameFrame(800, 500);
             mainFrame.setVisible(true);
         });
-        File musicFile = new File("resource/Music/09 高级动物.wav");
 
-        URL musicURL;
-        try {
-            musicURL = musicFile.toURI().toURL();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+        MusicThread musicThread = new MusicThread("resource/Music/09 高级动物.wav", true);
 
-
-        // 创建音乐线程实例
-        MusicThread musicThread = new MusicThread(musicURL, true);
-
-        // 创建线程并启动
-        Thread music = new Thread(musicThread);
-        music.start();
-
-        // 调整音量
-        musicThread.setVolume(0.5f); // 设置音量为一半
-        float volume = musicThread.getVolume(); // 获取当前音量
-        System.out.println("volume: " + volume);
+        musicThread.start();
     }
 }

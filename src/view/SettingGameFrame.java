@@ -171,20 +171,10 @@ public class SettingGameFrame extends JFrame {
         );
     }
     public void click(){
-        File musicFile = new File("resource/Music/click.wav");
 
-        URL musicURL;
-        try {
-            musicURL = musicFile.toURI().toURL();
-        } catch (MalformedURLException e2) {
-            throw new RuntimeException(e2);
-        }
-        // 创建音乐线程实例
-        MusicThread musicThread = new MusicThread(musicURL, false);
+        MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 
-        // 创建线程并启动
         Thread music = new Thread(musicThread);
         music.start();
-        musicThread.setVolume(0.5f);
     }
 }

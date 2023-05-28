@@ -31,6 +31,24 @@ public class RoundButton extends JButton {
         buttonAbove(this);
     }
 
+    public RoundButton(String text,Icon icon) {
+        super(text,icon);
+        setContentAreaFilled(false);
+        setFocusPainted(false);
+        setBackground(new Color(139, 69, 19));
+        setForeground(Color.white);
+        // Create a rounded border with padding
+        int radius = 10;
+        int padding = 6;
+        Border border = BorderFactory.createEmptyBorder(padding, padding, padding, padding);
+        Border roundedBorder = new RoundBorder(getForeground()); // 使用RoundBorder创建圆角边框
+        Border compound = BorderFactory.createCompoundBorder(roundedBorder, border);
+        setBorder(compound);
+
+        // Add a mouse listener to change the background color when the button is pressed
+        buttonAbove(this);
+    }
+
     private void buttonAbove(JButton button) {
         button.addMouseListener(new MouseAdapter() {
             @Override

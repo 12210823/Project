@@ -271,12 +271,12 @@ public class GameController implements GameListener,Serializable {
         }
         else if (r==0)
         {
-            winner=PlayerColor.RED;
+            winner=PlayerColor.BLUE;
             return true;
         }
         else if (b==0)
         {
-            winner=PlayerColor.BLUE;
+            winner=PlayerColor.RED;
             return true;
         }
         return false;

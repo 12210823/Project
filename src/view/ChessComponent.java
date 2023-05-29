@@ -1,8 +1,6 @@
 package view;
 
 
-import controller.GameController;
-import model.ChessboardPoint;
 import model.PlayerColor;
 
 import javax.swing.*;

@@ -67,7 +67,7 @@ public class GameController implements GameListener,Serializable {
         }
         else
         {
-            ObjectInputStream objectInputStream=null;
+            ObjectInputStream objectInputStream;
             try {
                 FileInputStream inputStream = new FileInputStream(path);
                 objectInputStream=new ObjectInputStream(inputStream);
@@ -84,8 +84,10 @@ public class GameController implements GameListener,Serializable {
                     if(turn % 2 == 1)
                     {
                         view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
-                    }else
+                    }else {
                         view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                        currentPlayer = PlayerColor.RED;
+                    }
                 }
                 else
                 {
@@ -117,7 +119,7 @@ public class GameController implements GameListener,Serializable {
     }
     public void saveGameToFile(String path)
     {
-        ObjectOutputStream objectOutputStream=null;
+        ObjectOutputStream objectOutputStream;
         try {
             FileOutputStream outputStream = new FileOutputStream(path);
             objectOutputStream=new ObjectOutputStream(outputStream);
@@ -194,18 +196,41 @@ public class GameController implements GameListener,Serializable {
         //view.repaint();
         view.paintImmediately(0,0,view.getWidth(),view.getHeight());
         if (steps.size()>0) {
+            turn = 1;
             for (Steps step : steps) {
+                int round = (turn + 1) / 2;
+                if(turn % 2 == 1)
+                {
+                    view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
+                    view.getChessGameFrame().statusLabel.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                }else {
+                    view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                    view.getChessGameFrame().statusLabel.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                    currentPlayer = PlayerColor.RED;
+                }
+
                 model.playBack(step);
                 view.playBack(step);
+
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
+                turn++;
             }
             this.steps = steps;
-            turn = steps.size();
+            turn = steps.size() + 1;
+            int round = (turn + 1) / 2;
+            if(turn % 2 == 1)
+            {
+                view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
+                currentPlayer = PlayerColor.BLUE;
+            }else {
+                view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                currentPlayer = PlayerColor.RED;
+            }
         }
     }
     public GameController(ChessboardComponent view, Chessboard model, int type) {
@@ -629,6 +654,7 @@ public class GameController implements GameListener,Serializable {
                     else
                     {
                         Steps step = BiggestCaptures();
+                        steps.add(step);
                         System.out.println(step.toString());
                         selectedPoint = step.src;
                         view.getGridComponentAt(selectedPoint).setSelected(true);

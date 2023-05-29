@@ -41,7 +41,7 @@ public class ChessGameFrame extends JFrame {
             "resource/Backgrounds/winter.png"};
 
     public ChessGameFrame(int width, int height ,int type) {
-        setTitle("2023 CS109 Project"); //设置标题
+        setTitle("斗兽棋"); //设置标题
         this.WIDTH = width;
         this.HEIGTH = height;
         this.ONE_CHESS_SIZE = (HEIGTH * 4 / 5) / 7;

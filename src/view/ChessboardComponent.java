@@ -9,9 +9,6 @@ import view.AnimalChessComponent.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -353,14 +350,6 @@ public class ChessboardComponent extends JComponent {
 
     @Override
     protected void processMouseEvent(MouseEvent e) {
-        File musicFile = new File("resource/Music/click.wav");
-
-        URL musicURL;
-        try {
-            musicURL = musicFile.toURI().toURL();
-        } catch (MalformedURLException e1) {
-            throw new RuntimeException(e1);
-        }
         // 创建音乐线程实例
         MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
 

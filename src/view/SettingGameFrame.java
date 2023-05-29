@@ -87,7 +87,7 @@ public class SettingGameFrame extends JFrame {
                 return;
             }
             // 创建背景选择对话框
-            JDialog backgroundDialog = new JDialog(this, "Background", true);
+            JDialog backgroundDialog = new JDialog(this, "主题", true);
             backgroundDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             backgroundDialog.setSize(300, 225);
             backgroundDialog.setLocationRelativeTo(this);
@@ -164,7 +164,7 @@ public class SettingGameFrame extends JFrame {
                 return;
             }
             // 创建背景选择对话框
-            JDialog backgroundDialog = new JDialog(this, "Background", true);
+            JDialog backgroundDialog = new JDialog(this, "棋子样式", true);
             backgroundDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             backgroundDialog.setSize(300, 225);
             backgroundDialog.setLocationRelativeTo(this);

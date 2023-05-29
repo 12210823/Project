@@ -90,7 +90,7 @@ public class Chessboard{
             {
                 JFrame warning = new JFrame("游戏结束");
                 warning.setSize(350,200);
-                JPanel panel = new ImagePanel("resource/Backgrounds/warning.png");
+                JPanel panel = new ImagePanel(getClass().getResource("/Backgrounds/warning.png"));
                 panel.setLayout(new GridLayout(2, 1, 20, 10));
                 panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
                 JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
@@ -124,7 +124,7 @@ public class Chessboard{
         {
             JFrame warning = new JFrame("游戏结束");
             warning.setSize(350,200);
-            JPanel panel = new ImagePanel("resource/Backgrounds/warning.png");
+            JPanel panel = new ImagePanel(getClass().getResource("/Backgrounds/warning.png"));
             panel.setLayout(new GridLayout(2, 1, 20, 10));
             panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
             JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);

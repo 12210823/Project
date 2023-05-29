@@ -13,9 +13,9 @@ public class Main {
             mainFrame.setVisible(true);
         });
 
-        URL musicURL = Main.class.getResource("/Music/bgMusic.wav");
+        /*URL musicURL = Main.class.getResource("/Music/bgMusic.wav");
         MusicThread musicThread = new MusicThread(musicURL, true);
 
-        musicThread.start();
+        musicThread.start();*/
     }
 }

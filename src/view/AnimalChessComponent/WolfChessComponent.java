@@ -12,8 +12,8 @@ public class WolfChessComponent extends ChessComponent {
     public WolfChessComponent(PlayerColor owner, int size) {
         super(owner,size);
         if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/AnimalIcons/wolfLeft.png");
-        }else icon = new ImageIcon("resource/AnimalIcons/wolfRight.png");
+            icon = new ImageIcon(getClass().getResource("/AnimalIcons/wolfLeft.png"));
+        }else icon = new ImageIcon(getClass().getResource("/AnimalIcons/wolfRight.png"));
     }
 
     @Override

@@ -37,7 +37,7 @@ public class MainGameFrame extends JFrame {
     }
 
     private void initComponents() {
-        mainPanel = new ImagePanel("resource/Backgrounds/jungle1.gif");
+        mainPanel = new ImagePanel(getClass().getResource("/Backgrounds/jungle1.gif"));
         setContentPane(mainPanel);
         mainPanel.setLayout(new GridBagLayout());
 
@@ -91,12 +91,12 @@ public class MainGameFrame extends JFrame {
         // Add listeners for buttons
 
         singlePlayerButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-            click();
+            //click();
             JDialog backgroundDialog = new JDialog(this, "模式选择", true);
             backgroundDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             backgroundDialog.setSize(300, 225);
             backgroundDialog.setLocationRelativeTo(this);
-            JPanel inputPanel = new ImagePanel("resource/Backgrounds/jungle3.gif");
+            JPanel inputPanel = new ImagePanel(getClass().getResource("/Backgrounds/jungle3.gif"));
             inputPanel.setLayout(new GridLayout(3, 1, 10, 10));
             inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 70, 10, 70));
             JButton mode1 = new RoundButton("简单模式");
@@ -104,7 +104,7 @@ public class MainGameFrame extends JFrame {
             JButton mode3 = new RoundButton("困难模式");
 
             mode1.addActionListener(e1 -> {
-                click();
+                //click();
                 dispose();
                 ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,1);
                 chessGameFrame.setVisible(true);
@@ -112,7 +112,7 @@ public class MainGameFrame extends JFrame {
             });
 
             mode2.addActionListener(e1 -> {
-                click();
+                //click();
                 dispose();
                 ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,2);
                 chessGameFrame.setVisible(true);
@@ -120,7 +120,7 @@ public class MainGameFrame extends JFrame {
             });
 
             mode3.addActionListener(e1 -> {
-                click();
+                //click();
                 dispose();
                 ChessGameFrame chessGameFrame = new ChessGameFrame(1200, 800,3);
                 chessGameFrame.setVisible(true);
@@ -144,22 +144,22 @@ public class MainGameFrame extends JFrame {
             this.dispose();
         }));
         settingButton.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-            click();
+            //click();
             SettingGameFrame SettingGameFrame = new SettingGameFrame(500, 300, this);
             SettingGameFrame.setVisible(true);
         }));
         exitButton.addActionListener(e -> {
-            click();
+            //click();
             System.exit(0);
         });
     }
-    public void click(){
+   /* public void click(){
 
-        MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+        MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
         Thread music = new Thread(musicThread);
         music.start();
-    }
+    }*/
 }
 
 

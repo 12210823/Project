@@ -12,8 +12,8 @@ public class RatChessComponent extends ChessComponent {
     public RatChessComponent(PlayerColor owner, int size) {
         super(owner,size);
         if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/AnimalIcons/ratLeft.png");
-        }else icon = new ImageIcon("resource/AnimalIcons/ratRight.png");
+            icon = new ImageIcon(getClass().getResource("/AnimalIcons/ratLeft.png"));
+        }else icon = new ImageIcon(getClass().getResource("/AnimalIcons/ratRight.png"));
     }
 
     @Override

@@ -70,16 +70,16 @@ public class ChessboardComponent extends JComponent {
                 if (grid[i][j].getPiece() != null) {
                     ChessPiece chessPiece = grid[i][j].getPiece();
                     System.out.println(chessPiece.getOwner());
-                    switch (chessPiece.getRank()) {
-                        case 8 -> gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 5 ->gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                    }
+                    if (chessPiece.getRank()==8)
+                         gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==7) gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==6) gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==5)gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==4) gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==3)gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==2) gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==1) gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+
                 }
             }
         }
@@ -144,12 +144,12 @@ public class ChessboardComponent extends JComponent {
 
                     @Override
                     public void onExited(CellComponent cellComponent) {
-                        switch (cell.theme){
-                            case spring -> cell.spring();
-                            case summer -> cell.summer();
-                            case autumn -> cell.autumn();
-                            case winter -> cell.winter();
-                        }
+                        if (cell.theme.equals(Theme.spring))
+                             cell.spring();
+                        if (cell.theme.equals(Theme.summer)) cell.summer();
+                        if (cell.theme.equals(Theme.autumn)) cell.autumn();
+                        if (cell.theme.equals(Theme.winter)) cell.winter();
+
                         cell.setHovered(false);
                         repaint();
                     }
@@ -222,12 +222,11 @@ public class ChessboardComponent extends JComponent {
 
                     @Override
                     public void onExited(CellComponent cellComponent) {
-                        switch (cell.theme){
-                            case spring -> cell.spring();
-                            case summer -> cell.summer();
-                            case autumn -> cell.autumn();
-                            case winter -> cell.winter();
-                        }
+                        if (cell.theme.equals(Theme.spring))
+                            cell.spring();
+                        if (cell.theme.equals(Theme.summer)) cell.summer();
+                        if (cell.theme.equals(Theme.autumn)) cell.autumn();
+                        if (cell.theme.equals(Theme.winter)) cell.winter();
                         cell.setHovered(false);
                         repaint();
                     }
@@ -243,16 +242,15 @@ public class ChessboardComponent extends JComponent {
                 if (grid[i][j].getPiece() != null) {
                     ChessPiece chessPiece = grid[i][j].getPiece();
                     System.out.println(chessPiece.getOwner());
-                    switch (chessPiece.getRank()) {
-                        case 8 -> gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 7 -> gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 6 -> gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 5 ->gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 4 -> gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 3 -> gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 2 -> gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                        case 1 -> gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
-                    }
+                    if (chessPiece.getRank()==8)
+                        gridComponents[i][j].add(new ElephantChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==7) gridComponents[i][j].add(new LionChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==6) gridComponents[i][j].add(new TigerChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==5)gridComponents[i][j].add(new LeopardChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==4) gridComponents[i][j].add(new WolfChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==3)gridComponents[i][j].add(new DogChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==2) gridComponents[i][j].add(new CatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
+                    if (chessPiece.getRank()==1) gridComponents[i][j].add(new RatChessComponent(chessPiece.getOwner(), CHESS_SIZE));
                 }
             }
         }
@@ -274,25 +272,25 @@ public class ChessboardComponent extends JComponent {
             {
                 removeChessComponentAtGrid(step.dest);
             }
-            switch (step.srcPiece.getRank())
-            {
-            case 8 ->
+            if (step.srcPiece.getRank()==8)
+
+
                     setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 7 ->
+            if (step.srcPiece.getRank()==7)
                     setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 6 ->
+            if (step.srcPiece.getRank()==6)
                     setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 5 ->
+            if (step.srcPiece.getRank()==5)
                     setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 4 ->
+            if (step.srcPiece.getRank()==4)
                     setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 3 ->
+            if (step.srcPiece.getRank()==3)
                     setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 2 ->
+            if (step.srcPiece.getRank()==2)
                     setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 1 ->
+            if (step.srcPiece.getRank()==1)
                     setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            }
+
             removeChessComponentAtGrid(step.src);
         }
     }
@@ -303,25 +301,24 @@ public class ChessboardComponent extends JComponent {
         {
             removeChessComponentAtGrid(step.dest);
         }
-        switch (step.srcPiece.getRank())
-        {
-            case 8 ->
-                    setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 7 ->
-                    setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 6 ->
-                    setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 5 ->
-                    setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 4 ->
-                    setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 3 ->
-                    setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 2 ->
-                    setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-            case 1 ->
-                    setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
-        }
+        if (step.srcPiece.getRank()==8)
+
+
+            setChessComponentAtGrid(step.dest,new ElephantChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==7)
+            setChessComponentAtGrid(step.dest,new LionChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==6)
+            setChessComponentAtGrid(step.dest,new TigerChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==5)
+            setChessComponentAtGrid(step.dest,new LeopardChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==4)
+            setChessComponentAtGrid(step.dest,new WolfChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==3)
+            setChessComponentAtGrid(step.dest,new DogChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==2)
+            setChessComponentAtGrid(step.dest,new CatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
+        if (step.srcPiece.getRank()==1)
+            setChessComponentAtGrid(step.dest,new RatChessComponent(step.srcPiece.getOwner(), CHESS_SIZE));
         removeChessComponentAtGrid(step.src);
     }
     public ChessComponent removeChessComponentAtGrid(ChessboardPoint point) {
@@ -352,7 +349,7 @@ public class ChessboardComponent extends JComponent {
 
     @Override
     protected void processMouseEvent(MouseEvent e) {
-        File musicFile = new File("resource/Music/click.wav");
+        /*File musicFile = new File("resource/Music/click.wav");
 
         URL musicURL;
         try {
@@ -361,11 +358,11 @@ public class ChessboardComponent extends JComponent {
             throw new RuntimeException(e1);
         }
         // 创建音乐线程实例
-        MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+        MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
         // 创建线程并启动
         Thread music = new Thread(musicThread);
-        music.start();
+        music.start();*/
         if (e.getID() == MouseEvent.MOUSE_PRESSED) {
             JComponent clickedComponent = (JComponent) getComponentAt(e.getX(), e.getY());
             if (clickedComponent.getComponentCount() == 0) {

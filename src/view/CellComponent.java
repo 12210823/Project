@@ -92,147 +92,146 @@ public class CellComponent extends JPanel {
         this.background = background;
     }
     public void selected(){
-        switch (theme){
-            case spring, summer -> {
-                switch (type){
-                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
-                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/grassEntered.png"));
-                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapEntered.png"));
-                    case DENS -> {
+
+            if (theme.equals(Theme.spring)||theme.equals(Theme.summer)){
+                    if(type.equals(GridType.RIVER) )  setBackground(new ImageIcon(getClass().getResource("/CellIcons/waterEntered.png")));
+                if(type.equals(GridType.LAND) ) setBackground(new ImageIcon(getClass().getResource("/CellIcons/grassEntered.png")));
+                if(type.equals(GridType.TRAP) )setBackground(new ImageIcon(getClass().getResource("/CellIcons/trapEntered.png")));
+                if(type.equals(GridType.DENS) )
                         if(x == 0){
-                            setBackground(new ImageIcon("resource/CellIcons/caveLeftEntered.png"));
-                        } else setBackground(new ImageIcon("resource/CellIcons/caveRightEntered.png"));
-                    }
-                }
+                            setBackground(new ImageIcon(getClass().getResource("/CellIcons/caveLeftEntered.png")));
+                        } else setBackground(new ImageIcon(getClass().getResource("/CellIcons/caveRightEntered.png")));
+
+
             }
-            case autumn -> {
-                switch (type){
-                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
-                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/autumnEntered.png"));
-                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapAutumnEntered.png"));
-                    case DENS -> {
+        if (theme.equals(Theme.autumn)) {
+            if(type.equals(GridType.RIVER) ) setBackground(new ImageIcon(getClass().getResource("/CellIcons/waterEntered.png")));
+            if(type.equals(GridType.LAND)) setBackground(new ImageIcon(getClass().getResource("/CellIcons/autumnEntered.png")));
+            if(type.equals(GridType.TRAP) ) setBackground(new ImageIcon(getClass().getResource("/CellIcons/trapAutumnEntered.png")));
+            if(type.equals(GridType.DENS) ) {
                         if(x == 0){
-                            setBackground(new ImageIcon("resource/CellIcons/leftAutumnEntered.png"));
-                        } else setBackground(new ImageIcon("resource/CellIcons/rightAutumnEntered.png"));
+                            setBackground(new ImageIcon(getClass().getResource("/CellIcons/leftAutumnEntered.png")));
+                        } else setBackground(new ImageIcon(getClass().getResource("/CellIcons/rightAutumnEntered.png")));
                     }
-                }
             }
-            case winter -> {
-                switch (type){
-                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
-                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/winterEntered.png"));
-                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapWinterEntered.png"));
-                    case DENS -> {
+        if (theme.equals(Theme.winter)) {
+
+                    if(type.equals(GridType.RIVER) ) setBackground(new ImageIcon(getClass().getResource("/CellIcons/waterEntered.png")));
+                    if(type.equals(GridType.LAND)) setBackground(new ImageIcon(getClass().getResource("/CellIcons/winterEntered.png")));
+                    if(type.equals(GridType.TRAP) ) setBackground(new ImageIcon(getClass().getResource("/CellIcons/trapWinterEntered.png")));
+                    if(type.equals(GridType.DENS) ) {
                         if(x == 0){
-                            setBackground(new ImageIcon("resource/CellIcons/leftWinterEntered.png"));
-                        } else setBackground(new ImageIcon("resource/CellIcons/rightWinterEntered.png"));
+                            setBackground(new ImageIcon(getClass().getResource("/CellIcons/leftWinterEntered.png")));
+                        } else setBackground(new ImageIcon(getClass().getResource("/CellIcons/rightWinterEntered.png")));
                     }
-                }
+
             }
-        }
+
     }
     public void unselected(){
-        switch (theme) {
-            case spring -> spring();
-            case summer -> summer();
-            case autumn -> autumn();
-            case winter -> winter();
-        }
+        if (theme.equals(Theme.spring))
+            spring();
+           else if (theme.equals(Theme.summer))
+             summer();
+           else if (theme.equals(Theme.autumn))
+             autumn();
+            else winter();
+
     }
     public void spring(){
         if(type == GridType.RIVER){
             if((x + y) % 2 != 0){
-                background = new ImageIcon("resource/CellIcons/water1.png");
-            }else background = new ImageIcon("resource/CellIcons/water2.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/water1.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/water2.png"));
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/caveLeft.png");
-            }else background = new ImageIcon("resource/CellIcons/caveRight.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/caveLeft.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/caveRight.png"));
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/grassWithTrap.png");
+            background = new ImageIcon(getClass().getResource("/CellIcons/grassWithTrap.png"));
         } else {
             if((x + y) % 2 == 0){
-                background = new ImageIcon("resource/CellIcons/grass2.png");
-            }else background = new ImageIcon("resource/CellIcons/grass1.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/grass2.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/grass1.png"));
         }
     }
     public void summer(){
         if(type == GridType.RIVER){
             if((x + y) % 2 != 0){
-                background = new ImageIcon("resource/CellIcons/water1.png");
-            }else background = new ImageIcon("resource/CellIcons/water2.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/water1.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/water2.png"));
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/leftSummer.png");
-            }else background = new ImageIcon("resource/CellIcons/rightSummer.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/leftSummer.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/rightSummer.png"));
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/trapSummer.png");
+            background = new ImageIcon(getClass().getResource("/CellIcons/trapSummer.png"));
         } else {
             if((x + y) % 2 == 0){
-                background = new ImageIcon("resource/CellIcons/summer2.png");
-            }else background = new ImageIcon("resource/CellIcons/summer1.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/summer2.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/summer1.png"));
         }
     }
     public void autumn(){
         if(type == GridType.RIVER){
             if((x + y) % 2 != 0){
-                background = new ImageIcon("resource/CellIcons/water1.png");
-            }else background = new ImageIcon("resource/CellIcons/water2.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/water1.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/water2.png"));
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/leftAutumn.png");
-            }else background = new ImageIcon("resource/CellIcons/rightAutumn.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/leftAutumn.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/rightAutumn.png"));
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/trapAutumn.png");
+            background = new ImageIcon(getClass().getResource("/CellIcons/trapAutumn.png"));
         } else {
             if((x + y) % 2 == 0){
-                background = new ImageIcon("resource/CellIcons/autumn2.png");
-            }else background = new ImageIcon("resource/CellIcons/autumn1.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/autumn2.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/autumn1.png"));
         }
     }
     public void winter(){
         if(type == GridType.RIVER){
             if((x + y) % 2 != 0){
-                background = new ImageIcon("resource/CellIcons/water1.png");
-            }else background = new ImageIcon("resource/CellIcons/water2.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/water1.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/water2.png"));
         } else if (type == GridType.DENS) {
             if(x == 0){
-                background = new ImageIcon("resource/CellIcons/leftWinter.png");
-            }else background = new ImageIcon("resource/CellIcons/rightWinter.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/leftWinter.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/rightWinter.png"));
         } else if (type == GridType.TRAP) {
-            background = new ImageIcon("resource/CellIcons/trapWinter.png");
+            background = new ImageIcon(getClass().getResource("/CellIcons/trapWinter.png"));
         } else {
             if((x + y) % 2 == 0){
-                background = new ImageIcon("resource/CellIcons/winter2.png");
-            }else background = new ImageIcon("resource/CellIcons/winter1.png");
+                background = new ImageIcon(getClass().getResource("/CellIcons/winter2.png"));
+            }else background = new ImageIcon(getClass().getResource("/CellIcons/winter1.png"));
         }
     }
-    public void warn(){
+    /*public void warn(){
         switch (theme){
             case spring, summer, winter -> {
                 switch (type){
-                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
-                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/autumnEntered.png"));
-                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapAutumnEntered.png"));
+                    case RIVER -> setBackground(new ImageIcon(getClass().getResource("/CellIcons/waterEntered.png")));
+                    case LAND -> setBackground(new ImageIcon(getClass().getResource("/CellIcons/autumnEntered.png")));
+                    case TRAP -> setBackground(new ImageIcon(getClass().getResource("/CellIcons/trapAutumnEntered.png")));
                     case DENS -> {
                         if(x == 0){
-                            setBackground(new ImageIcon("resource/CellIcons/leftAutumnEntered.png"));
-                        } else setBackground(new ImageIcon("resource/CellIcons/rightAutumnEntered.png"));
+                            setBackground(new ImageIcon(getClass().getResource("/CellIcons/leftAutumnEntered.png")));
+                        } else setBackground(new ImageIcon(getClass().getResource("/CellIcons/rightAutumnEntered.png")));
                     }
                 }
             }
             case autumn -> {
                 switch (type){
-                    case RIVER -> setBackground(new ImageIcon("resource/CellIcons/waterEntered.png"));
-                    case LAND -> setBackground(new ImageIcon("resource/CellIcons/grassEntered.png"));
-                    case TRAP -> setBackground(new ImageIcon("resource/CellIcons/trapEntered.png"));
+                    case RIVER -> setBackground(new ImageIcon(getClass().getResource("/CellIcons/waterEntered.png")));
+                    case LAND -> setBackground(new ImageIcon(getClass().getResource("/CellIcons/grassEntered.png")));
+                    case TRAP -> setBackground(new ImageIcon(getClass().getResource("/CellIcons/trapEntered.png")));
                     case DENS -> {
                         if(x == 0){
-                            setBackground(new ImageIcon("resource/CellIcons/caveLeftEntered.png"));
-                        } else setBackground(new ImageIcon("resource/CellIcons/caveRightEntered.png"));
+                            setBackground(new ImageIcon(getClass().getResource("/CellIcons/caveLeftEntered.png")));
+                        } else setBackground(new ImageIcon(getClass().getResource("/CellIcons/caveRightEntered.png")));
                     }
                 }
             }
         }
-    }
+    }*/
 }

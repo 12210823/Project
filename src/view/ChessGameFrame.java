@@ -33,11 +33,11 @@ public class ChessGameFrame extends JFrame {
     private JButton MenuButton;
 
     public ChessboardComponent chessboardComponent;
-    private String[] bgPaths = {
-            "resource/Backgrounds/spring.png",
-            "resource/Backgrounds/summer.png",
-            "resource/Backgrounds/autumn.png",
-            "resource/Backgrounds/winter.png"};
+    private URL[] bgPaths = {
+            getClass().getResource("/Backgrounds/spring.png"),
+            getClass().getResource("/Backgrounds/summer.png"),
+            getClass().getResource("/Backgrounds/autumn.png"),
+            getClass().getResource("/Backgrounds/winter.png")};
 
     public ChessGameFrame(int width, int height ,int type) {
         setTitle("2023 CS109 Project"); //设置标题
@@ -55,7 +55,7 @@ public class ChessGameFrame extends JFrame {
         setupLayout();
     }
     private void addBackgroundImage() {
-        String defaultPath = bgPaths[0];
+        URL defaultPath = bgPaths[0];
         mainPanel = new ImagePanel(defaultPath);
         setContentPane(mainPanel);
         mainPanel.setLayout(null);
@@ -113,7 +113,7 @@ public class ChessGameFrame extends JFrame {
         MenuButton.setFont(new Font("微软雅黑", Font.BOLD, 25));
 
         MenuButton.addActionListener(e -> {
-            File musicFile = new File("resource/Music/click.wav");
+           /* File musicFile = new File("resource/Music/click.wav");
 
             URL musicURL;
             try {
@@ -121,16 +121,16 @@ public class ChessGameFrame extends JFrame {
             } catch (MalformedURLException e1) {
                 throw new RuntimeException(e1);
             }
-            MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+            /*MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
             Thread music = new Thread(musicThread);
-            music.start();
+            music.start();*/
 
             JDialog menu = new JDialog(this,"菜单",true);
             menu.setSize(400,300);
             menu.setLocationRelativeTo(this);
 
-            JPanel backGround = new ImagePanel("resource/Backgrounds/jungle3.gif");
+            JPanel backGround = new ImagePanel(getClass().getResource("/Backgrounds/jungle3.gif"));
             backGround.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
             backGround.setLayout(new GridLayout(3, 2, 20, 15));
 
@@ -169,7 +169,7 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
         SaveButton = new RoundButton("存档");
         SaveButton.addActionListener((e) -> {
-            File musicFile = new File("resource/Music/click.wav");
+           /* File musicFile = new File("resource/Music/click.wav");
 
             URL musicURL;
             try {
@@ -178,11 +178,11 @@ public class ChessGameFrame extends JFrame {
                 throw new RuntimeException(e1);
             }
             // 创建音乐线程实例
-            MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+            MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
             // 创建线程并启动
             Thread music = new Thread(musicThread);
-            music.start();
+            music.start();*/
             JFileChooser fd = new JFileChooser();
             //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fd.showOpenDialog(null);
@@ -206,10 +206,10 @@ public class ChessGameFrame extends JFrame {
 
         LoadButton.addActionListener(e -> {
 
-            MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+            /*MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
             Thread music = new Thread(musicThread);
-            music.start();
+            music.start();*/
             JFileChooser fd = new JFileChooser();
             //fd.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             fd.showOpenDialog(null);
@@ -269,24 +269,31 @@ public class ChessGameFrame extends JFrame {
     }
     public void setTheme(Theme theme) {
         this.theme = theme;
-        switch (this.theme){
-            case spring -> {
+        System.out.println(theme);
+        System.out.println(this.theme);
+        if (this.theme.equals(Theme.spring))
+             {
                 mainPanel.setBackgroundImage(bgPaths[0]);
                 chessboardComponent.setTheme(Theme.spring);
+                 System.out.println("spring");
             }
-            case summer -> {
+            if (this.theme.equals(Theme.summer)) {
                 mainPanel.setBackgroundImage(bgPaths[1]);
                 chessboardComponent.setTheme(Theme.summer);
+                System.out.println("spring");
             }
-            case autumn -> {
+            if (this.theme.equals(Theme.autumn)) {
+                System.out.println(theme);
                 mainPanel.setBackgroundImage(bgPaths[2]);
                 chessboardComponent.setTheme(Theme.autumn);
+                System.out.println("spring");
             }
-            case winter -> {
+            if (this.theme.equals(Theme.winter)) {
                 mainPanel.setBackgroundImage(bgPaths[3]);
                 chessboardComponent.setTheme(Theme.winter);
+                System.out.println("spring");
             }
-        }
+
         mainPanel.repaint();
         chessboardComponent.repaint();
     }

@@ -54,7 +54,7 @@ public class SettingGameFrame extends JFrame {
         setupLayout();
     }
     public void addBackgroundImage(){
-        mainPanel = new ImagePanel("resource/Backgrounds/jungle2.gif");
+        mainPanel = new ImagePanel(getClass().getResource("/Backgrounds/jungle2.gif"));
         setContentPane(mainPanel);
         mainPanel.setLayout(null);
     }
@@ -91,7 +91,7 @@ public class SettingGameFrame extends JFrame {
 
 
             // 添加背景选择按钮
-            JPanel inputPanel = new ImagePanel("resource/Backgrounds/jungle3.gif");
+            JPanel inputPanel = new ImagePanel(getClass().getResource("/Backgrounds/jungle3.gif"));
             inputPanel.setLayout(new GridLayout(4, 1, 10, 10));
             inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 70, 10, 70));
             JButton springButton = new RoundButton("春");
@@ -172,9 +172,9 @@ public class SettingGameFrame extends JFrame {
     }
     public void click(){
 
-        MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+        /*MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
         Thread music = new Thread(musicThread);
-        music.start();
+        music.start();*/
     }
 }

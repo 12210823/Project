@@ -12,8 +12,8 @@ public class LeopardChessComponent extends ChessComponent {
     public LeopardChessComponent(PlayerColor owner, int size) {
         super(owner,size);
         if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/AnimalIcons/leopardLeft.png");
-        }else icon = new ImageIcon("resource/AnimalIcons/leopardRight.png");
+            icon = new ImageIcon(getClass().getResource("/AnimalIcons/leopardLeft.png"));
+        }else icon = new ImageIcon(getClass().getResource("/AnimalIcons/leopardRight.png"));
     }
 
     @Override

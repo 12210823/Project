@@ -12,8 +12,8 @@ public class LionChessComponent extends ChessComponent {
     public LionChessComponent(PlayerColor owner, int size) {
         super(owner,size);
         if(owner == PlayerColor.BLUE){
-            icon = new ImageIcon("resource/AnimalIcons/lionLeft.png");
-        }else icon = new ImageIcon("resource/AnimalIcons/lionRight.png");
+            icon = new ImageIcon(getClass().getResource("/AnimalIcons/lionLeft.png"));
+        }else icon = new ImageIcon(getClass().getResource("/AnimalIcons/lionRight.png"));
     }
 
     @Override

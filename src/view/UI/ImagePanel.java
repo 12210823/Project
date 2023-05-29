@@ -12,6 +12,10 @@ public class ImagePanel extends JPanel {
         ImageIcon imageIcon = new ImageIcon(imagePath);
         this.backgroundImage = imageIcon.getImage();
     }
+    public ImagePanel(URL imagePath) {
+        ImageIcon imageIcon = new ImageIcon(imagePath);
+        this.backgroundImage = imageIcon.getImage();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -19,7 +23,7 @@ public class ImagePanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
 
-    public void setBackgroundImage(String imagePath) {
+    public void setBackgroundImage(URL imagePath) {
         ImageIcon imageIcon = new ImageIcon(imagePath);
         this.backgroundImage = imageIcon.getImage();
     }

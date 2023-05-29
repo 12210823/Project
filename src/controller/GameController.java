@@ -49,7 +49,7 @@ public class GameController implements GameListener,Serializable {
         {
             JDialog warning = new JDialog(this.view.getChessGameFrame(),"游戏结束",true);
             warning.setSize(350,200);
-            JPanel panel = new ImagePanel("resource/Backgrounds/warning.png");
+            JPanel panel = new ImagePanel(getClass().getResource("/Backgrounds/warning.png"));
             panel.setLayout(new GridLayout(2, 1, 20, 10));
             panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
             JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
@@ -84,8 +84,10 @@ public class GameController implements GameListener,Serializable {
                     if(turn % 2 == 1)
                     {
                         view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
-                    }else
+                    }else {
                         view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                        currentPlayer=PlayerColor.RED;
+                    }
                 }
                 else
                 {
@@ -95,7 +97,7 @@ public class GameController implements GameListener,Serializable {
             {
                 JDialog warning = new JDialog(this.view.getChessGameFrame(),"游戏结束",true);
                 warning.setSize(350,200);
-                JPanel panel = new ImagePanel("resource/Backgrounds/warning.png");
+                JPanel panel = new ImagePanel(getClass().getResource("/Backgrounds/warning.png"));
                 panel.setLayout(new GridLayout(2, 1, 20, 10));
                 panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
                 JLabel w1 = new JLabel("检测到非法修改文档！",SwingConstants.CENTER);
@@ -205,7 +207,15 @@ public class GameController implements GameListener,Serializable {
                 view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
             }
             this.steps = steps;
-            turn = steps.size();
+            turn = steps.size()+1;
+            int round = (turn + 1) / 2;
+            if(turn % 2 == 1)
+            {
+                view.getChessGameFrame().statusLabel.setText("第" + round + "回合，左方行棋");
+            }else {
+                view.getChessGameFrame().statusLabel.setText("第" + round + "回合，右方行棋");
+                currentPlayer=PlayerColor.RED;
+            }
         }
     }
     public GameController(ChessboardComponent view, Chessboard model, int type) {
@@ -630,6 +640,7 @@ public class GameController implements GameListener,Serializable {
                     {
                         Steps step = BiggestCaptures();
                         System.out.println(step.toString());
+                        steps.add(step);
                         selectedPoint = step.src;
                         view.getGridComponentAt(selectedPoint).setSelected(true);
                         view.paintImmediately(0, 0, view.getWidth(), view.getHeight());
@@ -682,7 +693,7 @@ public class GameController implements GameListener,Serializable {
     public void End(){
         JDialog end = new JDialog(this.view.getChessGameFrame(),"游戏结束",true);
         end.setSize(320,200);
-        JPanel panel = new ImagePanel("resource/Backgrounds/fallBackground.gif");
+        JPanel panel = new ImagePanel(getClass().getResource("/Backgrounds/fallBackground.gif"));
         panel.setLayout(new GridLayout(3, 1, 20, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 70, 10, 70));
 

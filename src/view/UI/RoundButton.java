@@ -63,10 +63,10 @@ public class RoundButton extends JButton {
             public void mouseClicked(MouseEvent e) {
                 button.setBackground(new Color(49, 3, 1)); // 鼠标点击时颜色变为绿色
 
-                MusicThread musicThread = new MusicThread("resource/Music/click.wav", false);
+                /*MusicThread musicThread = new MusicThread(getClass().getResource("/Music/click.wav"), false);
 
                 Thread music = new Thread(musicThread);
-                music.start();
+                music.start();*/
             }
         });
     }
